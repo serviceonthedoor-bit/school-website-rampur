@@ -538,14 +538,14 @@ if (!ADMISSION_SHEETS_URL) {
         renderAdminLists();
     }
     
-    function renderStats() {
-        let html = '';
-        appData.stats.forEach((s, i) => {
-            html += `<div class="text-center"><div class="text-5xl font-bold text-blue-600 counter" data-target="${s.value}">0</div><p class="text-gray-600 mt-2">${s.label}</p></div>`;
-        });
-        document.getElementById('statsContainer').innerHTML = html;
-        startCounters();
-    }
+   function renderStats() {
+    let html = '';
+    appData.stats.forEach(s => {
+        const numValue = Number(s.value) || 0;
+        html += `<div class="text-center"><div class="text-5xl font-bold text-blue-600">${numValue}</div><p class="text-gray-600 mt-2">${s.label}</p></div>`;
+    });
+    document.getElementById('statsContainer').innerHTML = html;
+}
     
     function startCounters() {
         const counters = document.querySelectorAll('.counter');
