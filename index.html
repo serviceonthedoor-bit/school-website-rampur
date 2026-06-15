@@ -363,19 +363,19 @@ if (!ADMISSION_SHEETS_URL) {
         appData.gallery = data.filter(item => item.type === 'gallery').map(item => item.url);
         
         // IMPORTANT - Load stats from Google Sheets
-        const statsFromSheets = data.filter(item => item.type === 'stats');
-        if (statsFromSheets.length > 0) {
-            appData.stats = statsFromSheets.map(item => ({ 
-                label: item.label, 
-                value: Number(item.value)  // ← JUST ADD "Number()" around item.value
-            }));
-            console.log('✅ Stats loaded from Google Sheets:', appData.stats);
-        } else {
+        //const statsFromSheets = data.filter(item => item.type === 'stats');
+        //if (statsFromSheets.length > 0) {
+            //appData.stats = statsFromSheets.map(item => ({ 
+                //label: item.label, 
+                //value: Number(item.value)  // ← JUST ADD "Number()" around item.value
+            //}));
+            //console.log('✅ Stats loaded from Google Sheets:', appData.stats);
+        //} else {
             // If no stats in sheet, use defaults
-            console.log('No stats found in Google Sheets, using defaults');
+            //console.log('No stats found in Google Sheets, using defaults');
             appData.stats = [
-                { label: "Happy Students", value: 5000 },
-                { label: "Expert Teachers", value: 250 },
+                { label: "Happy Students", value: 588 },
+                { label: "Expert Teachers", value: 18 },
                 { label: "Years of Excellence", value: 25 },
                 { label: "Parent Satisfaction", value: 100 }
             ];
