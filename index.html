@@ -377,7 +377,13 @@ if (!ADMISSION_SHEETS_URL) {
     }
     
     async function saveToGoogleSheets(type, data) {
-        if (!GOOGLE_SHEETS_URL || GOOGLE_SHEETS_URL === 'YOUR_WEB_APP_URL_HERE') {
+        
+		    // ADD THIS LINE ↓↓↓
+    if (type === 'stats') { saveToLocalStorage(); return; }
+    // ADD THIS LINE ↑↑↑
+
+		
+		if (!GOOGLE_SHEETS_URL || GOOGLE_SHEETS_URL === 'YOUR_WEB_APP_URL_HERE') {
             saveToLocalStorage();
             return;
         }
