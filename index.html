@@ -367,7 +367,7 @@ if (!ADMISSION_SHEETS_URL) {
         if (statsFromSheets.length > 0) {
             appData.stats = statsFromSheets.map(item => ({ 
                 label: item.label, 
-                value: item.value 
+                value: Number(item.value)  // ← JUST ADD "Number()" around item.value
             }));
             console.log('✅ Stats loaded from Google Sheets:', appData.stats);
         } else {
