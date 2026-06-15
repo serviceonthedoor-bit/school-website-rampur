@@ -302,12 +302,22 @@
 
     <script>
     // ==================== GOOGLE SHEETS CONFIGURATION ====================
-    // REPLACE THIS WITH YOUR ACTUAL WEB APP URL
-    const GOOGLE_SHEETS_URL = 'https://script.google.com/macros/s/AKfycbwnqCva-qhxVx2bzjOe2z9Dq6oj70hS0SnAiLe4nyMJm-42oFob5V9qcCm4GTqa8OXR_g/exec';
 
-	// NEW: Separate URL for ADMISSION form data
-const ADMISSION_SHEETS_URL = 'https://script.google.com/macros/s/AKfycbxzi0Sa9rvIL9tQCaupowEH8C_En7xwn-yXTdEAnNkXbbBeCCwAZeBFQZtd5Q4i2YGJVw/exec';  // ← Replace with your new admission web app URL
-    
+// ==================== GOOGLE SHEETS CONFIGURATION ====================
+// For public repos - URLs entered via prompt
+let GOOGLE_SHEETS_URL = localStorage.getItem('admin_api_url');
+let ADMISSION_SHEETS_URL = localStorage.getItem('admission_api_url');
+
+if (!GOOGLE_SHEETS_URL) {
+    GOOGLE_SHEETS_URL = prompt('Enter Admin Google Sheets URL:');
+    if (GOOGLE_SHEETS_URL) localStorage.setItem('admin_api_url', GOOGLE_SHEETS_URL);
+}
+
+if (!ADMISSION_SHEETS_URL) {
+    ADMISSION_SHEETS_URL = prompt('Enter Admission Google Sheets URL:');
+    if (ADMISSION_SHEETS_URL) localStorage.setItem('admission_api_url', ADMISSION_SHEETS_URL);
+}
+		
     // ==================== DATA ====================
     let appData = {
         results: [],
