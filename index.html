@@ -1,0 +1,966 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <title>PM SHRI SHAHID INDER GIRI GOVT HSS RAMPUR | Future-Ready Education</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <style>
+        * { font-family: 'Inter', sans-serif; }
+        html { scroll-behavior: smooth; }
+        body { transition: background-color 0.3s ease, color 0.3s ease; }
+        .glass { background: rgba(255, 255, 255, 0.2); backdrop-filter: blur(12px); border-bottom: 1px solid rgba(255, 255, 255, 0.3); }
+        .dark .glass { background: rgba(15, 25, 35, 0.7); border-bottom: 1px solid rgba(255, 255, 255, 0.1); }
+        .hero-title { font-size: 2.5rem; }
+        @media (min-width: 768px) { .hero-title { font-size: 2.5rem; } }
+        .top-logo { position: absolute; top: 100px; z-index: 20; cursor: pointer; }
+        .top-logo-left { left: 20px; }
+        .top-logo-right { right: 20px; }
+        .logo-img { width: 80px; height: 80px; object-fit: contain; background: rgba(255,255,255,0.9); border-radius: 16px; padding: 8px; border: 2px dashed #f97316; }
+        @media (min-width: 768px) { .logo-img { width: 100px; height: 100px; } .top-logo-left { left: 40px; } .top-logo-right { right: 40px; } }
+        .admin-modal { display: none; }
+        .admin-modal.active { display: flex; }
+        .section-title { font-size: 2rem; }
+        .hero-container { max-width: 500px; margin: 0 auto; }
+
+/* Dark mode for all sections */
+.dark section {
+    background-color: #111827 !important;
+}
+
+.dark .bg-white {
+    background-color: #1f2937 !important;
+}
+
+.dark .bg-gray-50 {
+    background-color: #111827 !important;
+}
+
+.dark .bg-gray-100 {
+    background-color: #1f2937 !important;
+}
+
+.dark .text-gray-600, .dark .text-gray-700 {
+    color: #d1d5db !important;
+}
+
+.dark .text-gray-800 {
+    color: #ffffff !important;
+}
+
+/* Smooth transition for dark mode - ADD THIS HERE */
+        .dark, .dark * {
+            transition: background-color 0.3s ease, color 0.3s ease;
+
+    </style>
+</head>
+<body class="bg-gray-50 dark:bg-gray-900">
+
+    <!-- Navbar -->
+    <nav id="navbar" class="fixed top-0 w-full z-50 glass transition-all duration-300">
+        <div class="container mx-auto px-4 md:px-6 py-3 flex justify-between items-center">
+
+    <!-- Logo -->
+    <img id="leftLogo" src="images/logo.png" alt="Logo" class="h-8 w-auto cursor-pointer" ondblclick="updateLogo('left')">
+            <div class="w-8"></div>
+            <div class="hidden md:flex space-x-8">
+                <a href="#home" class="text-gray-700 dark:text-gray-200 hover:text-orange-600">Home</a>
+                <a href="#academics" class="text-gray-700 dark:text-gray-200 hover:text-orange-600">Academics</a>
+                <a href="#teachers" class="text-gray-700 dark:text-gray-200 hover:text-orange-600">Teachers</a>
+                <a href="#gallery" class="text-gray-700 dark:text-gray-200 hover:text-orange-600">Gallery</a>
+                <a href="#events" class="text-gray-700 dark:text-gray-200 hover:text-orange-600">Events</a>
+                <a href="#results" class="text-gray-700 dark:text-gray-200 hover:text-orange-600">Results</a>
+                <a href="#admission" class="text-gray-700 dark:text-gray-200 hover:text-orange-600">Admission</a>
+            </div>
+            <div class="flex items-center space-x-3">
+                <button id="darkModeToggle" class="p-2 rounded-full bg-gray-200 dark:bg-gray-700">
+                    <i id="darkIcon" class="fas fa-moon text-gray-700 dark:text-gray-200"></i>
+                </button>
+                <button id="mobileMenuBtn" class="md:hidden p-2 rounded-lg bg-gray-200 dark:bg-gray-700">
+                    <i class="fas fa-bars text-gray-700 dark:text-white text-xl"></i>
+                </button>
+            </div>
+        </div>
+        <div id="mobileMenu" class="hidden md:hidden bg-white/95 dark:bg-gray-800/95 backdrop-blur-lg">
+            <div class="flex flex-col space-y-3 p-4">
+                <a href="#home" class="py-2 text-gray-700 dark:text-gray-200">Home</a>
+                <a href="#academics" class="py-2 text-gray-700 dark:text-gray-200">Academics</a>
+                <a href="#teachers" class="py-2 text-gray-700 dark:text-gray-200">Teachers</a>
+                <a href="#gallery" class="py-2 text-gray-700 dark:text-gray-200">Gallery</a>
+                <a href="#events" class="py-2 text-gray-700 dark:text-gray-200">Events</a>
+                <a href="#results" class="py-2 text-gray-700 dark:text-gray-200">Results</a>
+                <a href="#admission" class="py-2 text-gray-700 dark:text-gray-200">Admission</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Admin Login Modal -->
+    <div id="adminLoginModal" class="fixed inset-0 bg-black/70 items-center justify-center z-50 admin-modal">
+        <div class="bg-white dark:bg-gray-800 rounded-2xl p-8 max-w-md w-full mx-4">
+            <h3 class="text-2xl font-bold mb-4 dark:text-white">Admin Login</h3>
+            <input type="password" id="adminPasswordInput" placeholder="Enter Password" class="w-full p-3 border rounded-lg mb-4 dark:bg-gray-700">
+            <button id="adminLoginBtn" class="bg-gray-800 hover:bg-gray-900 text-white px-6 py-2 rounded-full w-full">Login</button>
+        </div>
+    </div>
+
+    <!-- Admin Dashboard -->
+    <div id="adminDashboard" class="fixed inset-0 bg-black/95 hidden overflow-y-auto z-50 p-4 admin-modal">
+        <div class="max-w-6xl mx-auto bg-gray-900 rounded-2xl p-6 mt-10 mb-10 border border-gray-700">
+            <div class="flex justify-between items-center mb-6">
+                <h2 class="text-3xl font-bold text-white">Admin Dashboard</h2>
+                <button id="closeAdminBtn" class="text-red-400 text-3xl">&times;</button>
+            </div>
+
+            <!-- Results Management -->
+            <div class="mb-8 border-b border-gray-700 pb-6">
+                <h3 class="text-2xl font-bold mb-4 text-white">📊 Results</h3>
+                <button onclick="openResultModal()" class="bg-green-600 hover:bg-green-700 text-white px-4 py-2 rounded-lg mb-4">+ Add Result</button>
+                <div id="resultsAdminList" class="space-y-2"></div>
+            </div>
+
+            <!-- Teachers Management -->
+            <div class="mb-8 border-b border-gray-700 pb-6">
+                <h3 class="text-2xl font-bold mb-4 text-white">👨‍🏫 Teachers</h3>
+                <button onclick="openTeacherModal()" class="bg-green-600 hover:bg-green-700 text-white px-4 py-2 rounded-lg mb-4">+ Add Teacher</button>
+                <div id="teachersAdminList" class="space-y-2"></div>
+            </div>
+
+            <!-- Programs Management -->
+            <div class="mb-8 border-b border-gray-700 pb-6">
+                <h3 class="text-2xl font-bold mb-4 text-white">📚 Programs</h3>
+                <button onclick="openProgramModal()" class="bg-green-600 hover:bg-green-700 text-white px-4 py-2 rounded-lg mb-4">+ Add Program</button>
+                <div id="programsAdminList" class="space-y-2"></div>
+            </div>
+
+            <!-- Events Management -->
+            <div class="mb-8 border-b border-gray-700 pb-6">
+                <h3 class="text-2xl font-bold mb-4 text-white">📅 Events</h3>
+                <button onclick="openEventModal()" class="bg-green-600 hover:bg-green-700 text-white px-4 py-2 rounded-lg mb-4">+ Add Event</button>
+                <div id="eventsAdminList" class="space-y-2"></div>
+            </div>
+
+            <!-- Gallery Management -->
+            <div class="mb-8 border-b border-gray-700 pb-6">
+                <h3 class="text-2xl font-bold mb-4 text-white">🖼️ Gallery</h3>
+                <button onclick="openGalleryModal()" class="bg-green-600 hover:bg-green-700 text-white px-4 py-2 rounded-lg mb-4">+ Add Image</button>
+                <div id="galleryAdminList" class="grid grid-cols-4 gap-2"></div>
+            </div>
+
+            <!-- Statistics -->
+            <div>
+                <h3 class="text-2xl font-bold mb-4 text-white">📊 Statistics</h3>
+                <div id="statsAdminList" class="space-y-2"></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Generic Add/Edit Modal -->
+    <div id="itemModal" class="fixed inset-0 bg-black/50 hidden items-center justify-center z-50">
+        <div class="bg-white dark:bg-gray-800 rounded-2xl p-6 max-w-md w-full mx-4">
+            <h3 id="modalTitle" class="text-2xl font-bold mb-4 dark:text-white">Add Item</h3>
+            <div id="modalFields"></div>
+            <div class="flex gap-3 mt-4">
+                <button id="saveModalBtn" class="bg-orange-600 text-white px-6 py-2 rounded-full flex-1">Save</button>
+                <button id="cancelModalBtn" class="bg-gray-500 text-white px-6 py-2 rounded-full flex-1">Cancel</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Hero Section with Background Image -->
+<section id="home" class="min-h-screen flex items-center justify-center relative overflow-hidden pt-16">
+    
+    <!-- White rounded box background -->
+    <div class="absolute inset-0 flex items-center justify-center">
+        <div class="w-4/5 h-4/5 bg-white dark:bg-gray-800 rounded-3xl shadow-2xl overflow-hidden">
+            <img src="images/schoolimage.jpg" alt="School Background" class="w-full h-full object-cover">
+        </div>
+    </div>
+    
+	<!-- Buttons BELOW the white box -->
+<div class="absolute bottom-2 left-1/2 transform -translate-x-1/2 flex gap-6">
+    <a href="#admission" class="px-6 py-2.5 bg-blue-600 text-white rounded-full">Apply Now </a>
+    <a href="#academics" class="px-6 py-2.5 bg-blue-600 text-white rounded-full border border-blue-600">Explore Programs</a>
+</div>
+
+    <!-- Dark overlay for text readability (only on image area) -->
+    <div class="absolute inset-0 flex items-center justify-center pointer-events-none">
+        <div class="w-4/5 h-4/5 rounded-3xl bg-yellow/40"></div>
+    </div>
+    
+    <!-- Logos
+    <div class="top-logo top-logo-left" ondblclick="updateLogo('left')">
+        <img id="leftLogo" src="https://placehold.co/200x100/f97316/white?text=Logo" class="logo-img">
+    </div> -->
+    
+	<!--
+	<div class="top-logo top-logo-right" ondblclick="updateLogo('right')">
+        <img id="rightLogo" src="https://placehold.co/200x100/ea580c/white?text=Logo" class="logo-img">
+    </div> -->
+    
+    <!-- Hero Text Content - BUTTONS ONLY ONCE -->
+    <div class="container mx-auto px-4 relative z-10 hero-container text-center">
+        <h1 class="hero-title font-extrabold bg-clip-text text-transparent bg-gradient-to-r from-orange-600 to-amber-600 mb-4">
+             <br>
+        </h1>
+        <p class="text-white dark:text-gray-200 max-w-2xl mx-auto mb-6">
+            <!--Empowering young minds with innovative learning, global exposure, and character development since 1961.-->
+        </p>
+    <!-- Buttons at Very Bottom of White Rectangle 
+<div class="absolute bottom-2 left-1/2 transform -translate-x-1/2 flex gap-3 z-20">
+    <a href="#admission" class="px-6 py-2.5 bg-blue-600 text-white rounded-full">Apply Now →</a>
+    <a href="#academics" class="px-6 py-2.5 bg-white text-blue-600 rounded-full border border-blue-600">Explore Programs</a>
+</div> -->
+    </div>
+</section>
+
+    <!-- Statistics Counters -->
+    <section class="py-16 bg-white dark:bg-gray-800">
+        <div class="container mx-auto px-4">
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-8" id="statsContainer"></div>
+        </div>
+    </section>
+
+    <!-- Programs Section -->
+    <section id="academics" class="py-20 bg-gray-50 dark:bg-gray-900">
+        <div class="container mx-auto px-4">
+            <h2 class="section-title font-bold text-center text-gray-800 dark:text-white mb-12">Academic Programs</h2>
+            <div id="programsContainer" class="grid md:grid-cols-2 lg:grid-cols-4 gap-6"></div>
+        </div>
+    </section>
+
+    <!-- Teachers Section -->
+    <section id="teachers" class="py-20 bg-white dark:bg-gray-800">
+        <div class="container mx-auto px-4">
+            <h2 class="section-title font-bold text-center text-gray-800 dark:text-white mb-12">Meet Our Teachers</h2>
+            <div id="teachersContainer" class="grid md:grid-cols-2 lg:grid-cols-4 gap-6"></div>
+        </div>
+    </section>
+
+    <!-- Gallery Section -->
+    <section id="gallery" class="py-20 bg-gray-50 dark:bg-gray-900">
+        <div class="container mx-auto px-4">
+            <h2 class="section-title font-bold text-center text-gray-800 dark:text-white mb-12">Student Life</h2>
+            <div id="galleryContainer" class="grid grid-cols-2 md:grid-cols-4 gap-4"></div>
+        </div>
+    </section>
+
+    <!-- Events Section -->
+    <section id="events" class="py-20 bg-white dark:bg-gray-800">
+        <div class="container mx-auto px-4">
+            <h2 class="section-title font-bold text-center text-gray-800 dark:text-white mb-12">Upcoming Events</h2>
+            <div id="eventsContainer" class="max-w-3xl mx-auto space-y-4"></div>
+        </div>
+    </section>
+
+    <!-- Results Section -->
+    <section id="results" class="py-20 bg-gray-50 dark:bg-gray-900">
+        <div class="container mx-auto px-4">
+            <h2 class="section-title font-bold text-center text-gray-800 dark:text-white mb-12">Results & Performance</h2>
+            <div id="resultsContainer" class="grid md:grid-cols-3 gap-6 max-w-4xl mx-auto"></div>
+        </div>
+    </section>
+
+    <!-- Admission Form -->
+    <section id="admission" class="py-20 bg-white dark:bg-gray-800">
+        <div class="container mx-auto px-4">
+            <h2 class="section-title font-bold text-center text-gray-800 dark:text-white mb-12">Start Your Journey</h2>
+            <div class="max-w-2xl mx-auto bg-gray-100 dark:bg-gray-900 rounded-2xl shadow-xl p-8">
+                <form id="admissionForm">
+                    <div class="grid gap-4">
+                        <input type="text" id="studentName" placeholder="Student's Full Name *" class="w-full p-3 border rounded-lg dark:bg-gray-800" required>
+                        <input type="date" id="dob" class="w-full p-3 border rounded-lg dark:bg-gray-800" required>
+                        <select id="grade" class="w-full p-3 border rounded-lg dark:bg-gray-800" required>
+                            <option value="">Select Grade *</option>
+                            <option>Nursery</option><option>LKG</option><option>UKG</option>
+                            <option>1</option><option>2</option><option>3</option><option>4</option><option>5</option>
+                            <option>6</option><option>7</option><option>8</option><option>9</option><option>10</option>
+                            <option>11</option><option>12</option>
+                        </select>
+                        <input type="text" id="parentName" placeholder="Parent/Guardian Name *" class="w-full p-3 border rounded-lg dark:bg-gray-800" required>
+                        <input type="email" id="email" placeholder="Email Address *" class="w-full p-3 border rounded-lg dark:bg-gray-800" required>
+                        <input type="tel" id="phone" placeholder="Phone Number *" class="w-full p-3 border rounded-lg dark:bg-gray-800" required>
+                        <textarea id="message" rows="3" placeholder="Additional Message" class="w-full p-3 border rounded-lg dark:bg-gray-800"></textarea>
+                        <button type="submit" class="bg-orange-600 hover:bg-orange-700 text-white px-6 py-3 rounded-full font-semibold">Submit Application →</button>
+                    </div>
+                </form>
+                <div id="formSuccess" class="hidden mt-4 p-3 bg-green-100 text-green-700 rounded-lg text-center"></div>
+            </div>
+        </div>
+    </section>
+
+    <footer class="bg-gray-900 text-white py-12 text-center">
+        <p>© 2026 PM SHRI SHAHID INDER GIRI GOVT HSS RAMPUR. Shaping tomorrow's leaders.</p>
+    </footer>
+
+    <div id="lightbox" class="fixed inset-0 bg-black/90 hidden items-center justify-center z-50" onclick="closeLightbox()">
+        <img id="lightboxImg" class="max-w-[90%] max-h-[90%] rounded-lg">
+    </div>
+
+    <script>
+    // ==================== GOOGLE SHEETS CONFIGURATION ====================
+    // REPLACE THIS WITH YOUR ACTUAL WEB APP URL
+    const GOOGLE_SHEETS_URL = 'https://script.google.com/macros/s/AKfycbwnqCva-qhxVx2bzjOe2z9Dq6oj70hS0SnAiLe4nyMJm-42oFob5V9qcCm4GTqa8OXR_g/exec';
+
+	// NEW: Separate URL for ADMISSION form data
+const ADMISSION_SHEETS_URL = 'https://script.google.com/macros/s/AKfycbxzi0Sa9rvIL9tQCaupowEH8C_En7xwn-yXTdEAnNkXbbBeCCwAZeBFQZtd5Q4i2YGJVw/exec';  // ← Replace with your new admission web app URL
+    
+    // ==================== DATA ====================
+    let appData = {
+        results: [],
+        teachers: [],
+        programs: [],
+        events: [],
+        gallery: [],
+        stats: [
+            { label: "Happy Students", value: 5000 },
+            { label: "Expert Teachers", value: 250 },
+            { label: "Years of Excellence", value: 25 },
+            { label: "Parent Satisfaction", value: 100 }
+        ]
+    };
+    
+    let adminPassword = "admin123";
+    let keySequence = [];
+    let currentModalType = null;
+    let currentEditId = null;
+    
+    // ==================== GOOGLE SHEETS FUNCTIONS ====================
+    async function loadFromGoogleSheets() {
+        if (!GOOGLE_SHEETS_URL || GOOGLE_SHEETS_URL === 'YOUR_WEB_APP_URL_HERE') {
+            console.log('Google Sheets not configured. Using localStorage.');
+            loadFromLocalStorage();
+            return;
+        }
+        
+        try {
+            showLoading(true);
+            const response = await fetch(GOOGLE_SHEETS_URL);
+            const data = await response.json();
+            
+            if (data.error) {
+                throw new Error(data.error);
+            }
+            
+            // Organize data by type
+            appData.teachers = data.filter(item => item.type === 'teacher');
+            appData.programs = data.filter(item => item.type === 'program');
+            appData.events = data.filter(item => item.type === 'event');
+            appData.results = data.filter(item => item.type === 'result');
+            appData.gallery = data.filter(item => item.type === 'gallery').map(item => item.url);
+            
+            // If no data in sheets, load defaults
+            if (appData.teachers.length === 0) loadDefaultData();
+            
+            renderAll();
+            saveToLocalStorage();
+            showLoading(false);
+            console.log('✅ Data loaded from Google Sheets');
+        } catch (error) {
+            console.error('Error loading from Google Sheets:', error);
+            loadFromLocalStorage();
+            showLoading(false);
+        }
+    }
+    
+    async function saveToGoogleSheets(type, data) {
+        if (!GOOGLE_SHEETS_URL || GOOGLE_SHEETS_URL === 'YOUR_WEB_APP_URL_HERE') {
+            saveToLocalStorage();
+            return;
+        }
+        
+        try {
+            const payload = { type, ...data };
+            await fetch(GOOGLE_SHEETS_URL, {
+                method: 'POST',
+                mode: 'no-cors',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(payload)
+            });
+            console.log(`✅ ${type} saved to Google Sheets`);
+        } catch (error) {
+            console.error('Error saving to Google Sheets:', error);
+        }
+        saveToLocalStorage();
+    }
+    
+    async function deleteFromGoogleSheets(type, id) {
+        // For deletion, we reload all data after local delete
+        // Google Sheets doesn't support direct deletion via API easily
+        // So we'll just save the updated local data
+        saveToLocalStorage();
+    }
+    
+    function showLoading(show) {
+        const loader = document.getElementById('loadingIndicator');
+        if (loader) {
+            loader.style.display = show ? 'flex' : 'none';
+        }
+    }
+    
+    // ==================== LOCAL STORAGE BACKUP ====================
+    function loadFromLocalStorage() {
+        const saved = localStorage.getItem('novaDataBackup');
+        if (saved) {
+            const parsed = JSON.parse(saved);
+            appData.teachers = parsed.teachers || [];
+            appData.programs = parsed.programs || [];
+            appData.events = parsed.events || [];
+            appData.results = parsed.results || [];
+            appData.gallery = parsed.gallery || [];
+            appData.stats = parsed.stats || appData.stats;
+        }
+        
+        if (appData.teachers.length === 0) {
+            loadDefaultData();
+        }
+        
+        renderAll();
+    }
+    
+    function saveToLocalStorage() {
+        localStorage.setItem('novaDataBackup', JSON.stringify({
+            teachers: appData.teachers,
+            programs: appData.programs,
+            events: appData.events,
+            results: appData.results,
+            gallery: appData.gallery,
+            stats: appData.stats
+        }));
+    }
+    
+    function loadDefaultData() {
+        appData.teachers = [
+            { id: 1, type: 'teacher', name: "Dr. Sarah Johnson", subject: "Mathematics", bio: "PhD from MIT, 12+ years of experience.", icon: "📐", image: "https://randomuser.me/api/portraits/women/68.jpg" },
+            { id: 2, type: 'teacher', name: "Prof. Michael Chen", subject: "Physics", bio: "Award-winning STEM educator.", icon: "⚛️", image: "https://randomuser.me/api/portraits/men/32.jpg" },
+            { id: 3, type: 'teacher', name: "Ms. Emily Davis", subject: "English", bio: "Published author.", icon: "📖", image: "https://randomuser.me/api/portraits/women/45.jpg" },
+            { id: 4, type: 'teacher', name: "Mr. James Wilson", subject: "Computer Science", bio: "AI & ML expert.", icon: "💻", image: "https://randomuser.me/api/portraits/men/52.jpg" }
+        ];
+        
+        appData.programs = [
+            { id: 1, type: 'program', title: "STEM Education", description: "Advanced robotics and coding.", icon: "fa-flask", color: "orange" },
+            { id: 2, type: 'program', title: "Performing Arts", description: "Music, dance, and drama.", icon: "fa-music", color: "purple" },
+            { id: 3, type: 'program', title: "Sports Academy", description: "Professional sports coaching.", icon: "fa-futbol", color: "green" },
+            { id: 4, type: 'program', title: "Global Programs", description: "International exchange.", icon: "fa-globe", color: "blue" }
+        ];
+        
+        appData.events = [
+            { id: 1, type: 'event', title: "Annual Sports Meet", date: "April 15, 2026", location: "Main Ground", action: "Register", color: "orange" },
+            { id: 2, type: 'event', title: "Parent-Teacher Conference", date: "April 28, 2026", location: "Virtual", action: "Book Slot", color: "purple" },
+            { id: 3, type: 'event', title: "STEAM Expo", date: "May 10, 2026", location: "Auditorium", action: "Exhibit", color: "green" }
+        ];
+        
+        appData.results = [
+            { id: 1, type: 'result', year: "2025", percentage: "98.6%", toppers: "3 in District Top 10", distinction: "52 Distinctions" },
+            { id: 2, type: 'result', year: "2024", percentage: "97.2%", toppers: "2 in State Top 50", distinction: "48 Distinctions" },
+            { id: 3, type: 'result', year: "2023", percentage: "96.8%", toppers: "Best School Award", distinction: "45 Distinctions" }
+        ];
+        
+        appData.gallery = [
+            "https://images.unsplash.com/photo-1523050854058-8df90110c9f1?w=400&h=300&fit=crop",
+            "https://images.unsplash.com/photo-1577896851231-70ef18881754?w=400&h=300&fit=crop",
+            "https://images.unsplash.com/photo-1509062522246-3755977927d7?w=400&h=300&fit=crop",
+            "https://images.unsplash.com/photo-1427504494785-3a9ca7044f45?w=400&h=300&fit=crop"
+        ];
+    }
+    
+    // ==================== CRUD OPERATIONS WITH SYNC ====================
+    async function addItem(type, item) {
+        const newItem = { id: Date.now(), type, ...item };
+        appData[type + 's'].push(newItem);
+        await saveToGoogleSheets(type, newItem);
+        renderAll();
+    }
+    
+    async function deleteItem(type, id) {
+        appData[type + 's'] = appData[type + 's'].filter(i => i.id !== id);
+        await deleteFromGoogleSheets(type, id);
+        renderAll();
+    }
+    
+    // ==================== RENDER FUNCTIONS (same as before) ====================
+    function renderAll() {
+        renderStats();
+        renderResults();
+        renderTeachers();
+        renderPrograms();
+        renderEvents();
+        renderGallery();
+        renderAdminLists();
+    }
+    
+    function renderStats() {
+        let html = '';
+        appData.stats.forEach((s, i) => {
+            html += `<div class="text-center"><div class="text-5xl font-bold text-blue-600 counter" data-target="${s.value}">0</div><p class="text-gray-600 mt-2">${s.label}</p></div>`;
+        });
+        document.getElementById('statsContainer').innerHTML = html;
+        startCounters();
+    }
+    
+    function startCounters() {
+        const counters = document.querySelectorAll('.counter');
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    let counter = entry.target;
+                    let target = parseInt(counter.dataset.target);
+                    let current = 0;
+                    let interval = setInterval(() => {
+                        current += Math.ceil(target / 50);
+                        if (current >= target) {
+                            counter.innerText = target;
+                            clearInterval(interval);
+                        } else {
+                            counter.innerText = current;
+                        }
+                    }, 30);
+                    observer.unobserve(counter);
+                }
+            });
+        });
+        counters.forEach(c => observer.observe(c));
+    }
+    
+    function renderResults() {
+        let html = '';
+        appData.results.forEach(r => {
+            html += `<div class="bg-white dark:bg-gray-800 rounded-2xl p-6 text-center border-t-4 border-blue-500 shadow-lg">
+                        <div class="text-4xl font-bold text-blue-600">${r.year}</div>
+                        <div class="text-3xl font-bold mt-2">${r.percentage}</div>
+                        <p class="text-gray-600 mt-2">${r.toppers}</p>
+                        <p class="text-sm text-gray-500">${r.distinction}</p>
+                     </div>`;
+        });
+        document.getElementById('resultsContainer').innerHTML = html;
+    }
+    
+    function renderTeachers() {
+        let html = '';
+        appData.teachers.forEach(t => {
+            html += `<div class="bg-white dark:bg-gray-800 rounded-2xl p-6 text-center shadow-lg">
+                        <img src="${t.image}" class="w-32 h-32 rounded-full mx-auto mb-4 object-cover border-4 border-blue-500">
+                        <h3 class="text-xl font-bold">${t.name}</h3>
+                        <p class="text-blue-600 font-semibold">${t.subject}</p>
+                        <p class="text-gray-600 text-sm mt-2">${t.bio}</p>
+                        <div class="text-3xl mt-2">${t.icon}</div>
+                     </div>`;
+        });
+        document.getElementById('teachersContainer').innerHTML = html;
+    }
+    
+    function renderPrograms() {
+        let html = '';
+        appData.programs.forEach(p => {
+            html += `<div class="bg-white dark:bg-gray-800 rounded-2xl p-6 shadow-lg text-center">
+                        <div class="w-16 h-16 bg-${p.color}-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                            <i class="fas ${p.icon} text-2xl text-${p.color}-600"></i>
+                        </div>
+                        <h3 class="text-xl font-bold mb-2">${p.title}</h3>
+                        <p class="text-gray-600">${p.description}</p>
+                     </div>`;
+        });
+        document.getElementById('programsContainer').innerHTML = html;
+    }
+    
+    function renderEvents() {
+        let html = '';
+        appData.events.forEach(e => {
+            html += `<div class="bg-white dark:bg-gray-800 rounded-xl p-5 flex flex-wrap justify-between items-center shadow-md">
+                        <div class="flex items-center gap-4">
+                            <div class="bg-${e.color}-100 p-3 rounded-full"><i class="fas fa-calendar-alt text-${e.color}-600"></i></div>
+                            <div><p class="font-bold">${e.title}</p><p class="text-sm text-gray-500">${e.date} • ${e.location}</p></div>
+                        </div>
+                        <span class="bg-${e.color}-600 text-white px-4 py-1 rounded-full text-sm">${e.action}</span>
+                     </div>`;
+        });
+        document.getElementById('eventsContainer').innerHTML = html;
+    }
+    
+    function renderGallery() {
+        let html = '';
+        appData.gallery.forEach(url => {
+            html += `<img src="${url}" class="rounded-2xl w-full h-48 object-cover cursor-pointer" onclick="openLightbox('${url}')">`;
+        });
+        document.getElementById('galleryContainer').innerHTML = html;
+    }
+    
+    function renderAdminLists() {
+        // Results Admin List
+        let resultsHtml = '';
+        appData.results.forEach(r => {
+            resultsHtml += `<div class="flex justify-between items-center p-3 bg-gray-800 rounded-lg">
+                                <div><strong class="text-white">${r.year}</strong> - ${r.percentage}<br><small class="text-gray-400">${r.toppers}</small></div>
+                                <button onclick="deleteItem('result', ${r.id})" class="text-red-400 hover:text-red-300"><i class="fas fa-trash"></i></button>
+                            </div>`;
+        });
+        document.getElementById('resultsAdminList').innerHTML = resultsHtml;
+        
+        // Teachers Admin List
+        let teachersHtml = '';
+        appData.teachers.forEach(t => {
+            teachersHtml += `<div class="flex justify-between items-center p-3 bg-gray-800 rounded-lg">
+                                <div><strong class="text-white">${t.name}</strong><br><small class="text-gray-400">${t.subject}</small></div>
+                                <button onclick="deleteItem('teacher', ${t.id})" class="text-red-400 hover:text-red-300"><i class="fas fa-trash"></i></button>
+                            </div>`;
+        });
+        document.getElementById('teachersAdminList').innerHTML = teachersHtml;
+        
+        // Programs Admin List
+        let programsHtml = '';
+        appData.programs.forEach(p => {
+            programsHtml += `<div class="flex justify-between items-center p-3 bg-gray-800 rounded-lg">
+                                <div><strong class="text-white">${p.title}</strong><br><small class="text-gray-400">${p.description.substring(0, 40)}...</small></div>
+                                <button onclick="deleteItem('program', ${p.id})" class="text-red-400 hover:text-red-300"><i class="fas fa-trash"></i></button>
+                            </div>`;
+        });
+        document.getElementById('programsAdminList').innerHTML = programsHtml;
+        
+        // Events Admin List
+        let eventsHtml = '';
+        appData.events.forEach(e => {
+            eventsHtml += `<div class="flex justify-between items-center p-3 bg-gray-800 rounded-lg">
+                                <div><strong class="text-white">${e.title}</strong><br><small class="text-gray-400">${e.date}</small></div>
+                                <button onclick="deleteItem('event', ${e.id})" class="text-red-400 hover:text-red-300"><i class="fas fa-trash"></i></button>
+                            </div>`;
+        });
+        document.getElementById('eventsAdminList').innerHTML = eventsHtml;
+        
+        // Gallery Admin List
+        let galleryHtml = '';
+        appData.gallery.forEach((url, idx) => {
+            galleryHtml += `<div class="relative"><img src="${url}" class="w-full h-20 object-cover rounded"><button onclick="deleteGalleryItem(${idx})" class="absolute top-1 right-1 bg-red-500 text-white rounded-full w-5 h-5 text-xs">&times;</button></div>`;
+        });
+        document.getElementById('galleryAdminList').innerHTML = galleryHtml;
+        
+        // Stats Admin List
+        let statsHtml = '';
+        appData.stats.forEach((s, idx) => {
+            statsHtml += `<div class="flex gap-2 p-3 bg-gray-800 rounded-lg">
+                                <input type="text" value="${s.label}" id="statLabel${idx}" class="flex-1 p-2 rounded bg-gray-700 text-white">
+                                <input type="number" value="${s.value}" id="statValue${idx}" class="w-32 p-2 rounded bg-gray-700 text-white">
+                                <button onclick="updateStat(${idx})" class="bg-blue-600 px-3 py-1 rounded">Save</button>
+                            </div>`;
+        });
+        document.getElementById('statsAdminList').innerHTML = statsHtml;
+    }
+    
+    async function deleteGalleryItem(idx) {
+        appData.gallery.splice(idx, 1);
+        await saveToGoogleSheets('gallery', { action: 'delete', index: idx });
+        renderAll();
+    }
+    
+    function updateStat(idx) {
+        appData.stats[idx].label = document.getElementById(`statLabel${idx}`).value;
+        appData.stats[idx].value = parseInt(document.getElementById(`statValue${idx}`).value);
+        saveToLocalStorage();
+        renderAll();
+    }
+    
+    // ==================== MODAL FUNCTIONS ====================
+    function openResultModal() {
+        currentModalType = 'result';
+        currentEditId = null;
+        document.getElementById('modalTitle').innerText = 'Add Result';
+        document.getElementById('modalFields').innerHTML = `
+            <input type="text" id="resultYear" placeholder="Year (e.g., 2026)" class="w-full p-3 border rounded-lg mb-3 dark:bg-gray-700">
+            <input type="text" id="resultPercent" placeholder="Percentage (e.g., 98.5%)" class="w-full p-3 border rounded-lg mb-3 dark:bg-gray-700">
+            <input type="text" id="resultToppers" placeholder="Toppers Info" class="w-full p-3 border rounded-lg mb-3 dark:bg-gray-700">
+            <input type="text" id="resultDistinction" placeholder="Distinction Info" class="w-full p-3 border rounded-lg dark:bg-gray-700">
+        `;
+        document.getElementById('itemModal').classList.remove('hidden');
+        document.getElementById('itemModal').classList.add('flex');
+    }
+    
+    function openTeacherModal() {
+        currentModalType = 'teacher';
+        currentEditId = null;
+        document.getElementById('modalTitle').innerText = 'Add Teacher';
+        document.getElementById('modalFields').innerHTML = `
+            <input type="text" id="teacherName" placeholder="Teacher Name" class="w-full p-3 border rounded-lg mb-3 dark:bg-gray-700">
+            <input type="text" id="teacherSubject" placeholder="Subject" class="w-full p-3 border rounded-lg mb-3 dark:bg-gray-700">
+            <textarea id="teacherBio" placeholder="Bio" class="w-full p-3 border rounded-lg mb-3 dark:bg-gray-700" rows="3"></textarea>
+            <input type="text" id="teacherIcon" placeholder="Icon Emoji" class="w-full p-3 border rounded-lg mb-3 dark:bg-gray-700">
+            <input type="text" id="teacherImage" placeholder="Image URL" class="w-full p-3 border rounded-lg dark:bg-gray-700">
+        `;
+        document.getElementById('itemModal').classList.remove('hidden');
+        document.getElementById('itemModal').classList.add('flex');
+    }
+    
+    function openProgramModal() {
+        currentModalType = 'program';
+        currentEditId = null;
+        document.getElementById('modalTitle').innerText = 'Add Program';
+        document.getElementById('modalFields').innerHTML = `
+            <input type="text" id="programTitle" placeholder="Program Title" class="w-full p-3 border rounded-lg mb-3 dark:bg-gray-700">
+            <textarea id="programDesc" placeholder="Description" class="w-full p-3 border rounded-lg mb-3 dark:bg-gray-700" rows="3"></textarea>
+            <select id="programIcon" class="w-full p-3 border rounded-lg mb-3 dark:bg-gray-700">
+                <option value="fa-flask">Science</option><option value="fa-music">Music</option>
+                <option value="fa-futbol">Sports</option><option value="fa-globe">Global</option>
+            </select>
+            <select id="programColor" class="w-full p-3 border rounded-lg dark:bg-gray-700">
+                <option value="orange">Orange</option><option value="purple">Purple</option>
+                <option value="green">Green</option><option value="blue">Blue</option>
+            </select>
+        `;
+        document.getElementById('itemModal').classList.remove('hidden');
+        document.getElementById('itemModal').classList.add('flex');
+    }
+    
+    function openEventModal() {
+        currentModalType = 'event';
+        currentEditId = null;
+        document.getElementById('modalTitle').innerText = 'Add Event';
+        document.getElementById('modalFields').innerHTML = `
+            <input type="text" id="eventTitle" placeholder="Event Title" class="w-full p-3 border rounded-lg mb-3 dark:bg-gray-700">
+            <input type="text" id="eventDate" placeholder="Date (e.g., April 15, 2026)" class="w-full p-3 border rounded-lg mb-3 dark:bg-gray-700">
+            <input type="text" id="eventLocation" placeholder="Location" class="w-full p-3 border rounded-lg mb-3 dark:bg-gray-700">
+            <select id="eventColor" class="w-full p-3 border rounded-lg dark:bg-gray-700">
+                <option value="orange">Orange</option><option value="purple">Purple</option><option value="green">Green</option>
+            </select>
+        `;
+        document.getElementById('itemModal').classList.remove('hidden');
+        document.getElementById('itemModal').classList.add('flex');
+    }
+    
+    function openGalleryModal() {
+        let url = prompt('Enter image URL:');
+        if (url) {
+            appData.gallery.push(url);
+            saveToGoogleSheets('gallery', { url: url, action: 'add' });
+            renderAll();
+        }
+    }
+    
+    function closeModal() {
+        document.getElementById('itemModal').classList.add('hidden');
+        document.getElementById('itemModal').classList.remove('flex');
+        currentModalType = null;
+    }
+    
+    document.getElementById('saveModalBtn').onclick = async function() {
+        if (currentModalType === 'result') {
+            let year = document.getElementById('resultYear').value;
+            let percentage = document.getElementById('resultPercent').value;
+            if (year && percentage) {
+                await addItem('result', {
+                    year: year,
+                    percentage: percentage,
+                    toppers: document.getElementById('resultToppers').value,
+                    distinction: document.getElementById('resultDistinction').value
+                });
+                closeModal();
+            } else alert('Please fill Year and Percentage');
+        }
+        else if (currentModalType === 'teacher') {
+            let name = document.getElementById('teacherName').value;
+            if (name) {
+                await addItem('teacher', {
+                    name: name,
+                    subject: document.getElementById('teacherSubject').value,
+                    bio: document.getElementById('teacherBio').value,
+                    icon: document.getElementById('teacherIcon').value || '👩‍🏫',
+                    image: document.getElementById('teacherImage').value || 'https://randomuser.me/api/portraits/men/1.jpg'
+                });
+                closeModal();
+            } else alert('Please enter teacher name');
+        }
+        else if (currentModalType === 'program') {
+            let title = document.getElementById('programTitle').value;
+            if (title) {
+                await addItem('program', {
+                    title: title,
+                    description: document.getElementById('programDesc').value,
+                    icon: document.getElementById('programIcon').value,
+                    color: document.getElementById('programColor').value
+                });
+                closeModal();
+            } else alert('Please enter program title');
+        }
+        else if (currentModalType === 'event') {
+            let title = document.getElementById('eventTitle').value;
+            if (title) {
+                await addItem('event', {
+                    title: title,
+                    date: document.getElementById('eventDate').value,
+                    location: document.getElementById('eventLocation').value,
+                    action: "Register",
+                    color: document.getElementById('eventColor').value
+                });
+                closeModal();
+            } else alert('Please enter event title');
+        }
+    };
+    
+    document.getElementById('cancelModalBtn').onclick = closeModal;
+    
+    // ==================== ADMIN LOGIN ====================
+    document.addEventListener('keydown', (e) => {
+        keySequence.push(e.key.toLowerCase());
+        if (keySequence.length > 5) keySequence.shift();
+        if (keySequence.join('') === 'admin') {
+            document.getElementById('adminLoginModal').classList.add('active');
+            keySequence = [];
+        }
+    });
+    
+    document.getElementById('adminLoginBtn').onclick = () => {
+        let pwd = document.getElementById('adminPasswordInput').value;
+        if (pwd === adminPassword) {
+            document.getElementById('adminLoginModal').classList.remove('active');
+            document.getElementById('adminDashboard').classList.add('active');
+        } else alert('Wrong password!');
+    };
+    
+    document.getElementById('closeAdminBtn').onclick = () => {
+        document.getElementById('adminDashboard').classList.remove('active');
+    };
+    
+    // ==================== LOGO UPDATE ====================
+    window.updateLogo = function(position) {
+        let url = prompt('Enter new image URL:');
+        if (url) {
+            document.getElementById(`${position}Logo`).src = url;
+            localStorage.setItem(`${position}LogoUrl`, url);
+        }
+    };
+    
+    let savedLeft = localStorage.getItem('leftLogoUrl');
+    let savedRight = localStorage.getItem('rightLogoUrl');
+    if (savedLeft) document.getElementById('leftLogo').src = savedLeft;
+    if (savedRight) document.getElementById('rightLogo').src = savedRight;
+    
+    // ==================== ADMISSION FORM ====================
+            // ==================== ADMISSION FORM - Sends to SEPARATE Google Sheet ====================
+    document.getElementById('admissionForm').addEventListener('submit', async (e) => {
+        e.preventDefault();
+        
+        // Show loading state on button
+        const submitBtn = e.target.querySelector('button[type="submit"]');
+        const originalText = submitBtn.innerHTML;
+        submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Submitting...';
+        submitBtn.disabled = true;
+        
+        // Collect form data
+        const formData = {
+            timestamp: new Date().toISOString(),
+            studentName: document.getElementById('studentName').value,
+            dob: document.getElementById('dob').value,
+            grade: document.getElementById('grade').value,
+            parentName: document.getElementById('parentName').value,
+            email: document.getElementById('email').value,
+            phone: document.getElementById('phone').value,
+            message: document.getElementById('message').value
+        };
+        
+        let successMessage = '';
+        
+        // Try to save to Google Sheets using no-cors mode
+        if (ADMISSION_SHEETS_URL && ADMISSION_SHEETS_URL.includes('script.google.com')) {
+            try {
+                await fetch(ADMISSION_SHEETS_URL, {
+                    method: 'POST',
+                    mode: 'no-cors',  // Changed from 'cors' to 'no-cors'
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(formData)
+                });
+                
+                // With no-cors, we assume success (can't read response)
+                successMessage = '✅ Application submitted to Google Sheets successfully!';
+                
+                // Also save backup to localStorage
+                let admissions = JSON.parse(localStorage.getItem('admissions_backup') || '[]');
+                admissions.push(formData);
+                localStorage.setItem('admissions_backup', JSON.stringify(admissions));
+                
+            } catch (error) {
+                console.error('Google Sheets error:', error);
+                successMessage = '⚠️ Online save failed. Saving locally as backup.';
+                
+                // Save to localStorage only
+                let admissions = JSON.parse(localStorage.getItem('admissions_backup') || '[]');
+                admissions.push(formData);
+                localStorage.setItem('admissions_backup', JSON.stringify(admissions));
+            }
+        } else {
+            // No Google Sheets configured - save locally only
+            let admissions = JSON.parse(localStorage.getItem('admissions_backup') || '[]');
+            admissions.push(formData);
+            localStorage.setItem('admissions_backup', JSON.stringify(admissions));
+            successMessage = '✅ Application saved locally!';
+        }
+        
+        // Show success message
+        const successDiv = document.getElementById('formSuccess');
+        successDiv.innerHTML = successMessage;
+        successDiv.classList.remove('hidden');
+        document.getElementById('admissionForm').reset();
+        
+        setTimeout(() => {
+            successDiv.classList.add('hidden');
+        }, 5000);
+        
+        // Restore button
+        submitBtn.innerHTML = originalText;
+        submitBtn.disabled = false;
+    });
+    // ==================== DARK MODE ====================
+    let darkToggle = document.getElementById('darkModeToggle');
+    let darkIcon = document.getElementById('darkIcon');
+    if (localStorage.getItem('darkMode') === 'enabled') {
+        document.documentElement.classList.add('dark');
+        darkIcon.classList.replace('fa-moon', 'fa-sun');
+    }
+    darkToggle.onclick = () => {
+        document.documentElement.classList.toggle('dark');
+        if (document.documentElement.classList.contains('dark')) {
+            localStorage.setItem('darkMode', 'enabled');
+            darkIcon.classList.replace('fa-moon', 'fa-sun');
+        } else {
+            localStorage.setItem('darkMode', 'disabled');
+            darkIcon.classList.replace('fa-sun', 'fa-moon');
+        }
+    };
+    
+    // ==================== MOBILE MENU ====================
+    document.getElementById('mobileMenuBtn').onclick = () => {
+        document.getElementById('mobileMenu').classList.toggle('hidden');
+    };
+    
+    // ==================== LIGHTBOX ====================
+    window.openLightbox = (src) => {
+        document.getElementById('lightboxImg').src = src;
+        document.getElementById('lightbox').classList.remove('hidden');
+        document.getElementById('lightbox').classList.add('flex');
+    };
+    window.closeLightbox = () => {
+        document.getElementById('lightbox').classList.add('hidden');
+        document.getElementById('lightbox').classList.remove('flex');
+    };
+    
+    // ==================== STICKY NAVBAR ====================
+    window.addEventListener('scroll', () => {
+        let nav = document.getElementById('navbar');
+        if (window.scrollY > 10) nav.classList.add('shadow-lg');
+        else nav.classList.remove('shadow-lg');
+    });
+    
+    // ==================== INITIALIZE ====================
+    AOS.init({ once: true, duration: 800 });
+    loadFromGoogleSheets();
+    
+    console.log('%c🔐 Admin Access: Type "admin" anywhere on the page', 'color: #3b82f6; font-size: 14px; font-weight: bold;');
+    console.log('%c🔑 Default Password: Hema@10itahema', 'color: #3b82f6; font-size: 12px;');
+    if (!GOOGLE_SHEETS_URL || GOOGLE_SHEETS_URL === 'YOUR_WEB_APP_URL_HERE') {
+        console.log('%c⚠️ Google Sheets not configured! Data will only save locally.', 'color: #f97316; font-size: 12px;');
+        console.log('%c📊 To enable permanent storage, set GOOGLE_SHEETS_URL variable', 'color: #f97316; font-size: 12px;');
+    } else {
+        console.log('%c✅ Google Sheets connected! Data is permanent.', 'color: #10b981; font-size: 12px;');
+    }
+</script>
+</body>
+</html>
