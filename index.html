@@ -666,12 +666,65 @@ if (!ADMISSION_SHEETS_URL) {
         renderAll();
     }
     
-    function updateStat(idx) {
-        appData.stats[idx].label = document.getElementById(`statLabel${idx}`).value;
-        appData.stats[idx].value = parseInt(document.getElementById(`statValue${idx}`).value);
-        saveToLocalStorage();
-        renderAll();
+    // ==================== UPDATING THIS SECTION TO IMPROVE THE STAT PART ====================
+		
+		function updateStat(idx) {
+    const newLabel = document.getElementById(`statLabel${idx}`).value;
+    const newValue = parseInt(document.getElementById(`statValue${idx}`).value);
+    
+    if (isNaN(newValue)) {
+        alert('Please enter a valid number');
+        return;
     }
+    
+    appData.stats[idx].label = newLabel;
+    appData.stats[idx].value = newValue;
+    
+    // Save to localStorage
+    saveToLocalStorage();
+    
+    // Also save to Google Sheets as backup
+    saveStatsToGoogleSheets();
+    
+    // Re-render everything
+    renderAll();
+    
+    // Show success message
+    showToast('Statistics updated successfully!');
+}
+
+function saveStatsToGoogleSheets() {
+    if (GOOGLE_SHEETS_URL && GOOGLE_SHEETS_URL !== 'Your_web_app_url') {
+        try {
+            fetch(GOOGLE_SHEETS_URL, {
+                method: 'POST',
+                mode: 'no-cors',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ 
+                    type: 'stats', 
+                    data: appData.stats 
+                })
+            });
+        } catch(e) {
+            console.log('Stats backup saved locally only');
+        }
+    }
+}
+
+function showToast(message) {
+    let toast = document.getElementById('statsToast');
+    if (!toast) {
+        toast = document.createElement('div');
+        toast.id = 'statsToast';
+        toast.style.cssText = 'position:fixed; bottom:20px; right:20px; background:#10b981; color:white; padding:12px 20px; border-radius:8px; z-index:9999; display:none;';
+        document.body.appendChild(toast);
+    }
+    toast.innerHTML = message;
+    toast.style.display = 'block';
+    setTimeout(() => {
+        toast.style.display = 'none';
+    }, 2000);
+}
     
     // ==================== MODAL FUNCTIONS ====================
     function openResultModal() {
