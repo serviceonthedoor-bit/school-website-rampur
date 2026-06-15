@@ -473,11 +473,22 @@ if (!ADMISSION_SHEETS_URL) {
             "images/gallery1.jpg",
 			"images/gallery2.jpg",
 			"images/gallery3.jpg",
-			"images/gallery4.jpg",
+			"images/gallery4.jpg"
 			
             
         ];
-    }
+    
+	   // Make sure stats are set correctly
+    appData.stats = 	[
+        { label: "Happy Students", value: 5000 },
+        { label: "Expert Teachers", value: 250 },
+        { label: "Years of Excellence", value: 25 },
+        { label: "Parent Satisfaction", value: 100 }
+    	];
+	
+	
+	
+	}
     
     // ==================== CRUD OPERATIONS WITH SYNC ====================
     async function addItem(type, item) {
@@ -593,13 +604,32 @@ if (!ADMISSION_SHEETS_URL) {
     }
     
     function renderGallery() {
-        let html = '';
-        appData.gallery.forEach(url => {
-            html += `<img src="${url}" class="rounded-2xl w-full h-48 object-cover cursor-pointer" onclick="openLightbox('${url}')">`;
-        });
-        document.getElementById('galleryContainer').innerHTML = html;
+    let html = '';
+    appData.gallery.forEach(url => {
+        html += `<img src="${url}" class="rounded-2xl w-full h-48 object-cover cursor-pointer" onerror="this.src='https://placehold.co/400x300/f97316/white?text=Image+Not+Found'" onclick="openLightbox('${url}')">`;
+    });
+    document.getElementById('galleryContainer').innerHTML = html;
+}
+
+		// ========== ADD refreshImages() RIGHT HERE ==========
+function refreshImages() {
+    console.log('Refreshing images...');
+    const galleryContainer = document.getElementById('galleryContainer');
+    if (galleryContainer) {
+        renderGallery();
     }
     
+    // Clear image cache by adding timestamp
+    const allImages = document.querySelectorAll('img');
+    allImages.forEach(img => {
+        const originalSrc = img.src.split('?')[0];
+        if (originalSrc.includes('images/')) {
+            img.src = originalSrc + '?t=' + new Date().getTime();
+        }
+    });
+}
+// ========== END OF refreshImages() ==========
+		
     function renderAdminLists() {
         // Results Admin List
         let resultsHtml = '';
