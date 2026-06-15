@@ -340,41 +340,60 @@ if (!ADMISSION_SHEETS_URL) {
     
     // ==================== GOOGLE SHEETS FUNCTIONS ====================
     async function loadFromGoogleSheets() {
-        if (!GOOGLE_SHEETS_URL || GOOGLE_SHEETS_URL === 'YOUR_WEB_APP_URL_HERE') {
-            console.log('Google Sheets not configured. Using localStorage.');
-            loadFromLocalStorage();
-            return;
+    if (!GOOGLE_SHEETS_URL || GOOGLE_SHEETS_URL === 'YOUR_WEB_APP_URL_HERE') {
+        console.log('Google Sheets not configured. Using localStorage.');
+        loadFromLocalStorage();
+        return;
+    }
+    
+    try {
+        showLoading(true);
+        const response = await fetch(GOOGLE_SHEETS_URL);
+        const data = await response.json();
+        
+        if (data.error) {
+            throw new Error(data.error);
         }
         
-        try {
-            showLoading(true);
-            const response = await fetch(GOOGLE_SHEETS_URL);
-            const data = await response.json();
-            
-            if (data.error) {
-                throw new Error(data.error);
-            }
-            
-            // Organize data by type
-            appData.teachers = data.filter(item => item.type === 'teacher');
-            appData.programs = data.filter(item => item.type === 'program');
-            appData.events = data.filter(item => item.type === 'event');
-            appData.results = data.filter(item => item.type === 'result');
-            appData.gallery = data.filter(item => item.type === 'gallery').map(item => item.url);
-            
-            // If no data in sheets, load defaults
-            if (appData.teachers.length === 0) loadDefaultData();
-            
-            renderAll();
-            saveToLocalStorage();
-            showLoading(false);
-            console.log('✅ Data loaded from Google Sheets');
-        } catch (error) {
-            console.error('Error loading from Google Sheets:', error);
-            loadFromLocalStorage();
-            showLoading(false);
+        // Load all data types
+        appData.teachers = data.filter(item => item.type === 'teacher');
+        appData.programs = data.filter(item => item.type === 'program');
+        appData.events = data.filter(item => item.type === 'event');
+        appData.results = data.filter(item => item.type === 'result');
+        appData.gallery = data.filter(item => item.type === 'gallery').map(item => item.url);
+        
+        // IMPORTANT - Load stats from Google Sheets
+        const statsFromSheets = data.filter(item => item.type === 'stats');
+        if (statsFromSheets.length > 0) {
+            appData.stats = statsFromSheets.map(item => ({ 
+                label: item.label, 
+                value: item.value 
+            }));
+            console.log('✅ Stats loaded from Google Sheets:', appData.stats);
+        } else {
+            // If no stats in sheet, use defaults
+            console.log('No stats found in Google Sheets, using defaults');
+            appData.stats = [
+                { label: "Happy Students", value: 5000 },
+                { label: "Expert Teachers", value: 250 },
+                { label: "Years of Excellence", value: 25 },
+                { label: "Parent Satisfaction", value: 100 }
+            ];
         }
+        
+        // If no data in sheets, load defaults for other types
+        if (appData.teachers.length === 0) loadDefaultData();
+        
+        renderAll();
+        saveToLocalStorage();
+        showLoading(false);
+        console.log('✅ Data loaded from Google Sheets');
+    } catch (error) {
+        console.error('Error loading from Google Sheets:', error);
+        loadFromLocalStorage();
+        showLoading(false);
     }
+}
     
     async function saveToGoogleSheets(type, data) {
         
