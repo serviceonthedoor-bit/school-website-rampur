@@ -476,13 +476,11 @@ if (!ADMISSION_SHEETS_URL) {
         ];
         
         appData.gallery = [
-            "images/gallery1.jpg",
-			"images/gallery2.jpg",
-			"images/gallery3.jpg",
-			"images/gallery4.jpg"
-			
-            
-        ];
+    		"images/gallery1.jpg",
+    		"images/gallery2.jpg",
+    		"images/gallery3.jpg",
+    		"images/gallery4.jpg"
+		];
     
 	   // Make sure stats are set correctly
     appData.stats = 	[
@@ -609,10 +607,13 @@ if (!ADMISSION_SHEETS_URL) {
         document.getElementById('eventsContainer').innerHTML = html;
     }
     
-    function renderGallery() {
+   function renderGallery() {
     let html = '';
     appData.gallery.forEach(url => {
-        html += `<img src="${url}" class="rounded-2xl w-full h-48 object-cover cursor-pointer" onerror="this.src='https://placehold.co/400x300/f97316/white?text=Image+Not+Found'" onclick="openLightbox('${url}')">`;
+        html += `<img src="${url}" 
+                       class="rounded-2xl w-full h-48 object-cover cursor-pointer" 
+                       onclick="openLightbox('${url}')"
+                       onerror="this.src='https://placehold.co/400x300/f97316/white?text=Image+Not+Found'">`;
     });
     document.getElementById('galleryContainer').innerHTML = html;
 }
