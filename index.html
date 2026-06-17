@@ -688,20 +688,10 @@
 
 <script>
 // ==================== GOOGLE SHEETS CONFIGURATION ====================
-// For public repos - URLs entered via prompt
-let GOOGLE_SHEETS_URL = localStorage.getItem('admin_api_url');
-let ADMISSION_SHEETS_URL = localStorage.getItem('admission_api_url');
+// SINGLE URL — ONE SHEET WITH TYPE FIELD
+const GOOGLE_SHEETS_URL = 'https://script.google.com/macros/s/YOUR_DEPLOYMENT_ID/exec';
+const ADMISSION_SHEETS_URL = GOOGLE_SHEETS_URL; // Same URL for admission too
 
-if (!GOOGLE_SHEETS_URL) {
-    GOOGLE_SHEETS_URL = prompt('Enter Admin Google Sheets URL:');
-    if (GOOGLE_SHEETS_URL) localStorage.setItem('admin_api_url', GOOGLE_SHEETS_URL);
-}
-
-if (!ADMISSION_SHEETS_URL) {
-    ADMISSION_SHEETS_URL = prompt('Enter Admission Google Sheets URL:');
-    if (ADMISSION_SHEETS_URL) localStorage.setItem('admission_api_url', ADMISSION_SHEETS_URL);
-}
-    
 // ==================== DATA ====================
 let appData = {
     results: [],
@@ -726,7 +716,7 @@ let currentEditId = null;
 
 // ==================== GOOGLE SHEETS FUNCTIONS ====================
 async function loadFromGoogleSheets() {
-    if (!GOOGLE_SHEETS_URL || GOOGLE_SHEETS_URL === 'YOUR_WEB_APP_URL_HERE') {
+    if (!GOOGLE_SHEETS_URL || GOOGLE_SHEETS_URL === 'https://script.google.com/macros/s/YOUR_DEPLOYMENT_ID/exec') {
         console.log('Google Sheets not configured. Using localStorage.');
         loadFromLocalStorage();
         return;
@@ -741,12 +731,14 @@ async function loadFromGoogleSheets() {
             throw new Error(data.error);
         }
         
+        // Organize data by type — ALL FROM ONE SHEET
         appData.teachers = data.filter(item => item.type === 'teacher');
         appData.programs = data.filter(item => item.type === 'program');
         appData.events = data.filter(item => item.type === 'event');
         appData.results = data.filter(item => item.type === 'result');
         appData.gallery = data.filter(item => item.type === 'gallery').map(item => item.url);
         
+        // If no data in sheets, load defaults
         if (appData.teachers.length === 0) loadDefaultData();
         
         renderAll();
@@ -761,9 +753,7 @@ async function loadFromGoogleSheets() {
 }
 
 async function saveToGoogleSheets(type, data) {
-    if (type === 'stats') { saveToLocalStorage(); return; }
-    
-    if (!GOOGLE_SHEETS_URL || GOOGLE_SHEETS_URL === 'YOUR_WEB_APP_URL_HERE') {
+    if (!GOOGLE_SHEETS_URL || GOOGLE_SHEETS_URL === 'https://script.google.com/macros/s/YOUR_DEPLOYMENT_ID/exec') {
         saveToLocalStorage();
         return;
     }
@@ -852,12 +842,12 @@ function loadDefaultData() {
         { id: 3, type: 'result', year: "2023", percentage: "96.8%", toppers: "Best School Award", distinction: "45 Distinctions" }
     ];
     
-   appData.gallery = [
-    "https://raw.githubusercontent.com/your-username/your-repo/main/images/gallery1.jpg",
-    "https://raw.githubusercontent.com/your-username/your-repo/main/images/gallery2.jpg",
-    "https://raw.githubusercontent.com/your-username/your-repo/main/images/gallery3.jpg",
-    "https://raw.githubusercontent.com/your-username/your-repo/main/images/gallery4.jpg"
-];
+    appData.gallery = [
+        "images/gallery1.jpg",
+        "images/gallery2.jpg",
+        "images/gallery3.jpg",
+        "images/gallery4.jpg"
+    ];
 }
 
 // ==================== CRUD OPERATIONS ====================
@@ -1472,128 +1462,10 @@ renderCalendar(currentMonth, currentYear);
 
 console.log('%c🔐 Admin Access: Type "admin" anywhere on the page', 'color: #3b82f6; font-size: 14px; font-weight: bold;');
 console.log('%c🔑 Default Password: admin123', 'color: #3b82f6; font-size: 12px;');
-if (!GOOGLE_SHEETS_URL || GOOGLE_SHEETS_URL === 'YOUR_WEB_APP_URL_HERE') {
+if (!GOOGLE_SHEETS_URL || GOOGLE_SHEETS_URL === 'https://script.google.com/macros/s/YOUR_DEPLOYMENT_ID/exec') {
     console.log('%c⚠️ Google Sheets not configured! Data will only save locally.', 'color: #f97316; font-size: 12px;');
 } else {
     console.log('%c✅ Google Sheets connected! Data is permanent.', 'color: #10b981; font-size: 12px;');
 }
-</script>
-
-<!-- Floating Particles Effect -->
-<script src="https://cdn.jsdelivr.net/npm/tsparticles@2.12.0/tsparticles.bundle.min.js"></script>
-<script>
-document.addEventListener('DOMContentLoaded', () => {
-    tsParticles.load("home", {
-        particles: {
-            number: { 
-                value: 40,
-                density: { enable: true, area: 800 }
-            },
-            color: { value: ["#f97316", "#ea580c", "#fb923c", "#ffffff"] },
-            shape: { type: "circle" },
-            opacity: { 
-                value: 0.3,
-                random: true,
-                animation: { enable: true, speed: 1, minimumValue: 0.1 }
-            },
-            size: { 
-                value: { min: 2, max: 6 },
-                random: true
-            },
-            move: {
-                enable: true,
-                speed: 0.8,
-                direction: "none",
-                random: true,
-                straight: false,
-                outModes: "out"
-            }
-        },
-        interactivity: {
-            events: {
-                onHover: {
-                    enable: true,
-                    mode: "bubble"
-                },
-                onClick: {
-                    enable: true,
-                    mode: "push"
-                }
-            },
-            modes: {
-                bubble: {
-                    size: 10,
-                    distance: 100,
-                    opacity: 0.5
-                },
-                push: {
-                    quantity: 4
-                }
-            }
-        },
-        background: {
-            color: "transparent"
-        }
-    });
-});
-
-// ==================== FLOATING ICONS ====================
-(function() {
-    const icons = document.querySelectorAll('.float-icon-js');
-    if (!icons.length) {
-        console.warn('No floating icons found!');
-        return;
-    }
-    
-    console.log('✅ Found ' + icons.length + ' floating icons');
-    
-    const iconData = [];
-    
-    icons.forEach((icon, i) => {
-        const x = Math.random() * 90 + 5;
-        const y = Math.random() * 90 + 5;
-        
-        icon.style.left = x + '%';
-        icon.style.top = y + '%';
-        icon.style.fontSize = (2 + Math.random() * 2) + 'rem';
-        icon.style.opacity = '0.12';
-        icon.textContent = icon.dataset.icon || '📚';
-        
-        iconData.push({
-            element: icon,
-            x: x,
-            y: y,
-            vx: (Math.random() - 0.5) * 0.3,
-            vy: (Math.random() - 0.5) * 0.3,
-            phase: Math.random() * Math.PI * 2
-        });
-    });
-    
-    function animateIcons() {
-        iconData.forEach(data => {
-            data.x += data.vx * 0.8;
-            data.y += data.vy * 0.8;
-            
-            if (data.x > 95 || data.x < 3) {
-                data.vx *= -1;
-            }
-            if (data.y > 95 || data.y < 3) {
-                data.vy *= -1;
-            }
-            
-            data.element.style.left = data.x + '%';
-            data.element.style.top = data.y + '%';
-            
-            const rot = Math.sin(Date.now() / 2000 + data.phase) * 15;
-            data.element.style.transform = `rotate(${rot}deg)`;
-        });
-        
-        requestAnimationFrame(animateIcons);
-    }
-    
-    animateIcons();
-    console.log('✅ Floating icons animation started!');
-})();
-</script>
-</body>
+</script></body>
 </html>
