@@ -27,47 +27,247 @@
         .section-title { font-size: 2rem; }
         .hero-container { max-width: 500px; margin: 0 auto; }
 
-/* Dark mode for all sections */
-.dark section {
-    background-color: #111827 !important;
-}
+        /* Dark mode for all sections */
+        .dark section {
+            background-color: #111827 !important;
+        }
 
-.dark .bg-white {
-    background-color: #1f2937 !important;
-}
+        .dark .bg-white {
+            background-color: #1f2937 !important;
+        }
 
-.dark .bg-gray-50 {
-    background-color: #111827 !important;
-}
+        .dark .bg-gray-50 {
+            background-color: #111827 !important;
+        }
 
-.dark .bg-gray-100 {
-    background-color: #1f2937 !important;
-}
+        .dark .bg-gray-100 {
+            background-color: #1f2937 !important;
+        }
 
-.dark .text-gray-600, .dark .text-gray-700 {
-    color: #d1d5db !important;
-}
+        .dark .text-gray-600, .dark .text-gray-700 {
+            color: #d1d5db !important;
+        }
 
-.dark .text-gray-800 {
-    color: #ffffff !important;
-}
+        .dark .text-gray-800 {
+            color: #ffffff !important;
+        }
 
-/* Smooth transition for dark mode - ADD THIS HERE */
+        /* Smooth transition for dark mode */
         .dark, .dark * {
             transition: background-color 0.3s ease, color 0.3s ease;
+        }
+
+        /* Animated gradient overlay on hero */
+        .hero-overlay-animated {
+            background: linear-gradient(-45deg, rgba(249, 115, 22, 0.1), rgba(234, 88, 12, 0.05), rgba(251, 146, 60, 0.1), rgba(249, 115, 22, 0.05));
+            background-size: 400% 400%;
+            animation: gradientSlow 20s ease infinite;
+        }
+
+        @keyframes gradientSlow {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        /* ===== FLOATING ICONS (Fixed - No Gap) ===== */
+        #floatingIconsContainer {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 0;
+            overflow: hidden;
+        }
+
+        .float-icon-js {
+            position: absolute;
+            font-size: 2.5rem;
+            opacity: 0.12;
+            transition: all 0.3s ease;
+            will-change: transform;
+            text-shadow: 0 0 20px rgba(255, 255, 255, 0.1);
+            pointer-events: none;
+        }
+
+        .float-icon-js:hover {
+            opacity: 0.4 !important;
+            transform: scale(1.5) !important;
+            text-shadow: 0 0 30px rgba(255, 255, 255, 0.3);
+        }
+
+        .dark .float-icon-js {
+            opacity: 0.18;
+        }
+
+        .dark .float-icon-js:hover {
+            opacity: 0.5 !important;
+        }
+
+        /* ===== SCHOOL CALENDAR - PROFESSIONAL ===== */
+        .calendar-day {
+            aspect-ratio: 1;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 4px;
+            transition: all 0.2s ease;
+            cursor: default;
+            font-size: 0.9rem;
+            min-height: 60px;
+            background-color: transparent;
+            color: #374151;
+            border-right: 1px solid #e5e7eb;
+            border-bottom: 1px solid #e5e7eb;
+            position: relative;
+        }
+
+        .dark .calendar-day {
+            color: #d1d5db;
+            border-right: 1px solid #374151;
+            border-bottom: 1px solid #374151;
+        }
+
+        .calendar-day:nth-child(7n) {
+            border-right: none;
+        }
+
+        .calendar-day.other-month {
+            opacity: 0.3;
+        }
+
+        .calendar-day.today {
+            font-weight: bold;
+            color: #2563eb !important;
+        }
+
+        .calendar-day.today::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            border: 3px solid #2563eb;
+            background-color: rgba(37, 99, 235, 0.08);
+            z-index: 0;
+        }
+
+        .dark .calendar-day.today {
+            color: #60a5fa !important;
+        }
+
+        .dark .calendar-day.today::before {
+            border-color: #60a5fa;
+            background-color: rgba(96, 165, 250, 0.12);
+        }
+
+        .calendar-day:hover {
+            background-color: rgba(37, 99, 235, 0.06);
+        }
+
+        .dark .calendar-day:hover {
+            background-color: rgba(96, 165, 250, 0.08);
+        }
+
+        .calendar-day .event-dot {
+            width: 6px;
+            height: 6px;
+            border-radius: 50%;
+            margin-top: 2px;
+            z-index: 1;
+            position: relative;
+        }
+
+        .calendar-day .event-dot.orange { background-color: #f97316; }
+        .calendar-day .event-dot.blue { background-color: #3b82f6; }
+        .calendar-day .event-dot.green { background-color: #10b981; }
+        .calendar-day .event-dot.purple { background-color: #8b5cf6; }
+
+        .calendar-day .day-number {
+            position: relative;
+            z-index: 1;
+        }
+
+        #calendarGrid {
+            display: grid;
+            grid-template-columns: repeat(7, 1fr);
+            gap: 0;
+        }
+
+        @media (min-width: 768px) {
+            .calendar-day {
+                min-height: 80px;
+                font-size: 1rem;
+                padding: 8px;
+            }
+            .calendar-day.today::before {
+                width: 44px;
+                height: 44px;
+            }
+            .calendar-day .event-dot {
+                width: 8px;
+                height: 8px;
+            }
+        }
+
 
     </style>
 </head>
 <body class="bg-gray-50 dark:bg-gray-900">
 
-    <!-- Navbar -->
-    <nav id="navbar" class="fixed top-0 w-full z-50 glass transition-all duration-300">
-        <div class="container mx-auto px-4 md:px-6 py-3 flex justify-between items-center">
+<!-- Floating Icons Container -->
+<div id="floatingIconsContainer" style="position: fixed; top: 0; left: 0; width: 100%; height: 100%; pointer-events: none; z-index: 0; overflow: hidden;">
+    <div class="float-icon-js" data-icon="📐" style="position: absolute;"></div>
+    <div class="float-icon-js" data-icon="🔬" style="position: absolute;"></div>
+    <div class="float-icon-js" data-icon="📚" style="position: absolute;"></div>
+    <div class="float-icon-js" data-icon="🎵" style="position: absolute;"></div>
+    <div class="float-icon-js" data-icon="💻" style="position: absolute;"></div>
+    <div class="float-icon-js" data-icon="🎨" style="position: absolute;"></div>
+    <div class="float-icon-js" data-icon="🧪" style="position: absolute;"></div>
+    <div class="float-icon-js" data-icon="🏆" style="position: absolute;"></div>
+</div>    
 
-    <!-- Logo -->
-    <img id="leftLogo" src="images/logo-left.png" alt="Logo" class="h-8 w-auto cursor-pointer" ondblclick="updateLogo('left')">
-            <div class="w-8"></div>
-            <div class="hidden md:flex space-x-8">
+    
+        <!-- NAV BAR -->
+
+<nav id="navbar" class="fixed top-0 w-full z-50 glass transition-all duration-300">
+    <div class="container mx-auto px-4 md:px-6 py-3">
+        
+<!-- TOP ROW: Left Logo + Center (empty) + Right Logo + Dark Mode + Mobile Menu -->
+<div class="flex justify-between items-center">
+    <!-- Left Logo -->
+    <img id="leftLogo" src="images/logo.png" alt="Logo" class="h-14 w-auto cursor-pointer" ondblclick="updateLogo('left')">
+    
+    <!-- Center: Empty (pushes everything apart) -->
+    <div class="flex-1"></div>
+    
+    <!-- Right Side: Right Logo + Dark Mode + Mobile Menu -->
+    <div class="flex items-center space-x-3">
+        <!-- Right Logo (at extreme right) -->
+
+
+	<img id="rightLogo" src="images/logo.png" alt="Logo" class="h-10 w-auto cursor-pointer hidden sm:block" ondblclick="updateLogo('right')">
+        
+        <button id="darkModeToggle" class="p-2 rounded-full bg-gray-200 dark:bg-gray-700">
+            <i id="darkIcon" class="fas fa-moon text-gray-700 dark:text-gray-200"></i>
+        </button>
+        <button id="mobileMenuBtn" class="md:hidden p-2 rounded-lg bg-gray-200 dark:bg-gray-700">
+            <i class="fas fa-bars text-gray-700 dark:text-white text-xl"></i>
+        </button>
+    </div>
+</div>
+        
+        <!-- BOTTOM ROW: Nav Links (centered) + School Name (below) -->
+        <div class="flex flex-col items-center mt-2">
+            
+            <!-- Nav Links - Centered -->
+            <div class="hidden md:flex space-x-4 lg:space-x-6 text-xs lg:text-sm">
                 <a href="#home" class="text-gray-700 dark:text-gray-200 hover:text-orange-600">Home</a>
                 <a href="#academics" class="text-gray-700 dark:text-gray-200 hover:text-orange-600">Academics</a>
                 <a href="#teachers" class="text-gray-700 dark:text-gray-200 hover:text-orange-600">Teachers</a>
@@ -75,30 +275,37 @@
                 <a href="#events" class="text-gray-700 dark:text-gray-200 hover:text-orange-600">Events</a>
                 <a href="#results" class="text-gray-700 dark:text-gray-200 hover:text-orange-600">Results</a>
                 <a href="#admission" class="text-gray-700 dark:text-gray-200 hover:text-orange-600">Admission</a>
+                <a href="#calendar" class="text-gray-700 dark:text-gray-200 hover:text-orange-600">Calendar</a>
             </div>
-            <div class="flex items-center space-x-3">
-                <button id="darkModeToggle" class="p-2 rounded-full bg-gray-200 dark:bg-gray-700">
-                    <i id="darkIcon" class="fas fa-moon text-gray-700 dark:text-gray-200"></i>
-                </button>
-                <button id="mobileMenuBtn" class="md:hidden p-2 rounded-lg bg-gray-200 dark:bg-gray-700">
-                    <i class="fas fa-bars text-gray-700 dark:text-white text-xl"></i>
-                </button>
+            
+            <!-- School Name - Below Nav Links (centered) -->
+            <div class="text-center mt-1">
+               <span class="text-xl md:text-2xl font-bold bg-gradient-to-r from-orange-600 to-blue-600 bg-clip-text text-transparent">
+    PM SHRI SHAHEED INDER GIRI GOVT HSS RAMPUR
+</span>
             </div>
+            
         </div>
-        <div id="mobileMenu" class="hidden md:hidden bg-white/95 dark:bg-gray-800/95 backdrop-blur-lg">
-            <div class="flex flex-col space-y-3 p-4">
-                <a href="#home" class="py-2 text-gray-700 dark:text-gray-200">Home</a>
-                <a href="#academics" class="py-2 text-gray-700 dark:text-gray-200">Academics</a>
-                <a href="#teachers" class="py-2 text-gray-700 dark:text-gray-200">Teachers</a>
-                <a href="#gallery" class="py-2 text-gray-700 dark:text-gray-200">Gallery</a>
-                <a href="#events" class="py-2 text-gray-700 dark:text-gray-200">Events</a>
-                <a href="#results" class="py-2 text-gray-700 dark:text-gray-200">Results</a>
-                <a href="#admission" class="py-2 text-gray-700 dark:text-gray-200">Admission</a>
-            </div>
+    </div>
+    
+    <!-- Mobile Menu -->
+    <div id="mobileMenu" class="hidden md:hidden bg-white/95 dark:bg-gray-800/95 backdrop-blur-lg">
+        <div class="flex flex-col space-y-3 p-4">
+            <a href="#home" class="py-2 text-gray-700 dark:text-gray-200">Home</a>
+            <a href="#academics" class="py-2 text-gray-700 dark:text-gray-200">Academics</a>
+            <a href="#teachers" class="py-2 text-gray-700 dark:text-gray-200">Teachers</a>
+            <a href="#gallery" class="py-2 text-gray-700 dark:text-gray-200">Gallery</a>
+            <a href="#events" class="py-2 text-gray-700 dark:text-gray-200">Events</a>
+            <a href="#results" class="py-2 text-gray-700 dark:text-gray-200">Results</a>
+            <a href="#admission" class="py-2 text-gray-700 dark:text-gray-200">Admission</a>
+            <a href="#calendar" class="py-2 text-gray-700 dark:text-gray-200">Calendar</a>
         </div>
-    </nav>
+    </div>
+</nav>
+    
 
-    <!-- Admin Login Modal -->
+
+<!-- Admin Login Modal -->
     <div id="adminLoginModal" class="fixed inset-0 bg-black/70 items-center justify-center z-50 admin-modal">
         <div class="bg-white dark:bg-gray-800 rounded-2xl p-8 max-w-md w-full mx-4">
             <h3 class="text-2xl font-bold mb-4 dark:text-white">Admin Login</h3>
@@ -171,58 +378,40 @@
     </div>
 
     <!-- Hero Section with Background Image -->
-<section id="home" class="min-h-screen flex items-center justify-center relative overflow-hidden pt-16">
-    
-    <!-- White rounded box background -->
-    <div class="absolute inset-0 flex items-center justify-center">
-        <div class="w-4/5 h-4/5 bg-white dark:bg-gray-800 rounded-3xl shadow-2xl overflow-hidden">
-            <img src="images/schoolimage.jpg" alt="School Background" class="w-full h-full object-cover">
+    <section id="home" class="min-h-screen flex items-center justify-center relative overflow-hidden pt-16">
+        <div class="absolute inset-0 flex items-center justify-center">
+            <div class="w-4/5 h-4/5 bg-white dark:bg-gray-800 rounded-3xl shadow-2xl overflow-hidden">
+                <img src="images/schoolimage1.jpg" alt="School Background" class="w-full h-full object-cover">
+            </div>
         </div>
-    </div>
-    
-	<!-- Buttons BELOW the white box -->
-<div class="absolute bottom-2 left-1/2 transform -translate-x-1/2 flex gap-6">
-    <a href="#admission" class="px-6 py-2.5 bg-blue-600 text-white rounded-full">Apply Now </a>
-    <a href="#academics" class="px-6 py-2.5 bg-blue-600 text-white rounded-full border border-blue-600">Explore Programs</a>
-</div>
+        
+        <div class="absolute bottom-2 left-1/2 transform -translate-x-1/2 flex gap-6">
+            <a href="#admission" class="px-6 py-2.5 bg-blue-600 text-white rounded-full">Apply Now</a>
+            <a href="#academics" class="px-6 py-2.5 bg-blue-600 text-white rounded-full border border-blue-600">Explore Programs</a>
+        </div>
 
-    <!-- Dark overlay for text readability (only on image area) -->
-    <div class="absolute inset-0 flex items-center justify-center pointer-events-none">
-        <div class="w-4/5 h-4/5 rounded-3xl bg-yellow/40"></div>
-    </div>
-    
-    <!-- Logos
-    <div class="top-logo top-logo-left" ondblclick="updateLogo('left')">
-        <img id="leftLogo" src="https://placehold.co/200x100/f97316/white?text=Logo" class="logo-img">
-    </div> -->
-    
-	<!--
-	<div class="top-logo top-logo-right" ondblclick="updateLogo('right')">
-        <img id="rightLogo" src="https://placehold.co/200x100/ea580c/white?text=Logo" class="logo-img">
-    </div> -->
-    
-    <!-- Hero Text Content - BUTTONS ONLY ONCE -->
-    <div class="container mx-auto px-4 relative z-10 hero-container text-center">
-        <h1 class="hero-title font-extrabold bg-clip-text text-transparent bg-gradient-to-r from-orange-600 to-amber-600 mb-4">
-             <br>
-        </h1>
-        <p class="text-white dark:text-gray-200 max-w-2xl mx-auto mb-6">
-            <!--Empowering young minds with innovative learning, global exposure, and character development since 1961.-->
-        </p>
-    <!-- Buttons at Very Bottom of White Rectangle 
-<div class="absolute bottom-2 left-1/2 transform -translate-x-1/2 flex gap-3 z-20">
-    <a href="#admission" class="px-6 py-2.5 bg-blue-600 text-white rounded-full">Apply Now →</a>
-    <a href="#academics" class="px-6 py-2.5 bg-white text-blue-600 rounded-full border border-blue-600">Explore Programs</a>
-</div> -->
-    </div>
-</section>
-
-    <!-- Statistics Counters -->
-    <section class="py-16 bg-white dark:bg-gray-800">
-        <div class="container mx-auto px-4">
-            <div class="grid grid-cols-2 md:grid-cols-4 gap-8" id="statsContainer"></div>
+        <div class="absolute inset-0 flex items-center justify-center pointer-events-none">
+            <div class="w-4/5 h-4/5 rounded-3xl bg-yellow/40"></div>
+        </div>
+        
+        <div class="container mx-auto px-4 relative z-10 hero-container text-center">
+            <h1 class="hero-title font-extrabold bg-clip-text text-transparent bg-gradient-to-r from-orange-600 to-amber-600 mb-4">
+                <br>
+            </h1>
+            <p class="text-white dark:text-gray-200 max-w-2xl mx-auto mb-6"></p>
         </div>
     </section>
+
+    <!-- Statistics Counters -->
+<section class="py-16 bg-white dark:bg-gray-800">
+    <div class="container mx-auto px-4">
+        <!-- Title -->
+        <h2 class="text-2xl md:text-3xl font-bold text-center text-gray-800 dark:text-white mb-10">
+            📊 Enrollment &amp; Details
+        </h2>
+        <div class="grid grid-cols-2 md:grid-cols-4 gap-8" id="statsContainer"></div>
+    </div>
+</section>
 
     <!-- Programs Section -->
     <section id="academics" class="py-20 bg-gray-50 dark:bg-gray-900">
@@ -256,6 +445,49 @@
         </div>
     </section>
 
+    <!-- Calendar Section -->
+    <section id="calendar" class="py-20 bg-white dark:bg-gray-800">
+        <div class="container mx-auto px-4">
+            <h2 class="section-title font-bold text-center text-gray-800 dark:text-white mb-12">📅 School Calendar</h2>
+            
+            <div class="max-w-4xl mx-auto bg-gray-50 dark:bg-gray-900 rounded-2xl shadow-xl overflow-hidden">
+                <!-- Blue Header Strip -->
+                <div class="bg-gradient-to-r from-blue-600 to-blue-800 px-6 py-4">
+                    <div class="flex justify-between items-center">
+                        <button onclick="changeMonth(-1)" class="bg-white/20 hover:bg-white/30 text-white px-4 py-2 rounded-lg transition">
+                            <i class="fas fa-chevron-left"></i>
+                        </button>
+                        <h3 id="calendarMonth" class="text-2xl font-bold text-white">June 2026</h3>
+                        <button onclick="changeMonth(1)" class="bg-white/20 hover:bg-white/30 text-white px-4 py-2 rounded-lg transition">
+                            <i class="fas fa-chevron-right"></i>
+                        </button>
+                    </div>
+                </div>
+                
+                <!-- Calendar Grid -->
+                <div class="p-4 md:p-6">
+                    <div class="grid grid-cols-7 gap-0 mb-2">
+                        <div class="text-center font-semibold text-gray-600 dark:text-gray-400 py-2 border-b-2 border-gray-200 dark:border-gray-700">Sun</div>
+                        <div class="text-center font-semibold text-gray-600 dark:text-gray-400 py-2 border-b-2 border-gray-200 dark:border-gray-700">Mon</div>
+                        <div class="text-center font-semibold text-gray-600 dark:text-gray-400 py-2 border-b-2 border-gray-200 dark:border-gray-700">Tue</div>
+                        <div class="text-center font-semibold text-gray-600 dark:text-gray-400 py-2 border-b-2 border-gray-200 dark:border-gray-700">Wed</div>
+                        <div class="text-center font-semibold text-gray-600 dark:text-gray-400 py-2 border-b-2 border-gray-200 dark:border-gray-700">Thu</div>
+                        <div class="text-center font-semibold text-gray-600 dark:text-gray-400 py-2 border-b-2 border-gray-200 dark:border-gray-700">Fri</div>
+                        <div class="text-center font-semibold text-gray-600 dark:text-gray-400 py-2 border-b-2 border-gray-200 dark:border-gray-700">Sat</div>
+                    </div>
+                    
+                    <div id="calendarGrid" class="grid grid-cols-7 gap-0 border border-gray-200 dark:border-gray-700"></div>
+                </div>
+                
+                <!-- Events Legend -->
+                <div class="px-6 pb-6 pt-2 border-t border-gray-200 dark:border-gray-700">
+                    <h4 class="text-sm font-semibold text-gray-600 dark:text-gray-400 mb-3">📌 Upcoming Events</h4>
+                    <div id="upcomingEvents" class="space-y-2 text-sm text-gray-600 dark:text-gray-300"></div>
+                </div>
+            </div>
+        </div>
+    </section>
+
     <!-- Results Section -->
     <section id="results" class="py-20 bg-gray-50 dark:bg-gray-900">
         <div class="container mx-auto px-4">
@@ -268,26 +500,207 @@
     <section id="admission" class="py-20 bg-white dark:bg-gray-800">
         <div class="container mx-auto px-4">
             <h2 class="section-title font-bold text-center text-gray-800 dark:text-white mb-12">Start Your Journey</h2>
-            <div class="max-w-2xl mx-auto bg-gray-100 dark:bg-gray-900 rounded-2xl shadow-xl p-8">
-                <form id="admissionForm">
-                    <div class="grid gap-4">
-                        <input type="text" id="studentName" placeholder="Student's Full Name *" class="w-full p-3 border rounded-lg dark:bg-gray-800" required>
-                        <input type="date" id="dob" class="w-full p-3 border rounded-lg dark:bg-gray-800" required>
-                        <select id="grade" class="w-full p-3 border rounded-lg dark:bg-gray-800" required>
-                            <option value="">Select Grade *</option>
-                            <option>Nursery</option><option>LKG</option><option>UKG</option>
-                            <option>1</option><option>2</option><option>3</option><option>4</option><option>5</option>
-                            <option>6</option><option>7</option><option>8</option><option>9</option><option>10</option>
-                            <option>11</option><option>12</option>
-                        </select>
-                        <input type="text" id="parentName" placeholder="Parent/Guardian Name *" class="w-full p-3 border rounded-lg dark:bg-gray-800" required>
-                        <input type="email" id="email" placeholder="Email Address *" class="w-full p-3 border rounded-lg dark:bg-gray-800" required>
-                        <input type="tel" id="phone" placeholder="Phone Number *" class="w-full p-3 border rounded-lg dark:bg-gray-800" required>
-                        <textarea id="message" rows="3" placeholder="Additional Message" class="w-full p-3 border rounded-lg dark:bg-gray-800"></textarea>
-                        <button type="submit" class="bg-orange-600 hover:bg-orange-700 text-white px-6 py-3 rounded-full font-semibold">Submit Application →</button>
+            
+            <div class="max-w-6xl mx-auto flex flex-col md:flex-row gap-8">
+                <!-- LEFT QUICK LINKS -->
+                <div class="md:w-1/5 flex flex-col gap-4 order-1 md:order-1">
+                    <h3 class="text-lg font-bold text-gray-700 dark:text-gray-300 border-b-2 border-orange-500 pb-2 mb-2">
+                        <i class="fas fa-link text-orange-500 mr-2"></i>Quick Links
+                    </h3>
+                    <a href="#academics" class="bg-gray-100 dark:bg-gray-700 hover:bg-orange-100 dark:hover:bg-orange-900/30 p-3 rounded-lg transition-all flex items-center gap-3 text-gray-700 dark:text-gray-300 hover:text-orange-600">
+                        <i class="fas fa-graduation-cap text-orange-500"></i>
+                        <span>Academics</span>
+                        <i class="fas fa-arrow-right ml-auto text-sm opacity-50"></i>
+                    </a>
+                    <a href="#teachers" class="bg-gray-100 dark:bg-gray-700 hover:bg-orange-100 dark:hover:bg-orange-900/30 p-3 rounded-lg transition-all flex items-center gap-3 text-gray-700 dark:text-gray-300 hover:text-orange-600">
+                        <i class="fas fa-chalkboard-teacher text-orange-500"></i>
+                        <span>Teachers</span>
+                        <i class="fas fa-arrow-right ml-auto text-sm opacity-50"></i>
+                    </a>
+                    <a href="#events" class="bg-gray-100 dark:bg-gray-700 hover:bg-orange-100 dark:hover:bg-orange-900/30 p-3 rounded-lg transition-all flex items-center gap-3 text-gray-700 dark:text-gray-300 hover:text-orange-600">
+                        <i class="fas fa-calendar-alt text-orange-500"></i>
+                        <span>Events</span>
+                        <i class="fas fa-arrow-right ml-auto text-sm opacity-50"></i>
+                    </a>
+                    <a href="#results" class="bg-gray-100 dark:bg-gray-700 hover:bg-orange-100 dark:hover:bg-orange-900/30 p-3 rounded-lg transition-all flex items-center gap-3 text-gray-700 dark:text-gray-300 hover:text-orange-600">
+                        <i class="fas fa-chart-line text-orange-500"></i>
+                        <span>Results</span>
+                        <i class="fas fa-arrow-right ml-auto text-sm opacity-50"></i>
+                    </a>
+                    <a href="#gallery" class="bg-gray-100 dark:bg-gray-700 hover:bg-orange-100 dark:hover:bg-orange-900/30 p-3 rounded-lg transition-all flex items-center gap-3 text-gray-700 dark:text-gray-300 hover:text-orange-600">
+                        <i class="fas fa-images text-orange-500"></i>
+                        <span>Gallery</span>
+                        <i class="fas fa-arrow-right ml-auto text-sm opacity-50"></i>
+                    </a>
+                    
+                    <div class="mt-4 pt-4 border-t border-gray-200 dark:border-gray-700">
+                        <h4 class="text-sm font-semibold text-gray-500 dark:text-gray-400 mb-2">EXTERNAL LINKS</h4>
+                        <a href="https://www.vimarsh.mp.gov.in/" target="_blank" class="bg-gray-100 dark:bg-gray-700 hover:bg-blue-100 dark:hover:bg-blue-900/30 p-3 rounded-lg transition-all flex items-center gap-3 text-gray-700 dark:text-gray-300 hover:text-blue-600">
+                            <i class="fas fa-external-link-alt text-blue-500"></i>
+                            <span>School Portal</span>
+                            <i class="fas fa-arrow-right ml-auto text-sm opacity-50"></i>
+                        </a>
+                        <a href="https://udiseplus.gov.in/#/en/page/statelogin" target="_blank" class="bg-gray-100 dark:bg-gray-700 hover:bg-blue-100 dark:hover:bg-blue-900/30 p-3 rounded-lg transition-all flex items-center gap-3 text-gray-700 dark:text-gray-300 hover:text-blue-600 mt-2">
+                            <i class="fas fa-external-link-alt text-blue-500"></i>
+                            <span>Udise Student Module</span>
+                            <i class="fas fa-arrow-right ml-auto text-sm opacity-50"></i>
+                        </a>
+                        <a href="https://sederp.educationportal3.in/" target="_blank" class="bg-gray-100 dark:bg-gray-700 hover:bg-blue-100 dark:hover:bg-blue-900/30 p-3 rounded-lg transition-all flex items-center gap-3 text-gray-700 dark:text-gray-300 hover:text-blue-600 mt-2">
+                            <i class="fas fa-external-link-alt text-blue-500"></i>
+                            <span>Education Portal</span>
+                            <i class="fas fa-arrow-right ml-auto text-sm opacity-50"></i>
+                        </a>
                     </div>
-                </form>
-                <div id="formSuccess" class="hidden mt-4 p-3 bg-green-100 text-green-700 rounded-lg text-center"></div>
+                </div>
+                
+                <!-- ADMISSION FORM -->
+                <div class="md:w-3/5 order-2">
+                    <div class="bg-gray-100 dark:bg-gray-900 rounded-2xl shadow-xl p-8">
+                        <form id="admissionForm">
+                            <div class="grid gap-4">
+                                <input type="text" id="studentName" placeholder="Student's Full Name *" class="w-full p-3 border rounded-lg dark:bg-gray-800" required>
+                                <input type="date" id="dob" class="w-full p-3 border rounded-lg dark:bg-gray-800" required>
+                                <select id="grade" class="w-full p-3 border rounded-lg dark:bg-gray-800" required>
+                                    <option value="">Select Grade *</option>
+                                    <option>Nursery</option><option>LKG</option><option>UKG</option>
+                                    <option>1</option><option>2</option><option>3</option><option>4</option><option>5</option>
+                                    <option>6</option><option>7</option><option>8</option><option>9</option><option>10</option>
+                                    <option>11</option><option>12</option>
+                                </select>
+                                <input type="text" id="parentName" placeholder="Parent/Guardian Name *" class="w-full p-3 border rounded-lg dark:bg-gray-800" required>
+                                <input type="email" id="email" placeholder="Email Address *" class="w-full p-3 border rounded-lg dark:bg-gray-800" required>
+                                <input type="tel" id="phone" placeholder="Phone Number *" class="w-full p-3 border rounded-lg dark:bg-gray-800" required>
+                                <textarea id="message" rows="3" placeholder="Additional Message" class="w-full p-3 border rounded-lg dark:bg-gray-800"></textarea>
+                                <button type="submit" class="bg-orange-600 hover:bg-orange-700 text-white px-6 py-3 rounded-full font-semibold transition-all">
+                                    <i class="fas fa-paper-plane mr-2"></i>Submit Application →
+                                </button>
+                            </div>
+                        </form>
+                        <div id="formSuccess" class="hidden mt-4 p-3 bg-green-100 text-green-700 rounded-lg text-center"></div>
+                    </div>
+                </div>
+                
+                <!-- RIGHT QUICK LINKS -->
+                <div class="md:w-1/5 flex flex-col gap-4 order-3">
+                    <h3 class="text-lg font-bold text-gray-700 dark:text-gray-300 border-b-2 border-orange-500 pb-2 mb-2">
+                        <i class="fas fa-info-circle text-orange-500 mr-2"></i>Resources
+                    </h3>
+                    <a href="replace-with-your-brochure-pdf-link-here" target="_blank" class="bg-gray-100 dark:bg-gray-700 hover:bg-green-100 dark:hover:bg-green-900/30 p-3 rounded-lg transition-all flex items-center gap-3 text-gray-700 dark:text-gray-300 hover:text-green-600">
+                        <i class="fas fa-file-pdf text-green-500"></i>
+                        <span>Time Table</span>
+                        <i class="fas fa-download ml-auto text-sm opacity-50"></i>
+                    </a>
+                    <a href="https://hescholarship.mp.gov.in/Index.aspx" target="_blank" class="bg-gray-100 dark:bg-gray-700 hover:bg-green-100 dark:hover:bg-green-900/30 p-3 rounded-lg transition-all flex items-center gap-3 text-gray-700 dark:text-gray-300 hover:text-green-600">
+                        <i class="fas fa-hand-holding-heart text-green-500"></i>
+                        <span>Scholarships</span>
+                        <i class="fas fa-arrow-right ml-auto text-sm opacity-50"></i>
+                    </a>
+                    <a href="#contact" class="bg-gray-100 dark:bg-gray-700 hover:bg-green-100 dark:hover:bg-green-900/30 p-3 rounded-lg transition-all flex items-center gap-3 text-gray-700 dark:text-gray-300 hover:text-green-600">
+                        <i class="fas fa-phone-alt text-green-500"></i>
+                        <span>Contact Us</span>
+                        <i class="fas fa-arrow-right ml-auto text-sm opacity-50"></i>
+                    </a>
+                    <a href="https://maps.app.goo.gl/MThm4FDsxW4SHswd9" target="_blank" class="bg-gray-100 dark:bg-gray-700 hover:bg-green-100 dark:hover:bg-green-900/30 p-3 rounded-lg transition-all flex items-center gap-3 text-gray-700 dark:text-gray-300 hover:text-green-600">
+                        <i class="fas fa-map-marker-alt text-green-500"></i>
+                        <span>Find Us</span>
+                        <i class="fas fa-arrow-right ml-auto text-sm opacity-50"></i>
+                    </a>
+                    
+                    <div class="mt-4 pt-4 border-t border-gray-200 dark:border-gray-700">
+                        <a href="replace-with-your-whatsapp-number-link-here" target="_blank" class="block bg-orange-500 hover:bg-orange-600 text-white text-center py-3 rounded-lg font-semibold transition-all">
+                            <i class="fas fa-whatsapp mr-2"></i>Chat on WhatsApp
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Us Section -->
+    <section id="contact" class="py-20 bg-gray-50 dark:bg-gray-900">
+        <div class="container mx-auto px-4">
+            <h2 class="section-title font-bold text-center text-gray-800 dark:text-white mb-12">Contact Us</h2>
+            
+            <div class="max-w-4xl mx-auto grid md:grid-cols-2 gap-8">
+                <div class="bg-white dark:bg-gray-800 rounded-2xl p-8 shadow-lg">
+                    <h3 class="text-2xl font-bold mb-6 text-gray-800 dark:text-white">Get in Touch</h3>
+                    
+                    <div class="space-y-4">
+                        <div class="flex items-center gap-4">
+                            <div class="w-12 h-12 bg-orange-100 dark:bg-orange-900/30 rounded-full flex items-center justify-center">
+                                <i class="fas fa-map-marker-alt text-orange-600 text-xl"></i>
+                            </div>
+                            <div>
+                                <p class="text-sm text-gray-500 dark:text-gray-400">Address</p>
+                                <p class="text-gray-700 dark:text-gray-300">PM SHRI SHAHID INDER GIRI GOVT HSS RAMPUR</p>
+                            </div>
+                        </div>
+                        
+                        <div class="flex items-center gap-4">
+                            <div class="w-12 h-12 bg-orange-100 dark:bg-orange-900/30 rounded-full flex items-center justify-center">
+                                <i class="fas fa-phone text-orange-600 text-xl"></i>
+                            </div>
+                            <div>
+                                <p class="text-sm text-gray-500 dark:text-gray-400">Phone</p>
+                                <p class="text-gray-700 dark:text-gray-300">+91 9876543210</p>
+                            </div>
+                        </div>
+                        
+                        <div class="flex items-center gap-4">
+                            <div class="w-12 h-12 bg-orange-100 dark:bg-orange-900/30 rounded-full flex items-center justify-center">
+                                <i class="fas fa-envelope text-orange-600 text-xl"></i>
+                            </div>
+                            <div>
+                                <p class="text-sm text-gray-500 dark:text-gray-400">Email</p>
+                                <p class="text-gray-700 dark:text-gray-300">govthssrampur@gmail.com</p>
+                            </div>
+                        </div>
+                        
+                        <div class="flex items-center gap-4">
+                            <div class="w-12 h-12 bg-orange-100 dark:bg-orange-900/30 rounded-full flex items-center justify-center">
+                                <i class="fas fa-clock text-orange-600 text-xl"></i>
+                            </div>
+                            <div>
+                                <p class="text-sm text-gray-500 dark:text-gray-400">Office Hours</p>
+                                <p class="text-gray-700 dark:text-gray-300">Mon-Fri: 10:00 AM - 4:30 PM</p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="mt-8 pt-6 border-t border-gray-200 dark:border-gray-700">
+                        <p class="text-sm text-gray-500 dark:text-gray-400 mb-3">Follow Us</p>
+                        <div class="flex gap-3">
+                            <a href="#" class="w-10 h-10 bg-blue-600 text-white rounded-full flex items-center justify-center hover:bg-blue-700 transition">
+                                <i class="fab fa-facebook-f"></i>
+                            </a>
+                            <a href="#" class="w-10 h-10 bg-sky-500 text-white rounded-full flex items-center justify-center hover:bg-sky-600 transition">
+                                <i class="fab fa-twitter"></i>
+                            </a>
+                            <a href="#" class="w-10 h-10 bg-pink-600 text-white rounded-full flex items-center justify-center hover:bg-pink-700 transition">
+                                <i class="fab fa-instagram"></i>
+                            </a>
+                            <a href="#" class="w-10 h-10 bg-red-600 text-white rounded-full flex items-center justify-center hover:bg-red-700 transition">
+                                <i class="fab fa-youtube"></i>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="bg-white dark:bg-gray-800 rounded-2xl p-8 shadow-lg">
+                    <h3 class="text-2xl font-bold mb-6 text-gray-800 dark:text-white">Send a Message</h3>
+                    <form id="contactForm">
+                        <div class="space-y-4">
+                            <input type="text" id="contactName" placeholder="Your Name *" class="w-full p-3 border rounded-lg dark:bg-gray-700" required>
+                            <input type="email" id="contactEmail" placeholder="Your Email *" class="w-full p-3 border rounded-lg dark:bg-gray-700" required>
+                            <input type="text" id="contactSubject" placeholder="Subject" class="w-full p-3 border rounded-lg dark:bg-gray-700">
+                            <textarea id="contactMessage" rows="4" placeholder="Your Message *" class="w-full p-3 border rounded-lg dark:bg-gray-700" required></textarea>
+                            <button type="submit" class="w-full bg-orange-600 hover:bg-orange-700 text-white px-6 py-3 rounded-full font-semibold transition-all">
+                                <i class="fas fa-paper-plane mr-2"></i>Send Message
+                            </button>
+                        </div>
+                    </form>
+                    <div id="contactSuccess" class="hidden mt-4 p-3 bg-green-100 text-green-700 rounded-lg text-center"></div>
+                </div>
             </div>
         </div>
     </section>
@@ -302,22 +715,9 @@
 
     <script>
     // ==================== GOOGLE SHEETS CONFIGURATION ====================
-
-// ==================== GOOGLE SHEETS CONFIGURATION ====================
-// For public repos - URLs entered via prompt
-let GOOGLE_SHEETS_URL = localStorage.getItem('admin_api_url');
-let ADMISSION_SHEETS_URL = localStorage.getItem('admission_api_url');
-
-if (!GOOGLE_SHEETS_URL) {
-    GOOGLE_SHEETS_URL = prompt('Enter Admin Google Sheets URL:');
-    if (GOOGLE_SHEETS_URL) localStorage.setItem('admin_api_url', GOOGLE_SHEETS_URL);
-}
-
-if (!ADMISSION_SHEETS_URL) {
-    ADMISSION_SHEETS_URL = prompt('Enter Admission Google Sheets URL:');
-    if (ADMISSION_SHEETS_URL) localStorage.setItem('admission_api_url', ADMISSION_SHEETS_URL);
-}
-		
+    const GOOGLE_SHEETS_URL = 'https://script.google.com/macros/s/AKfycbw002ogUyUSgcNvACJe9GuszPwedI1sH1WsPno_ZDNFhetuSNB3Vc-nR3G_HFsY4-WqiA/exec';
+    const ADMISSION_SHEETS_URL = 'https://script.google.com/macros/s/AKfycbxzi0Sa9rvIL9tQCaupowEH8C_En7xwn-yXTdEAnNkXbbBeCCwAZeBFQZtd5Q4i2YGJVw/exec';
+    
     // ==================== DATA ====================
     let appData = {
         results: [],
@@ -325,12 +725,14 @@ if (!ADMISSION_SHEETS_URL) {
         programs: [],
         events: [],
         gallery: [],
-        stats: [
-            { label: "Happy Students", value: 5000 },
-            { label: "Expert Teachers", value: 250 },
-            { label: "Years of Excellence", value: 25 },
-            { label: "Parent Satisfaction", value: 100 }
-        ]
+       stats: [
+    { label: "Primary Section", value: 100 },
+    { label: "Middle Section", value: 120 },
+    { label: "HigherSecondory Section", value: 368 },
+    { label: "Total Students", value: 588 },
+    { label: "Total Teachers", value: 18 },
+    { label: "Streams", value: 3 }
+]
     };
     
     let adminPassword = "admin123";
@@ -340,69 +742,42 @@ if (!ADMISSION_SHEETS_URL) {
     
     // ==================== GOOGLE SHEETS FUNCTIONS ====================
     async function loadFromGoogleSheets() {
-    if (!GOOGLE_SHEETS_URL || GOOGLE_SHEETS_URL === 'YOUR_WEB_APP_URL_HERE') {
-        console.log('Google Sheets not configured. Using localStorage.');
-        loadFromLocalStorage();
-        return;
-    }
-    
-    try {
-        showLoading(true);
-        const response = await fetch(GOOGLE_SHEETS_URL);
-        const data = await response.json();
-        
-        if (data.error) {
-            throw new Error(data.error);
+        if (!GOOGLE_SHEETS_URL || GOOGLE_SHEETS_URL === 'YOUR_WEB_APP_URL_HERE') {
+            console.log('Google Sheets not configured. Using localStorage.');
+            loadFromLocalStorage();
+            return;
         }
         
-        // Load all data types
-        appData.teachers = data.filter(item => item.type === 'teacher');
-        appData.programs = data.filter(item => item.type === 'program');
-        appData.events = data.filter(item => item.type === 'event');
-        appData.results = data.filter(item => item.type === 'result');
-        appData.gallery = data.filter(item => item.type === 'gallery').map(item => item.url);
-        
-        // IMPORTANT - Load stats from Google Sheets
-        //const statsFromSheets = data.filter(item => item.type === 'stats');
-        //if (statsFromSheets.length > 0) {
-            //appData.stats = statsFromSheets.map(item => ({ 
-                //label: item.label, 
-                //value: Number(item.value)  // ← JUST ADD "Number()" around item.value
-            //}));
-            //console.log('✅ Stats loaded from Google Sheets:', appData.stats);
-        //} else {
-            // If no stats in sheet, use defaults
-            //console.log('No stats found in Google Sheets, using defaults');
-            appData.stats = [
-                { label: "Happy Students", value: 588 },
-                { label: "Expert Teachers", value: 18 },
-                { label: "Years of Excellence", value: 25 },
-                { label: "Parent Satisfaction", value: 100 }
-            ];
-        
-        
-        // If no data in sheets, load defaults for other types
-        if (appData.teachers.length === 0) loadDefaultData();
-        
-        renderAll();
-        saveToLocalStorage();
-        showLoading(false);
-        console.log('✅ Data loaded from Google Sheets');
-    } catch (error) {
-        console.error('Error loading from Google Sheets:', error);
-        loadFromLocalStorage();
-        showLoading(false);
+        try {
+            showLoading(true);
+            const response = await fetch(GOOGLE_SHEETS_URL);
+            const data = await response.json();
+            
+            if (data.error) {
+                throw new Error(data.error);
+            }
+            
+            appData.teachers = data.filter(item => item.type === 'teacher');
+            appData.programs = data.filter(item => item.type === 'program');
+            appData.events = data.filter(item => item.type === 'event');
+            appData.results = data.filter(item => item.type === 'result');
+            appData.gallery = data.filter(item => item.type === 'gallery').map(item => item.url);
+            
+            if (appData.teachers.length === 0) loadDefaultData();
+            
+            renderAll();
+            saveToLocalStorage();
+            showLoading(false);
+            console.log('✅ Data loaded from Google Sheets');
+        } catch (error) {
+            console.error('Error loading from Google Sheets:', error);
+            loadFromLocalStorage();
+            showLoading(false);
+        }
     }
-}
     
     async function saveToGoogleSheets(type, data) {
-        
-		    // ADD THIS LINE ↓↓↓
-    if (type === 'stats') { saveToLocalStorage(); return; }
-    // ADD THIS LINE ↑↑↑
-
-		
-		if (!GOOGLE_SHEETS_URL || GOOGLE_SHEETS_URL === 'YOUR_WEB_APP_URL_HERE') {
+        if (!GOOGLE_SHEETS_URL || GOOGLE_SHEETS_URL === 'YOUR_WEB_APP_URL_HERE') {
             saveToLocalStorage();
             return;
         }
@@ -423,9 +798,6 @@ if (!ADMISSION_SHEETS_URL) {
     }
     
     async function deleteFromGoogleSheets(type, id) {
-        // For deletion, we reload all data after local delete
-        // Google Sheets doesn't support direct deletion via API easily
-        // So we'll just save the updated local data
         saveToLocalStorage();
     }
     
@@ -463,7 +835,7 @@ if (!ADMISSION_SHEETS_URL) {
             events: appData.events,
             results: appData.results,
             gallery: appData.gallery,
-            // stats: appData.stats
+            stats: appData.stats
         }));
     }
     
@@ -487,7 +859,7 @@ if (!ADMISSION_SHEETS_URL) {
             { id: 2, type: 'event', title: "Parent-Teacher Conference", date: "April 28, 2026", location: "Virtual", action: "Book Slot", color: "purple" },
             { id: 3, type: 'event', title: "STEAM Expo", date: "May 10, 2026", location: "Auditorium", action: "Exhibit", color: "green" }
         ];
-         
+        
         appData.results = [
             { id: 1, type: 'result', year: "2025", percentage: "98.6%", toppers: "3 in District Top 10", distinction: "52 Distinctions" },
             { id: 2, type: 'result', year: "2024", percentage: "97.2%", toppers: "2 in State Top 50", distinction: "48 Distinctions" },
@@ -495,25 +867,14 @@ if (!ADMISSION_SHEETS_URL) {
         ];
         
         appData.gallery = [
-    "https://raw.githubusercontent.com/serviceonthedoor-bit/school-website-rampur/main/images/gallery1.jpg",
-    "https://raw.githubusercontent.com/serviceonthedoor-bit/school-website-rampur/main/images/gallery2.jpg",
-    "https://raw.githubusercontent.com/serviceonthedoor-bit/school-website-rampur/main/images/gallery3.jpg",
-    "https://raw.githubusercontent.com/serviceonthedoor-bit/school-website-rampur/main/images/gallery4.jpg"
-	];
+            "https://images.unsplash.com/photo-1523050854058-8df90110c9f1?w=400&h=300&fit=crop",
+            "https://images.unsplash.com/photo-1577896851231-70ef18881754?w=400&h=300&fit=crop",
+            "https://images.unsplash.com/photo-1509062522246-3755977927d7?w=400&h=300&fit=crop",
+            "https://images.unsplash.com/photo-1427504494785-3a9ca7044f45?w=400&h=300&fit=crop"
+        ];
+    }
     
-	   // Make sure stats are set correctly
-    appData.stats = 	[
-        { label: "Happy Students", value: 5000 },
-        { label: "Expert Teachers", value: 250 },
-        { label: "Years of Excellence", value: 25 },
-        { label: "Parent Satisfaction", value: 100 }
-    	];
-	
-	
-	
-	}
-    
-    // ==================== CRUD OPERATIONS WITH SYNC ====================
+    // ==================== CRUD OPERATIONS ====================
     async function addItem(type, item) {
         const newItem = { id: Date.now(), type, ...item };
         appData[type + 's'].push(newItem);
@@ -527,7 +888,7 @@ if (!ADMISSION_SHEETS_URL) {
         renderAll();
     }
     
-    // ==================== RENDER FUNCTIONS (same as before) ====================
+    // ==================== RENDER FUNCTIONS ====================
     function renderAll() {
         renderStats();
         renderResults();
@@ -538,14 +899,14 @@ if (!ADMISSION_SHEETS_URL) {
         renderAdminLists();
     }
     
-   function renderStats() {
-    let html = '';
-    appData.stats.forEach(s => {
-        const numValue = Number(s.value) || 0;
-        html += `<div class="text-center"><div class="text-5xl font-bold text-blue-600">${numValue}</div><p class="text-gray-600 mt-2">${s.label}</p></div>`;
-    });
-    document.getElementById('statsContainer').innerHTML = html;
-}
+    function renderStats() {
+        let html = '';
+        appData.stats.forEach((s, i) => {
+            html += `<div class="text-center"><div class="text-5xl font-bold text-blue-600 counter" data-target="${s.value}">0</div><p class="text-gray-600 mt-2">${s.label}</p></div>`;
+        });
+        document.getElementById('statsContainer').innerHTML = html;
+        startCounters();
+    }
     
     function startCounters() {
         const counters = document.querySelectorAll('.counter');
@@ -626,38 +987,15 @@ if (!ADMISSION_SHEETS_URL) {
         document.getElementById('eventsContainer').innerHTML = html;
     }
     
-   function renderGallery() {
-    let html = '';
-    appData.gallery.forEach(url => {
-        html += `<img src="${url}" 
-                       class="rounded-2xl w-full h-48 object-cover cursor-pointer" 
-                       onclick="openLightbox('${url}')"
-                       onerror="this.src='https://placehold.co/400x300/f97316/white?text=Image+Not+Found'">`;
-    });
-    document.getElementById('galleryContainer').innerHTML = html;
-}
-
-		// ========== ADD refreshImages() RIGHT HERE ==========
-function refreshImages() {
-    console.log('Refreshing images...');
-    const galleryContainer = document.getElementById('galleryContainer');
-    if (galleryContainer) {
-        renderGallery();
+    function renderGallery() {
+        let html = '';
+        appData.gallery.forEach(url => {
+            html += `<img src="${url}" class="rounded-2xl w-full h-48 object-cover cursor-pointer" onclick="openLightbox('${url}')">`;
+        });
+        document.getElementById('galleryContainer').innerHTML = html;
     }
     
-    // Clear image cache by adding timestamp
-    const allImages = document.querySelectorAll('img');
-    allImages.forEach(img => {
-        const originalSrc = img.src.split('?')[0];
-        if (originalSrc.includes('images/')) {
-            img.src = originalSrc + '?t=' + new Date().getTime();
-        }
-    });
-}
-// ========== END OF refreshImages() ==========
-		
     function renderAdminLists() {
-        // Results Admin List
         let resultsHtml = '';
         appData.results.forEach(r => {
             resultsHtml += `<div class="flex justify-between items-center p-3 bg-gray-800 rounded-lg">
@@ -667,7 +1005,6 @@ function refreshImages() {
         });
         document.getElementById('resultsAdminList').innerHTML = resultsHtml;
         
-        // Teachers Admin List
         let teachersHtml = '';
         appData.teachers.forEach(t => {
             teachersHtml += `<div class="flex justify-between items-center p-3 bg-gray-800 rounded-lg">
@@ -677,7 +1014,6 @@ function refreshImages() {
         });
         document.getElementById('teachersAdminList').innerHTML = teachersHtml;
         
-        // Programs Admin List
         let programsHtml = '';
         appData.programs.forEach(p => {
             programsHtml += `<div class="flex justify-between items-center p-3 bg-gray-800 rounded-lg">
@@ -687,7 +1023,6 @@ function refreshImages() {
         });
         document.getElementById('programsAdminList').innerHTML = programsHtml;
         
-        // Events Admin List
         let eventsHtml = '';
         appData.events.forEach(e => {
             eventsHtml += `<div class="flex justify-between items-center p-3 bg-gray-800 rounded-lg">
@@ -697,14 +1032,12 @@ function refreshImages() {
         });
         document.getElementById('eventsAdminList').innerHTML = eventsHtml;
         
-        // Gallery Admin List
         let galleryHtml = '';
         appData.gallery.forEach((url, idx) => {
             galleryHtml += `<div class="relative"><img src="${url}" class="w-full h-20 object-cover rounded"><button onclick="deleteGalleryItem(${idx})" class="absolute top-1 right-1 bg-red-500 text-white rounded-full w-5 h-5 text-xs">&times;</button></div>`;
         });
         document.getElementById('galleryAdminList').innerHTML = galleryHtml;
         
-        // Stats Admin List
         let statsHtml = '';
         appData.stats.forEach((s, idx) => {
             statsHtml += `<div class="flex gap-2 p-3 bg-gray-800 rounded-lg">
@@ -722,65 +1055,12 @@ function refreshImages() {
         renderAll();
     }
     
-    // ==================== UPDATING THIS SECTION TO IMPROVE THE STAT PART ====================
-		
-		function updateStat(idx) {
-    const newLabel = document.getElementById(`statLabel${idx}`).value;
-    const newValue = parseInt(document.getElementById(`statValue${idx}`).value);
-    
-    if (isNaN(newValue)) {
-        alert('Please enter a valid number');
-        return;
+    function updateStat(idx) {
+        appData.stats[idx].label = document.getElementById(`statLabel${idx}`).value;
+        appData.stats[idx].value = parseInt(document.getElementById(`statValue${idx}`).value);
+        saveToLocalStorage();
+        renderAll();
     }
-    
-    appData.stats[idx].label = newLabel;
-    appData.stats[idx].value = newValue;
-    
-    // Save to localStorage
-    saveToLocalStorage();
-    
-    // Also save to Google Sheets as backup
-    saveStatsToGoogleSheets();
-    
-    // Re-render everything
-    renderAll();
-    
-    // Show success message
-    showToast('Statistics updated successfully!');
-}
-
-function saveStatsToGoogleSheets() {
-    if (GOOGLE_SHEETS_URL && GOOGLE_SHEETS_URL !== 'Your_web_app_url') {
-        try {
-            fetch(GOOGLE_SHEETS_URL, {
-                method: 'POST',
-                mode: 'no-cors',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ 
-                    type: 'stats', 
-                    data: appData.stats 
-                })
-            });
-        } catch(e) {
-            console.log('Stats backup saved locally only');
-        }
-    }
-}
-
-function showToast(message) {
-    let toast = document.getElementById('statsToast');
-    if (!toast) {
-        toast = document.createElement('div');
-        toast.id = 'statsToast';
-        toast.style.cssText = 'position:fixed; bottom:20px; right:20px; background:#10b981; color:white; padding:12px 20px; border-radius:8px; z-index:9999; display:none;';
-        document.body.appendChild(toast);
-    }
-    toast.innerHTML = message;
-    toast.style.display = 'block';
-    setTimeout(() => {
-        toast.style.display = 'none';
-    }, 2000);
-}
     
     // ==================== MODAL FUNCTIONS ====================
     function openResultModal() {
@@ -956,17 +1236,14 @@ function showToast(message) {
     if (savedRight) document.getElementById('rightLogo').src = savedRight;
     
     // ==================== ADMISSION FORM ====================
-            // ==================== ADMISSION FORM - Sends to SEPARATE Google Sheet ====================
     document.getElementById('admissionForm').addEventListener('submit', async (e) => {
         e.preventDefault();
         
-        // Show loading state on button
         const submitBtn = e.target.querySelector('button[type="submit"]');
         const originalText = submitBtn.innerHTML;
         submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Submitting...';
         submitBtn.disabled = true;
         
-        // Collect form data
         const formData = {
             timestamp: new Date().toISOString(),
             studentName: document.getElementById('studentName').value,
@@ -980,42 +1257,32 @@ function showToast(message) {
         
         let successMessage = '';
         
-        // Try to save to Google Sheets using no-cors mode
         if (ADMISSION_SHEETS_URL && ADMISSION_SHEETS_URL.includes('script.google.com')) {
             try {
                 await fetch(ADMISSION_SHEETS_URL, {
                     method: 'POST',
-                    mode: 'no-cors',  // Changed from 'cors' to 'no-cors'
+                    mode: 'no-cors',
                     headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify(formData)
                 });
-                
-                // With no-cors, we assume success (can't read response)
                 successMessage = '✅ Application submitted to Google Sheets successfully!';
-                
-                // Also save backup to localStorage
                 let admissions = JSON.parse(localStorage.getItem('admissions_backup') || '[]');
                 admissions.push(formData);
                 localStorage.setItem('admissions_backup', JSON.stringify(admissions));
-                
             } catch (error) {
                 console.error('Google Sheets error:', error);
                 successMessage = '⚠️ Online save failed. Saving locally as backup.';
-                
-                // Save to localStorage only
                 let admissions = JSON.parse(localStorage.getItem('admissions_backup') || '[]');
                 admissions.push(formData);
                 localStorage.setItem('admissions_backup', JSON.stringify(admissions));
             }
         } else {
-            // No Google Sheets configured - save locally only
             let admissions = JSON.parse(localStorage.getItem('admissions_backup') || '[]');
             admissions.push(formData);
             localStorage.setItem('admissions_backup', JSON.stringify(admissions));
             successMessage = '✅ Application saved locally!';
         }
         
-        // Show success message
         const successDiv = document.getElementById('formSuccess');
         successDiv.innerHTML = successMessage;
         successDiv.classList.remove('hidden');
@@ -1025,10 +1292,10 @@ function showToast(message) {
             successDiv.classList.add('hidden');
         }, 5000);
         
-        // Restore button
         submitBtn.innerHTML = originalText;
         submitBtn.disabled = false;
     });
+    
     // ==================== DARK MODE ====================
     let darkToggle = document.getElementById('darkModeToggle');
     let darkIcon = document.getElementById('darkIcon');
@@ -1070,18 +1337,287 @@ function showToast(message) {
         else nav.classList.remove('shadow-lg');
     });
     
+    // ==================== SCHOOL CALENDAR ====================
+    let currentMonth = new Date().getMonth();
+    let currentYear = new Date().getFullYear();
+
+    const calendarEvents = [
+        { date: '2026-04-15', title: 'Annual Sports Day', color: 'green' },
+        { date: '2026-04-28', title: 'Parent-Teacher Conference', color: 'blue' },
+        { date: '2026-05-10', title: 'STEAM Expo', color: 'orange' },
+        { date: '2026-05-25', title: 'Summer Break Begins', color: 'purple' },
+        { date: '2026-06-01', title: 'School Reopens', color: 'green' },
+        { date: '2026-06-15', title: 'Mid-Term Exams Start', color: 'orange' },
+        { date: '2026-07-01', title: 'Parent-Teacher Meeting', color: 'blue' },
+        { date: '2026-07-15', title: 'Science Fair', color: 'purple' },
+        { date: '2026-08-01', title: 'Independence Day Celebration', color: 'orange' },
+        { date: '2026-08-15', title: 'Holiday - Independence Day', color: 'green' },
+    ];
+
+    function renderCalendar(month, year) {
+        const grid = document.getElementById('calendarGrid');
+        if (!grid) return;
+        
+        const monthNames = ['January', 'February', 'March', 'April', 'May', 'June', 
+                            'July', 'August', 'September', 'October', 'November', 'December'];
+        
+        document.getElementById('calendarMonth').textContent = `${monthNames[month]} ${year}`;
+        
+        grid.innerHTML = '';
+        
+        const firstDay = new Date(year, month, 1).getDay();
+        const daysInMonth = new Date(year, month + 1, 0).getDate();
+        const daysInPrevMonth = new Date(year, month, 0).getDate();
+        const today = new Date();
+        
+        const eventsForMonth = calendarEvents.filter(event => {
+            const eventDate = new Date(event.date);
+            return eventDate.getMonth() === month && eventDate.getFullYear() === year;
+        });
+        
+        const eventMap = {};
+        eventsForMonth.forEach(event => {
+            const day = new Date(event.date).getDate();
+            if (!eventMap[day]) eventMap[day] = [];
+            eventMap[day].push(event);
+        });
+        
+        for (let i = firstDay - 1; i >= 0; i--) {
+            const day = daysInPrevMonth - i;
+            const dayDiv = document.createElement('div');
+            dayDiv.className = 'calendar-day other-month';
+            dayDiv.innerHTML = `<span class="day-number">${day}</span>`;
+            grid.appendChild(dayDiv);
+        }
+        
+        for (let day = 1; day <= daysInMonth; day++) {
+            const dayDiv = document.createElement('div');
+            dayDiv.className = 'calendar-day';
+            
+            const isToday = (day === today.getDate() && month === today.getMonth() && year === today.getFullYear());
+            if (isToday) {
+                dayDiv.classList.add('today');
+            }
+            
+            let dayContent = `<span class="day-number">${day}</span>`;
+            
+            if (eventMap[day]) {
+                dayDiv.classList.add('has-event');
+                eventMap[day].forEach(event => {
+                    const dot = document.createElement('span');
+                    dot.className = `event-dot ${event.color}`;
+                    dayDiv.appendChild(dot);
+                });
+                const titles = eventMap[day].map(e => e.title).join(', ');
+                dayDiv.title = titles;
+            }
+            
+            dayDiv.innerHTML = dayContent;
+            
+            if (eventMap[day]) {
+                eventMap[day].forEach(event => {
+                    const dot = document.createElement('span');
+                    dot.className = `event-dot ${event.color}`;
+                    dayDiv.appendChild(dot);
+                });
+            }
+            
+            grid.appendChild(dayDiv);
+        }
+        
+        const totalCells = grid.children.length;
+        const remaining = 42 - totalCells;
+        for (let day = 1; day <= remaining; day++) {
+            const dayDiv = document.createElement('div');
+            dayDiv.className = 'calendar-day other-month';
+            dayDiv.innerHTML = `<span class="day-number">${day}</span>`;
+            grid.appendChild(dayDiv);
+        }
+        
+        updateUpcomingEvents();
+    }
+
+    function updateUpcomingEvents() {
+        const container = document.getElementById('upcomingEvents');
+        if (!container) return;
+        
+        const today = new Date();
+        today.setHours(0, 0, 0, 0);
+        
+        const futureEvents = calendarEvents
+            .filter(event => new Date(event.date) >= today)
+            .sort((a, b) => new Date(a.date) - new Date(b.date))
+            .slice(0, 5);
+        
+        if (futureEvents.length === 0) {
+            container.innerHTML = '<div class="text-gray-500 dark:text-gray-400 text-sm">No upcoming events</div>';
+            return;
+        }
+        
+        container.innerHTML = futureEvents.map(event => {
+            const date = new Date(event.date);
+            const dateStr = date.toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' });
+            return `
+                <div class="flex items-center gap-3 py-1">
+                    <span class="w-3 h-3 bg-${event.color}-500 rounded-full"></span>
+                    <span>${event.title}</span>
+                    <span class="text-xs text-gray-400 ml-auto">${dateStr}</span>
+                </div>
+            `;
+        }).join('');
+    }
+
+    function changeMonth(delta) {
+        currentMonth += delta;
+        if (currentMonth > 11) {
+            currentMonth = 0;
+            currentYear++;
+        } else if (currentMonth < 0) {
+            currentMonth = 11;
+            currentYear--;
+        }
+        renderCalendar(currentMonth, currentYear);
+    }
+
     // ==================== INITIALIZE ====================
     AOS.init({ once: true, duration: 800 });
     loadFromGoogleSheets();
     
+    // Initialize calendar
+    renderCalendar(currentMonth, currentYear);
+    
     console.log('%c🔐 Admin Access: Type "admin" anywhere on the page', 'color: #3b82f6; font-size: 14px; font-weight: bold;');
-    console.log('%c🔑 Default Password: Hema@10itahema', 'color: #3b82f6; font-size: 12px;');
+    console.log('%c🔑 Default Password: admin123', 'color: #3b82f6; font-size: 12px;');
     if (!GOOGLE_SHEETS_URL || GOOGLE_SHEETS_URL === 'YOUR_WEB_APP_URL_HERE') {
         console.log('%c⚠️ Google Sheets not configured! Data will only save locally.', 'color: #f97316; font-size: 12px;');
-        console.log('%c📊 To enable permanent storage, set GOOGLE_SHEETS_URL variable', 'color: #f97316; font-size: 12px;');
     } else {
         console.log('%c✅ Google Sheets connected! Data is permanent.', 'color: #10b981; font-size: 12px;');
     }
-</script>
+    </script>
+
+    <!-- Floating Particles Effect -->
+    <script src="https://cdn.jsdelivr.net/npm/tsparticles@2.12.0/tsparticles.bundle.min.js"></script>
+    <script>
+    document.addEventListener('DOMContentLoaded', () => {
+        tsParticles.load("home", {
+            particles: {
+                number: { 
+                    value: 40,
+                    density: { enable: true, area: 800 }
+                },
+                color: { value: ["#f97316", "#ea580c", "#fb923c", "#ffffff"] },
+                shape: { type: "circle" },
+                opacity: { 
+                    value: 0.3,
+                    random: true,
+                    animation: { enable: true, speed: 1, minimumValue: 0.1 }
+                },
+                size: { 
+                    value: { min: 2, max: 6 },
+                    random: true
+                },
+                move: {
+                    enable: true,
+                    speed: 0.8,
+                    direction: "none",
+                    random: true,
+                    straight: false,
+                    outModes: "out"
+                }
+            },
+            interactivity: {
+                events: {
+                    onHover: {
+                        enable: true,
+                        mode: "bubble"
+                    },
+                    onClick: {
+                        enable: true,
+                        mode: "push"
+                    }
+                },
+                modes: {
+                    bubble: {
+                        size: 10,
+                        distance: 100,
+                        opacity: 0.5
+                    },
+                    push: {
+                        quantity: 4
+                    }
+                }
+            },
+            background: {
+                color: "transparent"
+            }
+        });
+    });
+
+// ==================== FLOATING ICONS (FIXED - SPREAD OUT + FASTER) ====================
+(function() {
+    const icons = document.querySelectorAll('.float-icon-js');
+    if (!icons.length) {
+        console.warn('No floating icons found!');
+        return;
+    }
+    
+    console.log('✅ Found ' + icons.length + ' floating icons');
+    
+    // Store positions and velocities
+    const iconData = [];
+    
+    icons.forEach((icon, i) => {
+        // Spread them out across the entire screen (5% to 95%)
+        const x = Math.random() * 90 + 5;
+        const y = Math.random() * 90 + 5;
+        
+        icon.style.left = x + '%';
+        icon.style.top = y + '%';
+        icon.style.fontSize = (2 + Math.random() * 2) + 'rem'; // 2rem to 4rem
+        icon.style.opacity = '0.12';
+        icon.textContent = icon.dataset.icon || '📚';
+        
+        // Store data for animation (faster speeds)
+        iconData.push({
+            element: icon,
+            x: x,
+            y: y,
+            vx: (Math.random() - 0.5) * 0.3,  // Increased speed
+            vy: (Math.random() - 0.5) * 0.3,  // Increased speed
+            phase: Math.random() * Math.PI * 2
+        });
+    });
+    
+    // Animation loop
+    function animateIcons() {
+        iconData.forEach(data => {
+            // Move
+            data.x += data.vx * 0.8;
+            data.y += data.vy * 0.8;
+            
+            // Bounce off edges
+            if (data.x > 95 || data.x < 3) {
+                data.vx *= -1;
+            }
+            if (data.y > 95 || data.y < 3) {
+                data.vy *= -1;
+            }
+            
+            // Apply position
+            data.element.style.left = data.x + '%';
+            data.element.style.top = data.y + '%';
+            
+            // Slight rotation for organic feel
+            const rot = Math.sin(Date.now() / 2000 + data.phase) * 15;
+            data.element.style.transform = `rotate(${rot}deg)`;
+        });
+        
+        requestAnimationFrame(animateIcons);
+    }
+    
+    animateIcons();
+    console.log('✅ Floating icons animation started! (Spread out + faster)');
+})();
+    </script>
 </body>
 </html>
