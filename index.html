@@ -952,17 +952,21 @@ function renderPrograms() {
 function renderEvents() {
     let html = '';
     appData.events.forEach(e => {
+        const color = e.color || 'blue';
+        const title = e.title || 'Event';
+        const date = e.date || 'Date TBD';
+        const location = e.location || 'Location TBD';
+        const action = e.action || 'Register';
         html += `<div class="bg-white dark:bg-gray-800 rounded-xl p-5 flex flex-wrap justify-between items-center shadow-md">
-                    <div class="flex items-center gap-4">
-                        <div class="bg-${e.color}-100 p-3 rounded-full"><i class="fas fa-calendar-alt text-${e.color}-600"></i></div>
-                        <div><p class="font-bold">${e.title}</p><p class="text-sm text-gray-500">${e.date} • ${e.location}</p></div>
-                    </div>
-                    <span class="bg-${e.color}-600 text-white px-4 py-1 rounded-full text-sm">${e.action}</span>
-                 </div>`;
+                        <div class="flex items-center gap-4">
+                            <div class="bg-${color}-100 p-3 rounded-full"><i class="fas fa-calendar-alt text-${color}-600"></i></div>
+                            <div><p class="font-bold">${title}</p><p class="text-sm text-gray-500">${date} • ${location}</p></div>
+                        </div>
+                        <span class="bg-${color}-600 text-white px-4 py-1 rounded-full text-sm">${action}</span>
+                     </div>`;
     });
     document.getElementById('eventsContainer').innerHTML = html;
 }
-
 function renderGallery() {
     let html = '';
     appData.gallery.forEach(url => {
