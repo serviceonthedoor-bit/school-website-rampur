@@ -3,1473 +3,1074 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-    <title>PM SHRI SHAHID INDER GIRI GOVT HSS RAMPUR | Future-Ready Education</title>
+    <title>My Itarsi | Local Directory of Hospitals, Schools & Auto Services</title>
+    <meta name="description" content="Complete directory of hospitals, schools, and auto services in Itarsi, Madhya Pradesh.">
+    <meta name="copyright" content="My Itarsi Directory">
+    
+    <!-- Tailwind CSS + Fonts -->
     <script src="https://cdn.tailwindcss.com"></script>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
-    <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;400;500;600;700;800&display=swap" rel="stylesheet">
-    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
-    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
     <style>
-        * { font-family: 'Inter', sans-serif; }
-        html { scroll-behavior: smooth; }
-        body { transition: background-color 0.3s ease, color 0.3s ease; }
-        .glass { background: rgba(255, 255, 255, 0.2); backdrop-filter: blur(12px); border-bottom: 1px solid rgba(255, 255, 255, 0.3); }
-        .dark .glass { background: rgba(15, 25, 35, 0.7); border-bottom: 1px solid rgba(255, 255, 255, 0.1); }
-        .hero-title { font-size: 2.5rem; }
-        @media (min-width: 768px) { .hero-title { font-size: 2.5rem; } }
-        .top-logo { position: absolute; top: 100px; z-index: 20; cursor: pointer; }
-        .top-logo-left { left: 20px; }
-        .top-logo-right { right: 20px; }
-        .logo-img { width: 80px; height: 80px; object-fit: contain; background: rgba(255,255,255,0.9); border-radius: 16px; padding: 8px; border: 2px dashed #f97316; }
-        @media (min-width: 768px) { .logo-img { width: 100px; height: 100px; } .top-logo-left { left: 40px; } .top-logo-right { right: 40px; } }
-        .admin-modal { display: none; }
-        .admin-modal.active { display: flex; }
-        .section-title { font-size: 2rem; }
-        .hero-container { max-width: 500px; margin: 0 auto; }
-
-        /* Dark mode for all sections */
-        .dark section {
-            background-color: #111827 !important;
+        body {
+            font-family: 'Inter', system-ui, sans-serif;
         }
-
-        .dark .bg-white {
-            background-color: #1f2937 !important;
+        
+        /* Card protection */
+        .card, .card * {
+            user-select: none !important;
+            -webkit-user-select: none !important;
         }
-
-        .dark .bg-gray-50 {
-            background-color: #111827 !important;
+        
+        input, button {
+            user-select: text !important;
         }
-
-        .dark .bg-gray-100 {
-            background-color: #1f2937 !important;
+        
+        .card {
+            position: relative;
+            cursor: pointer;
+            transition: all 0.3s ease;
         }
-
-        .dark .text-gray-600, .dark .text-gray-700 {
-            color: #d1d5db !important;
+        
+        .card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 25px 30px -12px rgba(0, 0, 0, 0.2);
         }
-
-        .dark .text-gray-800 {
-            color: #ffffff !important;
+        
+        .card::after {
+            content: "© My Itarsi";
+            position: absolute;
+            bottom: 8px;
+            right: 12px;
+            font-size: 9px;
+            color: rgba(0, 0, 0, 0.1);
+            pointer-events: none;
+            font-weight: 500;
         }
-
-        /* Smooth transition for dark mode */
-        .dark, .dark * {
-            transition: background-color 0.3s ease, color 0.3s ease;
-        }
-
-        /* Animated gradient overlay on hero */
-        .hero-overlay-animated {
-            background: linear-gradient(-45deg, rgba(249, 115, 22, 0.1), rgba(234, 88, 12, 0.05), rgba(251, 146, 60, 0.1), rgba(249, 115, 22, 0.05));
-            background-size: 400% 400%;
-            animation: gradientSlow 20s ease infinite;
-        }
-
-        @keyframes gradientSlow {
-            0% { background-position: 0% 50%; }
-            50% { background-position: 100% 50%; }
-            100% { background-position: 0% 50%; }
-        }
-
-        /* ===== FLOATING ICONS (Fixed - No Gap) ===== */
-        #floatingIconsContainer {
+        
+        /* Modal styles */
+        .modal {
+            display: none;
             position: fixed;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
-            pointer-events: none;
-            z-index: 0;
-            overflow: hidden;
+            background: rgba(0, 0, 0, 0.7);
+            z-index: 1000;
+            justify-content: center;
+            align-items: center;
+            backdrop-filter: blur(5px);
         }
-
-        .float-icon-js {
-            position: absolute;
-            font-size: 2.5rem;
-            opacity: 0.12;
-            transition: all 0.3s ease;
-            will-change: transform;
-            text-shadow: 0 0 20px rgba(255, 255, 255, 0.1);
-            pointer-events: none;
-        }
-
-        .float-icon-js:hover {
-            opacity: 0.4 !important;
-            transform: scale(1.5) !important;
-            text-shadow: 0 0 30px rgba(255, 255, 255, 0.3);
-        }
-
-        .dark .float-icon-js {
-            opacity: 0.18;
-        }
-
-        .dark .float-icon-js:hover {
-            opacity: 0.5 !important;
-        }
-
-        /* ===== SCHOOL CALENDAR - PROFESSIONAL ===== */
-        .calendar-day {
-            aspect-ratio: 1;
+        
+        .modal.active {
             display: flex;
-            flex-direction: column;
+            animation: fadeIn 0.3s ease-out;
+        }
+        
+        .modal-content {
+            background: white;
+            border-radius: 24px;
+            max-width: 500px;
+            width: 90%;
+            max-height: 85vh;
+            overflow-y: auto;
+            position: relative;
+            animation: slideUp 0.3s ease-out;
+        }
+        
+        @keyframes slideUp {
+            from {
+                transform: translateY(50px);
+                opacity: 0;
+            }
+            to {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
+        
+        .modal-close {
+            position: absolute;
+            top: 16px;
+            right: 16px;
+            width: 32px;
+            height: 32px;
+            background: rgba(0, 0, 0, 0.5);
+            border-radius: 50%;
+            display: flex;
             align-items: center;
             justify-content: center;
-            padding: 4px;
-            transition: all 0.2s ease;
-            cursor: default;
-            font-size: 0.9rem;
-            min-height: 60px;
-            background-color: transparent;
-            color: #374151;
-            border-right: 1px solid #e5e7eb;
-            border-bottom: 1px solid #e5e7eb;
+            cursor: pointer;
+            transition: all 0.2s;
+            z-index: 10;
+        }
+        
+        .modal-close:hover {
+            background: rgba(0, 0, 0, 0.7);
+            transform: scale(1.1);
+        }
+        
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #f1f1f1;
+            border-radius: 10px;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #1e7e6c;
+            border-radius: 10px;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+        .animate-fade-in {
+            animation: fadeIn 0.4s ease-out;
+        }
+        
+        .skeleton {
+            background: linear-gradient(110deg, #ececec 8%, #f5f5f5 18%, #ececec 33%);
+            background-size: 200% 100%;
+            animation: 1.5s shine linear infinite;
+        }
+        @keyframes shine {
+            to { background-position-x: -200%; }
+        }
+
+        /* Carousel Styles */
+        .carousel-container {
             position: relative;
+            overflow: hidden;
         }
-
-        .dark .calendar-day {
-            color: #d1d5db;
-            border-right: 1px solid #374151;
-            border-bottom: 1px solid #374151;
+        
+        .carousel-track {
+            display: flex;
+            transition: transform 0.5s ease-in-out;
         }
-
-        .calendar-day:nth-child(7n) {
-            border-right: none;
+        
+        .carousel-slide {
+            flex: 0 0 100%;
+            padding: 0 8px;
         }
-
-        .calendar-day.other-month {
-            opacity: 0.3;
+        
+        @media (min-width: 768px) {
+            .carousel-slide {
+                flex: 0 0 33.333%;
+            }
         }
-
-        .calendar-day.today {
-            font-weight: bold;
-            color: #2563eb !important;
-        }
-
-        .calendar-day.today::before {
-            content: '';
+        
+        .carousel-btn {
             position: absolute;
             top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
+            transform: translateY(-50%);
             width: 36px;
             height: 36px;
+            background: white;
             border-radius: 50%;
-            border: 3px solid #2563eb;
-            background-color: rgba(37, 99, 235, 0.08);
-            z-index: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+            transition: all 0.2s;
+            z-index: 10;
         }
-
-        .dark .calendar-day.today {
-            color: #60a5fa !important;
+        
+        .carousel-btn:hover {
+            background: #0b5e4a;
+            color: white;
+            transform: translateY(-50%) scale(1.05);
         }
-
-        .dark .calendar-day.today::before {
-            border-color: #60a5fa;
-            background-color: rgba(96, 165, 250, 0.12);
+        
+        .carousel-btn-prev {
+            left: -12px;
         }
-
-        .calendar-day:hover {
-            background-color: rgba(37, 99, 235, 0.06);
+        
+        .carousel-btn-next {
+            right: -12px;
         }
-
-        .dark .calendar-day:hover {
-            background-color: rgba(96, 165, 250, 0.08);
+        
+        @media (max-width: 768px) {
+            .carousel-btn-prev {
+                left: 4px;
+            }
+            .carousel-btn-next {
+                right: 4px;
+            }
         }
-
-        .calendar-day .event-dot {
-            width: 6px;
-            height: 6px;
+        
+        .carousel-dots {
+            display: flex;
+            justify-content: center;
+            gap: 8px;
+            margin-top: 16px;
+        }
+        
+        .carousel-dot {
+            width: 8px;
+            height: 8px;
             border-radius: 50%;
-            margin-top: 2px;
-            z-index: 1;
-            position: relative;
+            background: #cbd5e1;
+            cursor: pointer;
+            transition: all 0.2s;
         }
-
-        .calendar-day .event-dot.orange { background-color: #f97316; }
-        .calendar-day .event-dot.blue { background-color: #3b82f6; }
-        .calendar-day .event-dot.green { background-color: #10b981; }
-        .calendar-day .event-dot.purple { background-color: #8b5cf6; }
-
-        .calendar-day .day-number {
-            position: relative;
-            z-index: 1;
+        
+        .carousel-dot.active {
+            width: 24px;
+            border-radius: 4px;
+            background: #0b5e4a;
         }
-
-        #calendarGrid {
-            display: grid;
-            grid-template-columns: repeat(7, 1fr);
-            gap: 0;
-        }
-
-        @media (min-width: 768px) {
-            .calendar-day {
-                min-height: 80px;
-                font-size: 1rem;
-                padding: 8px;
+        
+        /* Card fade-in animation */
+        @keyframes cardFadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
             }
-            .calendar-day.today::before {
-                width: 44px;
-                height: 44px;
-            }
-            .calendar-day .event-dot {
-                width: 8px;
-                height: 8px;
+            to {
+                opacity: 1;
+                transform: translateY(0);
             }
         }
+        
+        .card {
+            animation: cardFadeIn 0.3s ease-out forwards;
+        }
+        
+        /* City logo pulse effect */
+        @keyframes softPulse {
+            0%, 100% { opacity: 0.7; transform: scale(1); }
+            50% { opacity: 1; transform: scale(1.02); }
+        }
+        
+        .city-logo {
+            animation: softPulse 3s ease-in-out infinite;
+        }
+        
+        /* Reveal number button */
+        .reveal-number-btn {
+            background: linear-gradient(135deg, #0b5e4a 0%, #1e7e6c 100%);
+            color: white;
+            border: none;
+            padding: 6px 12px;
+            border-radius: 20px;
+            font-size: 11px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+        }
+        
+        .reveal-number-btn:hover {
+            transform: scale(1.02);
+            background: linear-gradient(135deg, #0a4f3e 0%, #186b5b 100%);
+        }
+        
+        .reveal-number-btn i {
+            font-size: 10px;
+        }
+        
+        .revealed-number {
+            font-family: monospace;
+            font-weight: 600;
+            color: #0b5e4a;
+        }
+        
+        .number-hidden {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+/* Rating Stars */
+.star-rating {
+    display: inline-flex;
+    gap: 2px;
+    align-items: center;
+}
+.star-rating .star {
+    color: #d1d5db;
+    font-size: 16px;
+}
+.star-rating .star.filled {
+    color: #f97316;
+}
+.star-rating .rating-text {
+    font-size: 12px;
+    color: #6b7280;
+    margin-left: 6px;
+}
+
+
+
     </style>
+    
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        'itarsi-primary': '#0b5e4a',
+                        'itarsi-secondary': '#1e7e6c',
+                        'itarsi-accent': '#2c9c86',
+                    },
+                }
+            }
+        }
+    </script>
 </head>
-<body class="bg-gray-50 dark:bg-gray-900">
-
-<!-- Floating Icons Container -->
-<div id="floatingIconsContainer" style="position: fixed; top: 0; left: 0; width: 100%; height: 100%; pointer-events: none; z-index: 0; overflow: hidden;">
-    <div class="float-icon-js" data-icon="📐" style="position: absolute;"></div>
-    <div class="float-icon-js" data-icon="🔬" style="position: absolute;"></div>
-    <div class="float-icon-js" data-icon="📚" style="position: absolute;"></div>
-    <div class="float-icon-js" data-icon="🎵" style="position: absolute;"></div>
-    <div class="float-icon-js" data-icon="💻" style="position: absolute;"></div>
-    <div class="float-icon-js" data-icon="🎨" style="position: absolute;"></div>
-    <div class="float-icon-js" data-icon="🧪" style="position: absolute;"></div>
-    <div class="float-icon-js" data-icon="🏆" style="position: absolute;"></div>
-</div>    
-
-<!-- NAV BAR -->
-<nav id="navbar" class="fixed top-0 w-full z-50 glass transition-all duration-300">
-    <div class="container mx-auto px-4 md:px-6 py-3">
-        
-<!-- TOP ROW: Left Logo + Center (empty) + Right Logo + Dark Mode + Mobile Menu -->
-<div class="flex justify-between items-center">
-    <!-- Left Logo -->
-    <img id="leftLogo" src="images/rightlogo.jpg" alt="Logo" class="h-20 w-auto cursor-pointer" ondblclick="updateLogo('left')">
+<body class="bg-gradient-to-br from-emerald-50 via-teal-50 to-cyan-50">
     
-    <!-- Center: Empty (pushes everything apart) -->
-    <div class="flex-1"></div>
-    
-    <!-- Right Side: Right Logo + Dark Mode + Mobile Menu -->
-    <div class="flex items-center space-x-3">
-        <img id="rightLogo" src="images/logo-left.png" alt="Logo" class="h-10 w-auto cursor-pointer hidden sm:block" ondblclick="updateLogo('right')">
-        <button id="darkModeToggle" class="p-2 rounded-full bg-gray-200 dark:bg-gray-700">
-            <i id="darkIcon" class="fas fa-moon text-gray-700 dark:text-gray-200"></i>
-        </button>
-        <button id="mobileMenuBtn" class="md:hidden p-2 rounded-lg bg-gray-200 dark:bg-gray-700">
-            <i class="fas fa-bars text-gray-700 dark:text-white text-xl"></i>
-        </button>
+    <!-- Animated Background -->
+    <div class="fixed inset-0 overflow-hidden -z-10">
+        <div class="absolute -top-40 -right-40 w-80 h-80 bg-emerald-200 rounded-full mix-blend-multiply filter blur-3xl opacity-30 animate-pulse"></div>
+        <div class="absolute -bottom-40 -left-40 w-80 h-80 bg-teal-200 rounded-full mix-blend-multiply filter blur-3xl opacity-30 animate-pulse delay-1000"></div>
     </div>
-</div>
+
+    <div class="container mx-auto px-4 py-6 max-w-7xl relative">
         
-        <!-- BOTTOM ROW: Nav Links (centered) + School Name (below) -->
-        <div class="flex flex-col items-center mt-2">
-            
-            <!-- Nav Links - Centered -->
-            <div class="hidden md:flex space-x-4 lg:space-x-6 text-xs lg:text-sm">
-                <a href="#home" class="text-gray-700 dark:text-gray-200 hover:text-orange-600">Home</a>
-                <a href="#academics" class="text-gray-700 dark:text-gray-200 hover:text-orange-600">Academics</a>
-                <a href="#teachers" class="text-gray-700 dark:text-gray-200 hover:text-orange-600">Teachers</a>
-                <a href="#gallery" class="text-gray-700 dark:text-gray-200 hover:text-orange-600">Gallery</a>
-                <a href="#events" class="text-gray-700 dark:text-gray-200 hover:text-orange-600">Events</a>
-                <a href="#results" class="text-gray-700 dark:text-gray-200 hover:text-orange-600">Results</a>
-                <a href="#admission" class="text-gray-700 dark:text-gray-200 hover:text-orange-600">Admission</a>
-                <a href="#calendar" class="text-gray-700 dark:text-gray-200 hover:text-orange-600">Calendar</a>
+        <!-- Hero Section -->
+        <div class="relative rounded-2xl overflow-hidden mb-8 shadow-xl animate-fade-in">
+            <div class="absolute inset-0 bg-gradient-to-r from-itarsi-primary to-itarsi-secondary">
             </div>
-            
-            <!-- School Name - Below Nav Links (centered) -->
-            <div class="text-center mt-1">
-                <span class="text-xl md:text-2xl font-bold bg-gradient-to-r from-orange-600 to-blue-600 bg-clip-text text-transparent">
-                    PM SHRI SHAHEED INDER GIRI GOVT HSS RAMPUR
-                </span>
-            </div>
-            
-        </div>
-    </div>
-    
-    <!-- Mobile Menu -->
-    <div id="mobileMenu" class="hidden md:hidden bg-white/95 dark:bg-gray-800/95 backdrop-blur-lg">
-        <div class="flex flex-col space-y-3 p-4">
-            <a href="#home" class="py-2 text-gray-700 dark:text-gray-200">Home</a>
-            <a href="#academics" class="py-2 text-gray-700 dark:text-gray-200">Academics</a>
-            <a href="#teachers" class="py-2 text-gray-700 dark:text-gray-200">Teachers</a>
-            <a href="#gallery" class="py-2 text-gray-700 dark:text-gray-200">Gallery</a>
-            <a href="#events" class="py-2 text-gray-700 dark:text-gray-200">Events</a>
-            <a href="#results" class="py-2 text-gray-700 dark:text-gray-200">Results</a>
-            <a href="#admission" class="py-2 text-gray-700 dark:text-gray-200">Admission</a>
-            <a href="#calendar" class="py-2 text-gray-700 dark:text-gray-200">Calendar</a>
-        </div>
-    </div>
-</nav>
-
-<!-- Admin Login Modal -->
-<div id="adminLoginModal" class="fixed inset-0 bg-black/70 items-center justify-center z-50 admin-modal">
-    <div class="bg-white dark:bg-gray-800 rounded-2xl p-8 max-w-md w-full mx-4">
-        <h3 class="text-2xl font-bold mb-4 dark:text-white">Admin Login</h3>
-        <input type="password" id="adminPasswordInput" placeholder="Enter Password" class="w-full p-3 border rounded-lg mb-4 dark:bg-gray-700">
-        <button id="adminLoginBtn" class="bg-gray-800 hover:bg-gray-900 text-white px-6 py-2 rounded-full w-full">Login</button>
-    </div>
-</div>
-
-<!-- Admin Dashboard -->
-<div id="adminDashboard" class="fixed inset-0 bg-black/95 hidden overflow-y-auto z-50 p-4 admin-modal">
-    <div class="max-w-6xl mx-auto bg-gray-900 rounded-2xl p-6 mt-10 mb-10 border border-gray-700">
-        <div class="flex justify-between items-center mb-6">
-            <h2 class="text-3xl font-bold text-white">Admin Dashboard</h2>
-            <button id="closeAdminBtn" class="text-red-400 text-3xl">&times;</button>
-        </div>
-
-        <!-- Results Management -->
-        <div class="mb-8 border-b border-gray-700 pb-6">
-            <h3 class="text-2xl font-bold mb-4 text-white">📊 Results</h3>
-            <button onclick="openResultModal()" class="bg-green-600 hover:bg-green-700 text-white px-4 py-2 rounded-lg mb-4">+ Add Result</button>
-            <div id="resultsAdminList" class="space-y-2"></div>
-        </div>
-
-        <!-- Teachers Management -->
-        <div class="mb-8 border-b border-gray-700 pb-6">
-            <h3 class="text-2xl font-bold mb-4 text-white">👨‍🏫 Teachers</h3>
-            <button onclick="openTeacherModal()" class="bg-green-600 hover:bg-green-700 text-white px-4 py-2 rounded-lg mb-4">+ Add Teacher</button>
-            <div id="teachersAdminList" class="space-y-2"></div>
-        </div>
-
-        <!-- Programs Management -->
-        <div class="mb-8 border-b border-gray-700 pb-6">
-            <h3 class="text-2xl font-bold mb-4 text-white">📚 Programs</h3>
-            <button onclick="openProgramModal()" class="bg-green-600 hover:bg-green-700 text-white px-4 py-2 rounded-lg mb-4">+ Add Program</button>
-            <div id="programsAdminList" class="space-y-2"></div>
-        </div>
-
-        <!-- Events Management -->
-        <div class="mb-8 border-b border-gray-700 pb-6">
-            <h3 class="text-2xl font-bold mb-4 text-white">📅 Events</h3>
-            <button onclick="openEventModal()" class="bg-green-600 hover:bg-green-700 text-white px-4 py-2 rounded-lg mb-4">+ Add Event</button>
-            <div id="eventsAdminList" class="space-y-2"></div>
-        </div>
-
-        <!-- Gallery Management -->
-        <div class="mb-8 border-b border-gray-700 pb-6">
-            <h3 class="text-2xl font-bold mb-4 text-white">🖼️ Gallery</h3>
-            <button onclick="openGalleryModal()" class="bg-green-600 hover:bg-green-700 text-white px-4 py-2 rounded-lg mb-4">+ Add Image</button>
-            <div id="galleryAdminList" class="grid grid-cols-4 gap-2"></div>
-        </div>
-
-        <!-- Statistics -->
-        <div>
-            <h3 class="text-2xl font-bold mb-4 text-white">📊 Statistics</h3>
-            <div id="statsAdminList" class="space-y-2"></div>
-        </div>
-    </div>
-</div>
-
-<!-- Generic Add/Edit Modal -->
-<div id="itemModal" class="fixed inset-0 bg-black/50 hidden items-center justify-center z-50">
-    <div class="bg-white dark:bg-gray-800 rounded-2xl p-6 max-w-md w-full mx-4">
-        <h3 id="modalTitle" class="text-2xl font-bold mb-4 dark:text-white">Add Item</h3>
-        <div id="modalFields"></div>
-        <div class="flex gap-3 mt-4">
-            <button id="saveModalBtn" class="bg-orange-600 text-white px-6 py-2 rounded-full flex-1">Save</button>
-            <button id="cancelModalBtn" class="bg-gray-500 text-white px-6 py-2 rounded-full flex-1">Cancel</button>
-        </div>
-    </div>
-</div>
-
-<!-- Hero Section with Background Image -->
-<section id="home" class="min-h-screen flex items-center justify-center relative overflow-hidden pt-16">
-    <div class="absolute inset-0 flex items-center justify-center">
-        <div class="w-4/5 h-4/5 bg-white dark:bg-gray-800 rounded-3xl shadow-2xl overflow-hidden">
-            <img src="images/schoolimage1.jpg" alt="School Background" class="w-full h-full object-cover">
-        </div>
-    </div>
-    
-    <div class="absolute bottom-2 left-1/2 transform -translate-x-1/2 flex gap-6">
-        <a href="#admission" class="px-6 py-2.5 bg-blue-600 text-white rounded-full">Apply Now</a>
-        <a href="#academics" class="px-6 py-2.5 bg-blue-600 text-white rounded-full border border-blue-600">Explore Programs</a>
-    </div>
-
-    <div class="absolute inset-0 flex items-center justify-center pointer-events-none">
-        <div class="w-4/5 h-4/5 rounded-3xl bg-yellow/40"></div>
-    </div>
-    
-    <div class="container mx-auto px-4 relative z-10 hero-container text-center">
-        <h1 class="hero-title font-extrabold bg-clip-text text-transparent bg-gradient-to-r from-orange-600 to-amber-600 mb-4">
-            <br>
-        </h1>
-        <p class="text-white dark:text-gray-200 max-w-2xl mx-auto mb-6"></p>
-    </div>
-</section>
-
-<!-- Statistics Counters -->
-<section class="py-16 bg-white dark:bg-gray-800">
-    <div class="container mx-auto px-4">
-        <h2 class="text-2xl md:text-3xl font-bold text-center text-gray-800 dark:text-white mb-10">
-            📊 Enrollment &amp; Details
-        </h2>
-        <div class="grid grid-cols-2 md:grid-cols-4 gap-8" id="statsContainer"></div>
-    </div>
-</section>
-
-<!-- Programs Section -->
-<section id="academics" class="py-20 bg-gray-50 dark:bg-gray-900">
-    <div class="container mx-auto px-4">
-        <h2 class="section-title font-bold text-center text-gray-800 dark:text-white mb-12">Academic Programs</h2>
-        <div id="programsContainer" class="grid md:grid-cols-2 lg:grid-cols-4 gap-6"></div>
-    </div>
-</section>
-
-<!-- Teachers Section -->
-<section id="teachers" class="py-20 bg-white dark:bg-gray-800">
-    <div class="container mx-auto px-4">
-        <h2 class="section-title font-bold text-center text-gray-800 dark:text-white mb-12">Meet Our Teachers</h2>
-        <div id="teachersContainer" class="grid md:grid-cols-2 lg:grid-cols-4 gap-6"></div>
-    </div>
-</section>
-
-<!-- Gallery Section -->
-<section id="gallery" class="py-20 bg-gray-50 dark:bg-gray-900">
-    <div class="container mx-auto px-4">
-        <h2 class="section-title font-bold text-center text-gray-800 dark:text-white mb-12">Student Life</h2>
-        <div id="galleryContainer" class="grid grid-cols-2 md:grid-cols-4 gap-4"></div>
-    </div>
-</section>
-
-<!-- Events Section -->
-<section id="events" class="py-20 bg-white dark:bg-gray-800">
-    <div class="container mx-auto px-4">
-        <h2 class="section-title font-bold text-center text-gray-800 dark:text-white mb-12">Upcoming Events</h2>
-        <div id="eventsContainer" class="max-w-3xl mx-auto space-y-4"></div>
-    </div>
-</section>
-
-<!-- Calendar Section -->
-<section id="calendar" class="py-20 bg-white dark:bg-gray-800">
-    <div class="container mx-auto px-4">
-        <h2 class="section-title font-bold text-center text-gray-800 dark:text-white mb-12">📅 School Calendar</h2>
-        
-        <div class="max-w-4xl mx-auto bg-gray-50 dark:bg-gray-900 rounded-2xl shadow-xl overflow-hidden">
-            <div class="bg-gradient-to-r from-blue-600 to-blue-800 px-6 py-4">
-                <div class="flex justify-between items-center">
-                    <button onclick="changeMonth(-1)" class="bg-white/20 hover:bg-white/30 text-white px-4 py-2 rounded-lg transition">
-                        <i class="fas fa-chevron-left"></i>
-                    </button>
-                    <h3 id="calendarMonth" class="text-2xl font-bold text-white">June 2026</h3>
-                    <button onclick="changeMonth(1)" class="bg-white/20 hover:bg-white/30 text-white px-4 py-2 rounded-lg transition">
-                        <i class="fas fa-chevron-right"></i>
-                    </button>
-                </div>
-            </div>
-            
-            <div class="p-4 md:p-6">
-                <div class="grid grid-cols-7 gap-0 mb-2">
-                    <div class="text-center font-semibold text-gray-600 dark:text-gray-400 py-2 border-b-2 border-gray-200 dark:border-gray-700">Sun</div>
-                    <div class="text-center font-semibold text-gray-600 dark:text-gray-400 py-2 border-b-2 border-gray-200 dark:border-gray-700">Mon</div>
-                    <div class="text-center font-semibold text-gray-600 dark:text-gray-400 py-2 border-b-2 border-gray-200 dark:border-gray-700">Tue</div>
-                    <div class="text-center font-semibold text-gray-600 dark:text-gray-400 py-2 border-b-2 border-gray-200 dark:border-gray-700">Wed</div>
-                    <div class="text-center font-semibold text-gray-600 dark:text-gray-400 py-2 border-b-2 border-gray-200 dark:border-gray-700">Thu</div>
-                    <div class="text-center font-semibold text-gray-600 dark:text-gray-400 py-2 border-b-2 border-gray-200 dark:border-gray-700">Fri</div>
-                    <div class="text-center font-semibold text-gray-600 dark:text-gray-400 py-2 border-b-2 border-gray-200 dark:border-gray-700">Sat</div>
-                </div>
-                <div id="calendarGrid" class="grid grid-cols-7 gap-0 border border-gray-200 dark:border-gray-700"></div>
-            </div>
-            
-            <div class="px-6 pb-6 pt-2 border-t border-gray-200 dark:border-gray-700">
-                <h4 class="text-sm font-semibold text-gray-600 dark:text-gray-400 mb-3">📌 Upcoming Events</h4>
-                <div id="upcomingEvents" class="space-y-2 text-sm text-gray-600 dark:text-gray-300"></div>
-            </div>
-        </div>
-    </div>
-</section>
-
-<!-- Results Section -->
-<section id="results" class="py-20 bg-gray-50 dark:bg-gray-900">
-    <div class="container mx-auto px-4">
-        <h2 class="section-title font-bold text-center text-gray-800 dark:text-white mb-12">Results & Performance</h2>
-        <div id="resultsContainer" class="grid md:grid-cols-3 gap-6 max-w-4xl mx-auto"></div>
-    </div>
-</section>
-
-<!-- Admission Form -->
-<section id="admission" class="py-20 bg-white dark:bg-gray-800">
-    <div class="container mx-auto px-4">
-        <h2 class="section-title font-bold text-center text-gray-800 dark:text-white mb-12">Start Your Journey</h2>
-        
-        <div class="max-w-6xl mx-auto flex flex-col md:flex-row gap-8">
-            <!-- LEFT QUICK LINKS -->
-            <div class="md:w-1/5 flex flex-col gap-4 order-1 md:order-1">
-                <h3 class="text-lg font-bold text-gray-700 dark:text-gray-300 border-b-2 border-orange-500 pb-2 mb-2">
-                    <i class="fas fa-link text-orange-500 mr-2"></i>Quick Links
-                </h3>
-                <a href="#academics" class="bg-gray-100 dark:bg-gray-700 hover:bg-orange-100 dark:hover:bg-orange-900/30 p-3 rounded-lg transition-all flex items-center gap-3 text-gray-700 dark:text-gray-300 hover:text-orange-600">
-                    <i class="fas fa-graduation-cap text-orange-500"></i><span>Academics</span>
-                    <i class="fas fa-arrow-right ml-auto text-sm opacity-50"></i>
-                </a>
-                <a href="#teachers" class="bg-gray-100 dark:bg-gray-700 hover:bg-orange-100 dark:hover:bg-orange-900/30 p-3 rounded-lg transition-all flex items-center gap-3 text-gray-700 dark:text-gray-300 hover:text-orange-600">
-                    <i class="fas fa-chalkboard-teacher text-orange-500"></i><span>Teachers</span>
-                    <i class="fas fa-arrow-right ml-auto text-sm opacity-50"></i>
-                </a>
-                <a href="#events" class="bg-gray-100 dark:bg-gray-700 hover:bg-orange-100 dark:hover:bg-orange-900/30 p-3 rounded-lg transition-all flex items-center gap-3 text-gray-700 dark:text-gray-300 hover:text-orange-600">
-                    <i class="fas fa-calendar-alt text-orange-500"></i><span>Events</span>
-                    <i class="fas fa-arrow-right ml-auto text-sm opacity-50"></i>
-                </a>
-                <a href="#results" class="bg-gray-100 dark:bg-gray-700 hover:bg-orange-100 dark:hover:bg-orange-900/30 p-3 rounded-lg transition-all flex items-center gap-3 text-gray-700 dark:text-gray-300 hover:text-orange-600">
-                    <i class="fas fa-chart-line text-orange-500"></i><span>Results</span>
-                    <i class="fas fa-arrow-right ml-auto text-sm opacity-50"></i>
-                </a>
-                <a href="#gallery" class="bg-gray-100 dark:bg-gray-700 hover:bg-orange-100 dark:hover:bg-orange-900/30 p-3 rounded-lg transition-all flex items-center gap-3 text-gray-700 dark:text-gray-300 hover:text-orange-600">
-                    <i class="fas fa-images text-orange-500"></i><span>Gallery</span>
-                    <i class="fas fa-arrow-right ml-auto text-sm opacity-50"></i>
-                </a>
-                
-                <div class="mt-4 pt-4 border-t border-gray-200 dark:border-gray-700">
-                    <h4 class="text-sm font-semibold text-gray-500 dark:text-gray-400 mb-2">EXTERNAL LINKS</h4>
-                    <a href="https://www.vimarsh.mp.gov.in/" target="_blank" class="bg-gray-100 dark:bg-gray-700 hover:bg-blue-100 dark:hover:bg-blue-900/30 p-3 rounded-lg transition-all flex items-center gap-3 text-gray-700 dark:text-gray-300 hover:text-blue-600">
-                        <i class="fas fa-external-link-alt text-blue-500"></i><span>School Portal</span>
-                        <i class="fas fa-arrow-right ml-auto text-sm opacity-50"></i>
-                    </a>
-                    <a href="https://udiseplus.gov.in/#/en/page/statelogin" target="_blank" class="bg-gray-100 dark:bg-gray-700 hover:bg-blue-100 dark:hover:bg-blue-900/30 p-3 rounded-lg transition-all flex items-center gap-3 text-gray-700 dark:text-gray-300 hover:text-blue-600 mt-2">
-                        <i class="fas fa-external-link-alt text-blue-500"></i><span>Udise Student Module</span>
-                        <i class="fas fa-arrow-right ml-auto text-sm opacity-50"></i>
-                    </a>
-                    <a href="https://sederp.educationportal3.in/" target="_blank" class="bg-gray-100 dark:bg-gray-700 hover:bg-blue-100 dark:hover:bg-blue-900/30 p-3 rounded-lg transition-all flex items-center gap-3 text-gray-700 dark:text-gray-300 hover:text-blue-600 mt-2">
-                        <i class="fas fa-external-link-alt text-blue-500"></i><span>Education Portal</span>
-                        <i class="fas fa-arrow-right ml-auto text-sm opacity-50"></i>
-                    </a>
-                </div>
-            </div>
-            
-            <!-- ADMISSION FORM -->
-            <div class="md:w-3/5 order-2">
-                <div class="bg-gray-100 dark:bg-gray-900 rounded-2xl shadow-xl p-8">
-                    <form id="admissionForm">
-                        <div class="grid gap-4">
-                            <input type="text" id="studentName" placeholder="Student's Full Name *" class="w-full p-3 border rounded-lg dark:bg-gray-800" required>
-                            <input type="date" id="dob" class="w-full p-3 border rounded-lg dark:bg-gray-800" required>
-                            <select id="grade" class="w-full p-3 border rounded-lg dark:bg-gray-800" required>
-                                <option value="">Select Grade *</option>
-                                <option>Nursery</option><option>LKG</option><option>UKG</option>
-                                <option>1</option><option>2</option><option>3</option><option>4</option><option>5</option>
-                                <option>6</option><option>7</option><option>8</option><option>9</option><option>10</option>
-                                <option>11</option><option>12</option>
-                            </select>
-                            <input type="text" id="parentName" placeholder="Parent/Guardian Name *" class="w-full p-3 border rounded-lg dark:bg-gray-800" required>
-                            <input type="email" id="email" placeholder="Email Address *" class="w-full p-3 border rounded-lg dark:bg-gray-800" required>
-                            <input type="tel" id="phone" placeholder="Phone Number *" class="w-full p-3 border rounded-lg dark:bg-gray-800" required>
-                            <textarea id="message" rows="3" placeholder="Additional Message" class="w-full p-3 border rounded-lg dark:bg-gray-800"></textarea>
-                            <button type="submit" class="bg-orange-600 hover:bg-orange-700 text-white px-6 py-3 rounded-full font-semibold transition-all">
-                                <i class="fas fa-paper-plane mr-2"></i>Submit Application →
-                            </button>
-                        </div>
-                    </form>
-                    <div id="formSuccess" class="hidden mt-4 p-3 bg-green-100 text-green-700 rounded-lg text-center"></div>
-                </div>
-            </div>
-            
-            <!-- RIGHT QUICK LINKS -->
-            <div class="md:w-1/5 flex flex-col gap-4 order-3">
-                <h3 class="text-lg font-bold text-gray-700 dark:text-gray-300 border-b-2 border-orange-500 pb-2 mb-2">
-                    <i class="fas fa-info-circle text-orange-500 mr-2"></i>Resources
-                </h3>
-                <a href="#" target="_blank" class="bg-gray-100 dark:bg-gray-700 hover:bg-green-100 dark:hover:bg-green-900/30 p-3 rounded-lg transition-all flex items-center gap-3 text-gray-700 dark:text-gray-300 hover:text-green-600">
-                    <i class="fas fa-file-pdf text-green-500"></i><span>Time Table</span>
-                    <i class="fas fa-download ml-auto text-sm opacity-50"></i>
-                </a>
-                <a href="https://hescholarship.mp.gov.in/Index.aspx" target="_blank" class="bg-gray-100 dark:bg-gray-700 hover:bg-green-100 dark:hover:bg-green-900/30 p-3 rounded-lg transition-all flex items-center gap-3 text-gray-700 dark:text-gray-300 hover:text-green-600">
-                    <i class="fas fa-hand-holding-heart text-green-500"></i><span>Scholarships</span>
-                    <i class="fas fa-arrow-right ml-auto text-sm opacity-50"></i>
-                </a>
-                <a href="#contact" class="bg-gray-100 dark:bg-gray-700 hover:bg-green-100 dark:hover:bg-green-900/30 p-3 rounded-lg transition-all flex items-center gap-3 text-gray-700 dark:text-gray-300 hover:text-green-600">
-                    <i class="fas fa-phone-alt text-green-500"></i><span>Contact Us</span>
-                    <i class="fas fa-arrow-right ml-auto text-sm opacity-50"></i>
-                </a>
-                <a href="https://maps.app.goo.gl/MThm4FDsxW4SHswd9" target="_blank" class="bg-gray-100 dark:bg-gray-700 hover:bg-green-100 dark:hover:bg-green-900/30 p-3 rounded-lg transition-all flex items-center gap-3 text-gray-700 dark:text-gray-300 hover:text-green-600">
-                    <i class="fas fa-map-marker-alt text-green-500"></i><span>Find Us</span>
-                    <i class="fas fa-arrow-right ml-auto text-sm opacity-50"></i>
-                </a>
-                
-                <div class="mt-4 pt-4 border-t border-gray-200 dark:border-gray-700">
-                    <a href="#" target="_blank" class="block bg-orange-500 hover:bg-orange-600 text-white text-center py-3 rounded-lg font-semibold transition-all">
-                        <i class="fas fa-whatsapp mr-2"></i>Chat on WhatsApp
-                    </a>
-                </div>
-            </div>
-        </div>
-    </div>
-</section>
-
-<!-- Contact Us Section -->
-<section id="contact" class="py-20 bg-gray-50 dark:bg-gray-900">
-    <div class="container mx-auto px-4">
-        <h2 class="section-title font-bold text-center text-gray-800 dark:text-white mb-12">Contact Us</h2>
-        
-        <div class="max-w-4xl mx-auto grid md:grid-cols-2 gap-8">
-            <div class="bg-white dark:bg-gray-800 rounded-2xl p-8 shadow-lg">
-                <h3 class="text-2xl font-bold mb-6 text-gray-800 dark:text-white">Get in Touch</h3>
-                
-                <div class="space-y-4">
-                    <div class="flex items-center gap-4">
-                        <div class="w-12 h-12 bg-orange-100 dark:bg-orange-900/30 rounded-full flex items-center justify-center">
-                            <i class="fas fa-map-marker-alt text-orange-600 text-xl"></i>
-                        </div>
-                        <div>
-                            <p class="text-sm text-gray-500 dark:text-gray-400">Address</p>
-                            <p class="text-gray-700 dark:text-gray-300">PM SHRI SHAHID INDER GIRI GOVT HSS RAMPUR</p>
-                        </div>
-                    </div>
-                    
-                    <div class="flex items-center gap-4">
-                        <div class="w-12 h-12 bg-orange-100 dark:bg-orange-900/30 rounded-full flex items-center justify-center">
-                            <i class="fas fa-phone text-orange-600 text-xl"></i>
-                        </div>
-                        <div>
-                            <p class="text-sm text-gray-500 dark:text-gray-400">Phone</p>
-                            <p class="text-gray-700 dark:text-gray-300">+91 9876543210</p>
-                        </div>
-                    </div>
-                    
-                    <div class="flex items-center gap-4">
-                        <div class="w-12 h-12 bg-orange-100 dark:bg-orange-900/30 rounded-full flex items-center justify-center">
-                            <i class="fas fa-envelope text-orange-600 text-xl"></i>
-                        </div>
-                        <div>
-                            <p class="text-sm text-gray-500 dark:text-gray-400">Email</p>
-                            <p class="text-gray-700 dark:text-gray-300">govthssrampur@gmail.com</p>
-                        </div>
-                    </div>
-                    
-                    <div class="flex items-center gap-4">
-                        <div class="w-12 h-12 bg-orange-100 dark:bg-orange-900/30 rounded-full flex items-center justify-center">
-                            <i class="fas fa-clock text-orange-600 text-xl"></i>
-                        </div>
-                        <div>
-                            <p class="text-sm text-gray-500 dark:text-gray-400">Office Hours</p>
-                            <p class="text-gray-700 dark:text-gray-300">Mon-Fri: 10:00 AM - 4:30 PM</p>
-                        </div>
+            <div class="relative py-6 px-6 text-center text-white">
+                <!-- City Logo -->
+                <div class="flex justify-center mb-3">
+                    <div class="city-logo w-20 h-20 bg-white/20 backdrop-blur-md rounded-2xl flex items-center justify-center shadow-lg border border-white/30">
+                        <i class="fas fa-train text-4xl text-white"></i>
                     </div>
                 </div>
-                
-                <div class="mt-8 pt-6 border-t border-gray-200 dark:border-gray-700">
-                    <p class="text-sm text-gray-500 dark:text-gray-400 mb-3">Follow Us</p>
-                    <div class="flex gap-3">
-                        <a href="#" class="w-10 h-10 bg-blue-600 text-white rounded-full flex items-center justify-center hover:bg-blue-700 transition">
-                            <i class="fab fa-facebook-f"></i>
-                        </a>
-                        <a href="#" class="w-10 h-10 bg-sky-500 text-white rounded-full flex items-center justify-center hover:bg-sky-600 transition">
-                            <i class="fab fa-twitter"></i>
-                        </a>
-                        <a href="#" class="w-10 h-10 bg-pink-600 text-white rounded-full flex items-center justify-center hover:bg-pink-700 transition">
-                            <i class="fab fa-instagram"></i>
-                        </a>
-                        <a href="#" class="w-10 h-10 bg-red-600 text-white rounded-full flex items-center justify-center hover:bg-red-700 transition">
-                            <i class="fab fa-youtube"></i>
-                        </a>
-                    </div>
+                <div class="inline-block bg-white/20 backdrop-blur-md rounded-full px-3 py-1 text-xs mb-2 font-medium shadow-lg">
+                    🌟 Itarsi's Trusted Local Directory
                 </div>
+                <h1 class="text-3xl md:text-4xl font-black mb-1 tracking-tight">My Itarsi</h1>
+                <p class="text-sm md:text-base opacity-95 max-w-2xl mx-auto">Discover the best of Itarsi — hospitals, schools, auto services, restaurants,  real estate and more...</p>
+                <p class="text-xs mt-2 opacity-90 flex items-center justify-center gap-2">
+                    <i class="fas fa-check-circle"></i> Local Listings 
+                    <span class="w-1 h-1 bg-white rounded-full"></span> 
+                    <i class="fas fa-sync-alt"></i> Updated Daily 
+                    <span class="w-1 h-1 bg-white rounded-full"></span> 
+                    <i class="fas fa-gem"></i> Completely Free
+                </p>
             </div>
-            
-            <div class="bg-white dark:bg-gray-800 rounded-2xl p-8 shadow-lg">
-                <h3 class="text-2xl font-bold mb-6 text-gray-800 dark:text-white">Send a Message</h3>
-                <form id="contactForm">
-                    <div class="space-y-4">
-                        <input type="text" id="contactName" placeholder="Your Name *" class="w-full p-3 border rounded-lg dark:bg-gray-700" required>
-                        <input type="email" id="contactEmail" placeholder="Your Email *" class="w-full p-3 border rounded-lg dark:bg-gray-700" required>
-                        <input type="text" id="contactSubject" placeholder="Subject" class="w-full p-3 border rounded-lg dark:bg-gray-700">
-                        <textarea id="contactMessage" rows="4" placeholder="Your Message *" class="w-full p-3 border rounded-lg dark:bg-gray-700" required></textarea>
-                        <button type="submit" class="w-full bg-orange-600 hover:bg-orange-700 text-white px-6 py-3 rounded-full font-semibold transition-all">
-                            <i class="fas fa-paper-plane mr-2"></i>Send Message
+        </div>
+
+        <!-- Search Bar -->
+        <div class="max-w-3xl mx-auto mb-8 animate-fade-in">
+            <div class="relative group">
+                <div class="absolute inset-0 bg-gradient-to-r from-itarsi-primary to-itarsi-secondary rounded-2xl blur opacity-25 group-hover:opacity-40 transition duration-300"></div>
+                <div class="relative bg-white rounded-2xl shadow-xl overflow-hidden border border-gray-100">
+                    <div class="flex items-center p-2">
+                        <i class="fas fa-search text-gray-400 ml-4 text-xl"></i>
+                        <input type="text" id="searchInput" 
+                               class="flex-1 p-4 outline-none text-gray-700 placeholder-gray-400 text-lg"
+                               placeholder="Search hospitals, schools, auto services, or real estate..."
+                               autocomplete="off">
+                        <button id="refreshBtn" 
+                                class="bg-itarsi-primary hover:bg-itarsi-secondary text-white px-5 py-2 rounded-xl transition duration-200 font-medium mx-1"
+                                title="Refresh data">
+                            <i class="fas fa-sync-alt"></i>
+                        </button>
+                        <button id="clearSearchBtn" 
+                                class="bg-gray-100 hover:bg-gray-200 text-gray-600 px-6 py-2 rounded-xl transition duration-200 font-medium">
+                            <i class="fas fa-times mr-2"></i>Clear
                         </button>
                     </div>
-                </form>
-                <div id="contactSuccess" class="hidden mt-4 p-3 bg-green-100 text-green-700 rounded-lg text-center"></div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Featured Businesses Section with Carousel -->
+        <div id="featuredSection" class="mb-10" style="display: none;">
+            <div class="flex items-center justify-between mb-4">
+                <h2 class="text-lg md:text-xl font-bold text-gray-700 flex items-center gap-2">
+                    <i class="fas fa-crown text-yellow-500 text-xl"></i> 
+                    Featured Listings
+                </h2>
+                <span class="text-xs text-gray-400 bg-white/60 px-2 py-0.5 rounded-full">✨ Sponsored</span>
+            </div>
+            
+            <div class="carousel-container relative px-6 md:px-8">
+                <!-- Previous Button -->
+                <div class="carousel-btn carousel-btn-prev" id="carouselPrev">
+                    <i class="fas fa-chevron-left text-sm"></i>
+                </div>
+                
+                <!-- Carousel Track -->
+                <div class="overflow-hidden">
+                    <div id="carouselTrack" class="carousel-track">
+                        <!-- Featured items will be dynamically inserted here -->
+                    </div>
+                </div>
+                
+                <!-- Next Button -->
+                <div class="carousel-btn carousel-btn-next" id="carouselNext">
+                    <i class="fas fa-chevron-right text-sm"></i>
+                </div>
+            </div>
+            
+            <!-- Dot Indicators -->
+            <div id="carouselDots" class="carousel-dots"></div>
+        </div>
+
+        <!-- Category Tabs -->
+        <div class="flex flex-wrap justify-center gap-2 mb-8">
+            <button data-cat="all" class="cat-btn bg-itarsi-primary text-white px-5 py-2 rounded-full font-semibold shadow-lg transition-all duration-300 hover:scale-105 flex items-center gap-1 text-sm">
+                <i class="fas fa-th-large text-xs"></i> All
+            </button>
+            <button data-cat="hospital" class="cat-btn bg-white text-gray-700 hover:bg-red-50 px-5 py-2 rounded-full font-semibold shadow-md transition-all duration-300 hover:scale-105 flex items-center gap-1 text-sm">
+                <i class="fas fa-hospital text-red-500 text-xs"></i> Hospitals
+            </button>
+            <button data-cat="school" class="cat-btn bg-white text-gray-700 hover:bg-blue-50 px-5 py-2 rounded-full font-semibold shadow-md transition-all duration-300 hover:scale-105 flex items-center gap-1 text-sm">
+                <i class="fas fa-graduation-cap text-blue-500 text-xs"></i> Schools
+            </button>
+            <button data-cat="auto" class="cat-btn bg-white text-gray-700 hover:bg-green-50 px-5 py-2 rounded-full font-semibold shadow-md transition-all duration-300 hover:scale-105 flex items-center gap-1 text-sm">
+                <i class="fas fa-car text-green-500 text-xs"></i> Auto Services
+            </button>
+            <button data-cat="realestate" class="cat-btn bg-white text-gray-700 hover:bg-purple-50 px-5 py-2 rounded-full font-semibold shadow-md transition-all duration-300 hover:scale-105 flex items-center gap-1 text-sm">
+                <i class="fas fa-building text-purple-500 text-xs"></i> Real Estate
+            </button>
+
+	<!-- 👇 ADD THIS NEW RESTAURANT BUTTON -->
+    <button data-cat="restaurant" class="cat-btn bg-white text-gray-700 hover:bg-orange-50 px-5 py-2 rounded-full font-semibold shadow-md transition-all duration-300 hover:scale-105 flex items-center gap-1 text-sm">
+        <i class="fas fa-utensils text-orange-500 text-xs"></i> Restaurants
+    </button>
+
+<!-- 👇 Blood Bank and Blood Donor -->
+    <button data-cat="blood bank" class="cat-btn bg-white text-gray-700 hover:bg-orange-50 px-5 py-2 rounded-full font-semibold shadow-md transition-all duration-300 hover:scale-105 flex items-center gap-1 text-sm">
+        <i class="fas fa-hand-holding-heart text-orange-500 text-xs"></i> Blood Bank & Donor
+    </button>
+        </div>
+
+        <!-- Results Stats -->
+        <div id="resultStats" class="text-center text-gray-500 mb-5 font-medium text-sm"></div>
+
+        <!-- Cards Grid (Regular listings ONLY - Featured items are EXCLUDED from here to avoid duplication) -->
+        <div id="cardsContainer" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
+            <div class="skeleton h-60 rounded-2xl"></div>
+            <div class="skeleton h-60 rounded-2xl hidden md:block"></div>
+            <div class="skeleton h-60 rounded-2xl hidden lg:block"></div>
+        </div>
+
+        <!-- Footer with Legal Disclaimer -->
+        <footer class="mt-12 pt-6 border-t border-gray-200 text-center">
+            <p class="text-gray-500 text-sm">🌿 My Itarsi — connecting you with essential local services</p>
+            <p class="text-gray-400 text-xs mt-2">© 2026 My Itarsi Directory | All Rights Reserved</p>
+            <p class="text-gray-400 text-xs mt-1">Click on any card for more details</p>
+            
+            <!-- Legal Disclaimer -->
+            <div class="mt-4 pt-3 border-t border-gray-100 max-w-2xl mx-auto">
+                <p class="text-gray-400 text-[10px] leading-relaxed">
+                    <i class="fas fa-scale-balanced mr-1"></i> 
+                    Disclaimer: All information displayed on this directory is collected from publicly available sources, 
+                    including business listings, public records, and voluntary submissions. While we strive to keep 
+                    information accurate and up-to-date, we make no representations or warranties of any kind, express or implied, 
+                    about the completeness, accuracy, reliability, or availability of any information shown. 
+                    <strong class="font-semibold">My Itarsi Directory and its administrator assume no liability</strong> for errors, omissions, 
+                    or any actions taken based on this information. Users are advised to verify all details independently 
+                    before making decisions based on this directory.
+                </p>
+                <p class="text-gray-400 text-[9px] mt-2">
+                    For corrections or removal requests, please contact the site administrator.
+                </p>
+            </div>
+        </footer>
+    </div>
+
+    <!-- Modal Popup -->
+    <div id="detailModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-close" onclick="closeModal()">
+                <i class="fas fa-times text-white text-sm"></i>
+            </div>
+            <div id="modalBody" class="p-5">
+                <!-- Dynamic content will be inserted here -->
             </div>
         </div>
     </div>
-</section>
 
-<footer class="bg-gray-900 text-white py-12 text-center">
-    <p>© 2026 PM SHRI SHAHID INDER GIRI GOVT HSS RAMPUR. Shaping tomorrow's leaders.</p>
-</footer>
-
-<div id="lightbox" class="fixed inset-0 bg-black/90 hidden items-center justify-center z-50" onclick="closeLightbox()">
-    <img id="lightboxImg" class="max-w-[90%] max-h-[90%] rounded-lg">
-</div>
-
-<script>
-// ==================== GOOGLE SHEETS CONFIGURATION ====================
-// SINGLE URL — ONE SHEET WITH TYPE FIELD
-const GOOGLE_SHEETS_URL = 'https://script.google.com/macros/s/AKfycbyyO4XWczAIaER1IbvQ5etcrYYzSM83zpLNKGIzIwVY0P-T_fNphOf9kKaSzCPElRS1Pw/exec';
-const ADMISSION_SHEETS_URL = GOOGLE_SHEETS_URL; // Same URL for admission too
-
-// ==================== DATA ====================
-let appData = {
-    results: [],
-    teachers: [],
-    programs: [],
-    events: [],
-    gallery: [],
-    stats: [
-        { label: "Primary Section", value: 100 },
-        { label: "Middle Section", value: 120 },
-        { label: "HigherSecondory Section", value: 368 },
-        { label: "Total Students", value: 588 },
-        { label: "Total Teachers", value: 18 },
-        { label: "Streams", value: 3 }
-    ]
-};
-    
-let adminPassword = "admin123";
-let keySequence = [];
-let currentModalType = null;
-let currentEditId = null;
-
-// ==================== GOOGLE SHEETS FUNCTIONS ====================
-async function loadFromGoogleSheets() {
-    if (!GOOGLE_SHEETS_URL || GOOGLE_SHEETS_URL === 'https://script.google.com/macros/s/YOUR_DEPLOYMENT_ID/exec') {
-        console.log('Google Sheets not configured. Using localStorage.');
-        loadFromLocalStorage();
-        return;
-    }
-    
-    try {
-        showLoading(true);
-        const response = await fetch(GOOGLE_SHEETS_URL);
-        const data = await response.json();
-        
-        if (data.error) {
-            throw new Error(data.error);
-        }
-        
-        // Organize data by type — ALL FROM ONE SHEET
-        appData.teachers = data.filter(item => item.type === 'teacher');
-        appData.programs = data.filter(item => item.type === 'program');
-        appData.events = data.filter(item => item.type === 'event');
-        appData.results = data.filter(item => item.type === 'result');
-        appData.gallery = data.filter(item => item.type === 'gallery').map(item => item.url);
-        
-        // If no data in sheets, load defaults
-        if (appData.teachers.length === 0) loadDefaultData();
-        
-        renderAll();
-        saveToLocalStorage();
-        showLoading(false);
-        console.log('✅ Data loaded from Google Sheets');
-    } catch (error) {
-        console.error('Error loading from Google Sheets:', error);
-        loadFromLocalStorage();
-        showLoading(false);
-    }
-}
-
-async function saveToGoogleSheets(type, data) {
-    if (!GOOGLE_SHEETS_URL || GOOGLE_SHEETS_URL === 'https://script.google.com/macros/s/YOUR_DEPLOYMENT_ID/exec') {
-        saveToLocalStorage();
-        return;
-    }
-    
-    try {
-        const payload = { type, ...data };
-        await fetch(GOOGLE_SHEETS_URL, {
-            method: 'POST',
-            mode: 'no-cors',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify(payload)
-        });
-        console.log(`✅ ${type} saved to Google Sheets`);
-    } catch (error) {
-        console.error('Error saving to Google Sheets:', error);
-    }
-    saveToLocalStorage();
-}
-
-async function deleteFromGoogleSheets(type, id) {
-    saveToLocalStorage();
-}
-
-function showLoading(show) {
-    const loader = document.getElementById('loadingIndicator');
-    if (loader) {
-        loader.style.display = show ? 'flex' : 'none';
-    }
-}
-
-// ==================== LOCAL STORAGE BACKUP ====================
-function loadFromLocalStorage() {
-    const saved = localStorage.getItem('novaDataBackup');
-    if (saved) {
-        const parsed = JSON.parse(saved);
-        appData.teachers = parsed.teachers || [];
-        appData.programs = parsed.programs || [];
-        appData.events = parsed.events || [];
-        appData.results = parsed.results || [];
-        appData.gallery = parsed.gallery || [];
-        appData.stats = parsed.stats || appData.stats;
-    }
-    
-    if (appData.teachers.length === 0) {
-        loadDefaultData();
-    }
-    
-    renderAll();
-}
-
-function saveToLocalStorage() {
-    localStorage.setItem('novaDataBackup', JSON.stringify({
-        teachers: appData.teachers,
-        programs: appData.programs,
-        events: appData.events,
-        results: appData.results,
-        gallery: appData.gallery,
-        stats: appData.stats
-    }));
-}
-
-function loadDefaultData() {
-    appData.teachers = [
-        { id: 1, type: 'teacher', name: "Dr. Sarah Johnson", subject: "Mathematics", bio: "PhD from MIT, 12+ years of experience.", icon: "📐", image: "https://randomuser.me/api/portraits/women/68.jpg" },
-        { id: 2, type: 'teacher', name: "Prof. Michael Chen", subject: "Physics", bio: "Award-winning STEM educator.", icon: "⚛️", image: "https://randomuser.me/api/portraits/men/32.jpg" },
-        { id: 3, type: 'teacher', name: "Ms. Emily Davis", subject: "English", bio: "Published author.", icon: "📖", image: "https://randomuser.me/api/portraits/women/45.jpg" },
-        { id: 4, type: 'teacher', name: "Mr. James Wilson", subject: "Computer Science", bio: "AI & ML expert.", icon: "💻", image: "https://randomuser.me/api/portraits/men/52.jpg" }
-    ];
-    
-    appData.programs = [
-        { id: 1, type: 'program', title: "STEM Education", description: "Advanced robotics and coding.", icon: "fa-flask", color: "orange" },
-        { id: 2, type: 'program', title: "Performing Arts", description: "Music, dance, and drama.", icon: "fa-music", color: "purple" },
-        { id: 3, type: 'program', title: "Sports Academy", description: "Professional sports coaching.", icon: "fa-futbol", color: "green" },
-        { id: 4, type: 'program', title: "Global Programs", description: "International exchange.", icon: "fa-globe", color: "blue" }
-    ];
-    
-    appData.events = [
-        { id: 1, type: 'event', title: "Annual Sports Meet", date: "April 15, 2026", location: "Main Ground", action: "Register", color: "orange" },
-        { id: 2, type: 'event', title: "Parent-Teacher Conference", date: "April 28, 2026", location: "Virtual", action: "Book Slot", color: "purple" },
-        { id: 3, type: 'event', title: "STEAM Expo", date: "May 10, 2026", location: "Auditorium", action: "Exhibit", color: "green" }
-    ];
-    
-    appData.results = [
-        { id: 1, type: 'result', year: "2025", percentage: "98.6%", toppers: "3 in District Top 10", distinction: "52 Distinctions" },
-        { id: 2, type: 'result', year: "2024", percentage: "97.2%", toppers: "2 in State Top 50", distinction: "48 Distinctions" },
-        { id: 3, type: 'result', year: "2023", percentage: "96.8%", toppers: "Best School Award", distinction: "45 Distinctions" }
-    ];
-    
-    appData.gallery = [
-        "images/gallery1.jpg",
-        "images/gallery2.jpg",
-        "images/gallery3.jpg",
-        "images/gallery4.jpg"
-    ];
-}
-
-// ==================== CRUD OPERATIONS ====================
-async function addItem(type, item) {
-    const newItem = { id: Date.now(), type, ...item };
-    appData[type + 's'].push(newItem);
-    await saveToGoogleSheets(type, newItem);
-    renderAll();
-}
-
-async function deleteItem(type, id) {
-    appData[type + 's'] = appData[type + 's'].filter(i => i.id !== id);
-    await deleteFromGoogleSheets(type, id);
-    renderAll();
-}
-
-// ==================== RENDER FUNCTIONS ====================
-function renderAll() {
-    renderStats();
-    renderResults();
-    renderTeachers();
-    renderPrograms();
-    renderEvents();
-    renderGallery();
-    renderAdminLists();
-}
-
-function renderStats() {
-    let html = '';
-    appData.stats.forEach((s, i) => {
-        html += `<div class="text-center"><div class="text-5xl font-bold text-blue-600 counter" data-target="${s.value}">0</div><p class="text-gray-600 mt-2">${s.label}</p></div>`;
-    });
-    document.getElementById('statsContainer').innerHTML = html;
-    startCounters();
-}
-
-function startCounters() {
-    const counters = document.querySelectorAll('.counter');
-    const observer = new IntersectionObserver((entries) => {
-        entries.forEach(entry => {
-            if (entry.isIntersecting) {
-                let counter = entry.target;
-                let target = parseInt(counter.dataset.target);
-                let current = 0;
-                let interval = setInterval(() => {
-                    current += Math.ceil(target / 50);
-                    if (current >= target) {
-                        counter.innerText = target;
-                        clearInterval(interval);
-                    } else {
-                        counter.innerText = current;
-                    }
-                }, 30);
-                observer.unobserve(counter);
+    <script>
+        // ========== COPY PROTECTION ==========
+        document.addEventListener('contextmenu', e => e.preventDefault());
+        document.addEventListener('keydown', e => {
+            if (e.ctrlKey && (e.key === 'c' || e.key === 'x' || e.key === 'a')) {
+                e.preventDefault();
+                alert('📋 Content is protected.');
             }
+            if (e.key === 'F12') e.preventDefault();
         });
-    });
-    counters.forEach(c => observer.observe(c));
-}
+        document.addEventListener('copy', e => { e.preventDefault(); alert('📋 Content is protected.'); });
+        document.addEventListener('cut', e => { e.preventDefault(); alert('📋 Content is protected.'); });
+        document.addEventListener('dragstart', e => e.preventDefault());
+        
+        // ========== CONFIGURATION ==========
+        const APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbyI54-1K2KfJ_XF9opzuajfWJSnxlPXjxV6letT7z3syA8l6khIaypcAGNfqKp4aXmP/exec';
+        const CACHE_KEY = 'myitarsi_data_v2';
+        const CACHE_DURATION = 0;
+        
+        let placesData = [];
+        let activeCategory = 'all';
+        let searchQuery = '';
+        let isLoading = false;
+        
+        // Carousel variables
+        let currentSlide = 0;
+        let totalItems = 0;
+        let slidesPerView = 1;
+        
+        const searchInput = document.getElementById('searchInput');
+        const clearBtn = document.getElementById('clearSearchBtn');
+        const refreshBtn = document.getElementById('refreshBtn');
+        const cardsContainer = document.getElementById('cardsContainer');
+        const resultStats = document.getElementById('resultStats');
+        const categoryBtns = document.querySelectorAll('.cat-btn');
+        const modal = document.getElementById('detailModal');
+        const featuredSection = document.getElementById('featuredSection');
+        const carouselTrack = document.getElementById('carouselTrack');
+        const carouselPrev = document.getElementById('carouselPrev');
+        const carouselNext = document.getElementById('carouselNext');
+        const carouselDots = document.getElementById('carouselDots');
+        
+        // ========== NUMBER HIDING SYSTEM ==========
+        // Track number reveals (for future analytics/monetization)
+        let numberRevealLog = [];
+        let revealCount = 0;
+        const MAX_REVEALS_PER_SESSION = 10;
 
-function renderResults() {
-    let html = '';
-    appData.results.forEach(r => {
-        html += `<div class="bg-white dark:bg-gray-800 rounded-2xl p-6 text-center border-t-4 border-blue-500 shadow-lg">
-                    <div class="text-4xl font-bold text-blue-600">${r.year}</div>
-                    <div class="text-3xl font-bold mt-2">${r.percentage}</div>
-                    <p class="text-gray-600 mt-2">${r.toppers}</p>
-                    <p class="text-sm text-gray-500">${r.distinction}</p>
-                 </div>`;
-    });
-    document.getElementById('resultsContainer').innerHTML = html;
-}
+        function logNumberReveal(businessName, businessId) {
+            const revealEvent = {
+                business: businessName,
+                id: businessId,
+                timestamp: new Date().toISOString(),
+                userAgent: navigator.userAgent.substring(0, 100)
+            };
+            numberRevealLog.push(revealEvent);
+            
+            // Optional: Store in localStorage for later analysis
+            try {
+                let existingLogs = JSON.parse(localStorage.getItem('numberReveals_log') || '[]');
+                existingLogs.push(revealEvent);
+                // Keep last 500 logs only
+                if (existingLogs.length > 500) existingLogs.shift();
+                localStorage.setItem('numberReveals_log', JSON.stringify(existingLogs));
+            } catch(e) {}
+            
+            console.log('Number revealed for:', businessName); // Can remove in production
+        }
 
-function renderTeachers() {
-    let html = '';
-    appData.teachers.forEach(t => {
-        html += `<div class="bg-white dark:bg-gray-800 rounded-2xl p-6 text-center shadow-lg">
-                    <img src="${t.image}" class="w-32 h-32 rounded-full mx-auto mb-4 object-cover border-4 border-blue-500">
-                    <h3 class="text-xl font-bold text-blue-600">${t.name}</h3>
-                    <p class="text-blue-600 font-semibold">${t.subject}</p>
-                    <p class="text-gray-600 text-sm mt-2">${t.bio}</p>
-                    <div class="text-3xl mt-2">${t.icon}</div>
-                 </div>`;
-    });
-    document.getElementById('teachersContainer').innerHTML = html;
-}
+        function generateNumberHTML(phoneNumber, businessName, businessId) {
+            if (!phoneNumber || phoneNumber.trim() === '') {
+                return '<span class="text-gray-400 text-xs">No contact info</span>';
+            }
+            
+            // Create a unique ID for this number element
+            const uniqueId = 'num_' + Date.now() + '_' + Math.random().toString(36).substr(2, 8);
+            
+            return `
+                <div id="${uniqueId}" class="number-hidden">
+                    <button class="reveal-number-btn" onclick="revealNumber('${uniqueId}', '${escapeHtml(phoneNumber)}', '${escapeHtml(businessName)}', '${businessId}')">
+                        <i class="fas fa-eye"></i> Tap to Reveal Number
+                    </button>
+                </div>
+            `;
+        }
 
-function renderPrograms() {
-    let html = '';
-    appData.programs.forEach(p => {
-        html += `<div class="bg-white dark:bg-gray-800 rounded-2xl p-6 shadow-lg text-center">
-                    <div class="w-16 h-16 bg-${p.color}-100 rounded-full flex items-center justify-center mx-auto mb-4">
-                        <i class="fas ${p.icon} text-2xl text-${p.color}-600"></i>
-                    </div>
-                    <h3 class="text-xl font-bold mb-2">${p.title}</h3>
-                    <p class="text-gray-600">${p.description}</p>
-                 </div>`;
-    });
-    document.getElementById('programsContainer').innerHTML = html;
-}
+        function revealNumber(elementId, phoneNumber, businessName, businessId) {
+            if (revealCount >= MAX_REVEALS_PER_SESSION) {
+                alert(`⚠️ You've reached the limit of ${MAX_REVEALS_PER_SESSION} number reveals per session. Refresh the page to continue.`);
+                return;
+            }
+            
+            const container = document.getElementById(elementId);
+            if (container) {
+                container.innerHTML = `<span class="revealed-number"><i class="fas fa-phone-alt text-green-500 mr-1"></i> ${escapeHtml(phoneNumber)}</span>`;
+                logNumberReveal(businessName, businessId);
+                revealCount++;
+                
+                // Optional: Show remaining reveals
+                if (revealCount >= MAX_REVEALS_PER_SESSION - 3) {
+                    const remaining = MAX_REVEALS_PER_SESSION - revealCount;
+                    if (remaining > 0) {
+                        setTimeout(() => {
+                            const msg = document.createElement('div');
+                            msg.className = 'fixed bottom-4 right-4 bg-yellow-100 text-yellow-800 text-xs p-2 rounded-lg shadow-lg z-50 animate-fade-in';
+                            msg.innerHTML = `<i class="fas fa-info-circle mr-1"></i> You have ${remaining} reveal${remaining !== 1 ? 's' : ''} remaining this session.`;
+                            document.body.appendChild(msg);
+                            setTimeout(() => msg.remove(), 3000);
+                        }, 100);
+                    }
+                }
+            }
+        }
+        
+        // Cache functions - DISABLED for instant updates
+        function getCachedData() {
+            return null;
+        }
+        
+        function setCachedData(data) {
+            try {
+                localStorage.setItem(CACHE_KEY, JSON.stringify({ data: data, timestamp: Date.now() }));
+            } catch(e) {}
+        }
+        
+        function clearCache() { localStorage.removeItem(CACHE_KEY); }
+        
+        // Check if an item is featured
+        function isFeatured(item) {
+            return item.featured && (item.featured.toLowerCase() === 'yes');
+        }
+        
+        // Update slides per view based on screen width
+        function updateSlidesPerView() {
+            slidesPerView = window.innerWidth >= 768 ? 3 : 1;
+            if (totalItems > 0) {
+                updateCarousel();
+            }
+        }
+        
+        // Update carousel position and dots
+        function updateCarousel() {
+            if (!carouselTrack) return;
+            const totalSlidesCount = Math.ceil(totalItems / slidesPerView);
+            if (currentSlide >= totalSlidesCount) currentSlide = Math.max(0, totalSlidesCount - 1);
+            
+            const slideWidth = 100 / slidesPerView;
+            const translateX = -(currentSlide * slideWidth);
+            carouselTrack.style.transform = `translateX(${translateX}%)`;
+            
+            // Update dots
+            if (carouselDots) {
+                carouselDots.innerHTML = '';
+                for (let i = 0; i < totalSlidesCount; i++) {
+                    const dot = document.createElement('div');
+                    dot.className = `carousel-dot ${i === currentSlide ? 'active' : ''}`;
+                    dot.addEventListener('click', () => {
+                        currentSlide = i;
+                        updateCarousel();
+                    });
+                    carouselDots.appendChild(dot);
+                }
+            }
+        }
+        
+        // Navigate carousel
+        function prevSlide() {
+            if (currentSlide > 0) {
+                currentSlide--;
+                updateCarousel();
+            }
+        }
+        
+        function nextSlide() {
+            const totalSlidesCount = Math.ceil(totalItems / slidesPerView);
+            if (currentSlide < totalSlidesCount - 1) {
+                currentSlide++;
+                updateCarousel();
+            }
+        }
+        
+        // Render featured items in carousel
+        function renderFeaturedItems(featuredItems) {
+            if (!carouselTrack) return;
+            
+            if (featuredItems.length === 0) {
+                featuredSection.style.display = 'none';
+                return;
+            }
+            
+            featuredSection.style.display = 'block';
+            totalItems = featuredItems.length;
+            
+            const categoryColors = {
+                hospital: { bg: 'from-amber-50 to-yellow-50', border: 'border-yellow-200', iconBg: 'bg-yellow-100', icon: 'fas fa-hospital', iconColor: 'text-red-500' },
+                school: { bg: 'from-blue-50 to-indigo-50', border: 'border-blue-200', iconBg: 'bg-blue-100', icon: 'fas fa-graduation-cap', iconColor: 'text-blue-500' },
+                auto: { bg: 'from-green-50 to-emerald-50', border: 'border-green-200', iconBg: 'bg-green-100', icon: 'fas fa-car', iconColor: 'text-green-500' },
+                realestate: { bg: 'from-purple-50 to-pink-50', border: 'border-purple-200', iconBg: 'bg-purple-100', icon: 'fas fa-building', iconColor: 'text-purple-500' },
+// 👇 ADD THIS RESTAURANT CONFIG
+    restaurant: { bg: 'from-orange-50 to-amber-50', border: 'border-orange-200', iconBg: 'bg-orange-100', icon: 'fas fa-utensils', iconColor: 'text-orange-500' },
 
-function renderEvents() {
-    let html = '';
-    appData.events.forEach(e => {
-        const color = e.color || 'blue';
-        const title = e.title || 'Event';
-        const date = e.date || 'Date TBD';
-        const location = e.location || 'Location TBD';
-        const action = e.action || 'Register';
-        html += `<div class="bg-white dark:bg-gray-800 rounded-xl p-5 flex flex-wrap justify-between items-center shadow-md">
-                        <div class="flex items-center gap-4">
-                            <div class="bg-${color}-100 p-3 rounded-full"><i class="fas fa-calendar-alt text-${color}-600"></i></div>
-                            <div><p class="font-bold">${title}</p><p class="text-sm text-gray-500">${date} • ${location}</p></div>
+// 👇 ADD THIS Blood donor CONFIG
+
+
+bloodbank: { bg: 'from-red-50 to-rose-50', border: 'border-red-200', iconBg: 'bg-red-100', icon: 'fas fa-hand-holding-heart', iconColor: 'text-red-500' }
+
+            };
+            
+            carouselTrack.innerHTML = featuredItems.map(item => {
+                const colors = categoryColors[item.category] || { 
+                    bg: 'from-gray-50 to-gray-100', 
+                    border: 'border-gray-200', 
+                    iconBg: 'bg-gray-100', 
+                    icon: 'fas fa-building', 
+                    iconColor: 'text-gray-500' 
+                };
+                
+                return `
+                    <div class="carousel-slide">
+                        <div class="bg-gradient-to-br ${colors.bg} rounded-xl p-4 border ${colors.border} featured-card shadow-md cursor-pointer h-full" onclick='openModal(${JSON.stringify(item).replace(/'/g, "&#39;")})'>
+                            <div class="flex items-center gap-3 mb-3">
+                                <div class="w-12 h-12 ${colors.iconBg} rounded-full flex items-center justify-center shadow-inner">
+                                    <i class="${colors.icon} ${colors.iconColor} text-lg"></i>
+                                </div>
+                                <div>
+                                    <p class="font-bold text-gray-800">${escapeHtml(item.name)}</p>
+                                    <p class="text-xs text-gray-500">${item.category === 'hospital' ? '🏥 Hospital' : item.category === 'school' ? '📚 School' : item.category === 'auto' ? '🔧 Auto Service' : '🏢 Real Estate'}</p>
+                                </div>
+                            </div>
+                            ${item.address ? `<p class="text-xs text-gray-600 mt-2 flex items-start gap-1"><i class="fas fa-map-marker-alt text-red-400 text-xs mt-0.5"></i> <span>${escapeHtml(item.address).substring(0, 60)}${escapeHtml(item.address).length > 60 ? '...' : ''}</span></p>` : ''}
+                            ${item.contact ? `<p class="text-xs text-gray-600 mt-1 flex items-center gap-1"><i class="fas fa-phone-alt text-green-500 text-xs"></i> ${generateNumberHTML(item.contact, item.name, item.name.replace(/\s/g, '_') + '_' + (item.category || 'other'))}</p>` : ''}
+                            <div class="mt-3 pt-2 border-t border-gray-200">
+                                <span class="text-xs text-itarsi-primary font-medium"><i class="fas fa-hand-pointer mr-1"></i> Click for details</span>
+                            </div>
                         </div>
-                        <span class="bg-${color}-600 text-white px-4 py-1 rounded-full text-sm">${action}</span>
-                     </div>`;
-    });
-    document.getElementById('eventsContainer').innerHTML = html;
-}
-function renderGallery() {
-    let html = '';
-    appData.gallery.forEach(url => {
-        html += `<img src="${url}" class="rounded-2xl w-full h-48 object-cover cursor-pointer" onclick="openLightbox('${url}')">`;
-    });
-    document.getElementById('galleryContainer').innerHTML = html;
-}
-
-function renderAdminLists() {
-    let resultsHtml = '';
-    appData.results.forEach(r => {
-        resultsHtml += `<div class="flex justify-between items-center p-3 bg-gray-800 rounded-lg">
-                            <div><strong class="text-white">${r.year}</strong> - ${r.percentage}<br><small class="text-gray-400">${r.toppers}</small></div>
-                            <button onclick="deleteItem('result', ${r.id})" class="text-red-400 hover:text-red-300"><i class="fas fa-trash"></i></button>
-                        </div>`;
-    });
-    document.getElementById('resultsAdminList').innerHTML = resultsHtml;
-    
-    let teachersHtml = '';
-    appData.teachers.forEach(t => {
-        teachersHtml += `<div class="flex justify-between items-center p-3 bg-gray-800 rounded-lg">
-                            <div><strong class="text-white">${t.name}</strong><br><small class="text-gray-400">${t.subject}</small></div>
-                            <button onclick="deleteItem('teacher', ${t.id})" class="text-red-400 hover:text-red-300"><i class="fas fa-trash"></i></button>
-                        </div>`;
-    });
-    document.getElementById('teachersAdminList').innerHTML = teachersHtml;
-    
-    let programsHtml = '';
-    appData.programs.forEach(p => {
-        programsHtml += `<div class="flex justify-between items-center p-3 bg-gray-800 rounded-lg">
-                            <div><strong class="text-white">${p.title}</strong><br><small class="text-gray-400">${p.description.substring(0, 40)}...</small></div>
-                            <button onclick="deleteItem('program', ${p.id})" class="text-red-400 hover:text-red-300"><i class="fas fa-trash"></i></button>
-                        </div>`;
-    });
-    document.getElementById('programsAdminList').innerHTML = programsHtml;
-    
-    let eventsHtml = '';
-    appData.events.forEach(e => {
-        eventsHtml += `<div class="flex justify-between items-center p-3 bg-gray-800 rounded-lg">
-                            <div><strong class="text-white">${e.title}</strong><br><small class="text-gray-400">${e.date}</small></div>
-                            <button onclick="deleteItem('event', ${e.id})" class="text-red-400 hover:text-red-300"><i class="fas fa-trash"></i></button>
-                        </div>`;
-    });
-    document.getElementById('eventsAdminList').innerHTML = eventsHtml;
-    
-    let galleryHtml = '';
-    appData.gallery.forEach((url, idx) => {
-        galleryHtml += `<div class="relative"><img src="${url}" class="w-full h-20 object-cover rounded"><button onclick="deleteGalleryItem(${idx})" class="absolute top-1 right-1 bg-red-500 text-white rounded-full w-5 h-5 text-xs">&times;</button></div>`;
-    });
-    document.getElementById('galleryAdminList').innerHTML = galleryHtml;
-    
-    let statsHtml = '';
-    appData.stats.forEach((s, idx) => {
-        statsHtml += `<div class="flex gap-2 p-3 bg-gray-800 rounded-lg">
-                            <input type="text" value="${s.label}" id="statLabel${idx}" class="flex-1 p-2 rounded bg-gray-700 text-white">
-                            <input type="number" value="${s.value}" id="statValue${idx}" class="w-32 p-2 rounded bg-gray-700 text-white">
-                            <button onclick="updateStat(${idx})" class="bg-blue-600 px-3 py-1 rounded">Save</button>
-                        </div>`;
-    });
-    document.getElementById('statsAdminList').innerHTML = statsHtml;
-}
-
-async function deleteGalleryItem(idx) {
-    appData.gallery.splice(idx, 1);
-    await saveToGoogleSheets('gallery', { action: 'delete', index: idx });
-    renderAll();
-}
-
-function updateStat(idx) {
-    appData.stats[idx].label = document.getElementById(`statLabel${idx}`).value;
-    appData.stats[idx].value = parseInt(document.getElementById(`statValue${idx}`).value);
-    saveToLocalStorage();
-    renderAll();
-}
-
-// ==================== MODAL FUNCTIONS ====================
-function openResultModal() {
-    currentModalType = 'result';
-    currentEditId = null;
-    document.getElementById('modalTitle').innerText = 'Add Result';
-    document.getElementById('modalFields').innerHTML = `
-        <input type="text" id="resultYear" placeholder="Year (e.g., 2026)" class="w-full p-3 border rounded-lg mb-3 dark:bg-gray-700">
-        <input type="text" id="resultPercent" placeholder="Percentage (e.g., 98.5%)" class="w-full p-3 border rounded-lg mb-3 dark:bg-gray-700">
-        <input type="text" id="resultToppers" placeholder="Toppers Info" class="w-full p-3 border rounded-lg mb-3 dark:bg-gray-700">
-        <input type="text" id="resultDistinction" placeholder="Distinction Info" class="w-full p-3 border rounded-lg dark:bg-gray-700">
-    `;
-    document.getElementById('itemModal').classList.remove('hidden');
-    document.getElementById('itemModal').classList.add('flex');
-}
-
-function openTeacherModal() {
-    currentModalType = 'teacher';
-    currentEditId = null;
-    document.getElementById('modalTitle').innerText = 'Add Teacher';
-    document.getElementById('modalFields').innerHTML = `
-        <input type="text" id="teacherName" placeholder="Teacher Name" class="w-full p-3 border rounded-lg mb-3 dark:bg-gray-700">
-        <input type="text" id="teacherSubject" placeholder="Subject" class="w-full p-3 border rounded-lg mb-3 dark:bg-gray-700">
-        <textarea id="teacherBio" placeholder="Bio" class="w-full p-3 border rounded-lg mb-3 dark:bg-gray-700" rows="3"></textarea>
-        <input type="text" id="teacherIcon" placeholder="Icon Emoji" class="w-full p-3 border rounded-lg mb-3 dark:bg-gray-700">
-        <input type="text" id="teacherImage" placeholder="Image URL" class="w-full p-3 border rounded-lg dark:bg-gray-700">
-    `;
-    document.getElementById('itemModal').classList.remove('hidden');
-    document.getElementById('itemModal').classList.add('flex');
-}
-
-function openProgramModal() {
-    currentModalType = 'program';
-    currentEditId = null;
-    document.getElementById('modalTitle').innerText = 'Add Program';
-    document.getElementById('modalFields').innerHTML = `
-        <input type="text" id="programTitle" placeholder="Program Title" class="w-full p-3 border rounded-lg mb-3 dark:bg-gray-700">
-        <textarea id="programDesc" placeholder="Description" class="w-full p-3 border rounded-lg mb-3 dark:bg-gray-700" rows="3"></textarea>
-        <select id="programIcon" class="w-full p-3 border rounded-lg mb-3 dark:bg-gray-700">
-            <option value="fa-flask">Science</option><option value="fa-music">Music</option>
-            <option value="fa-futbol">Sports</option><option value="fa-globe">Global</option>
-        </select>
-        <select id="programColor" class="w-full p-3 border rounded-lg dark:bg-gray-700">
-            <option value="orange">Orange</option><option value="purple">Purple</option>
-            <option value="green">Green</option><option value="blue">Blue</option>
-        </select>
-    `;
-    document.getElementById('itemModal').classList.remove('hidden');
-    document.getElementById('itemModal').classList.add('flex');
-}
-
-function openEventModal() {
-    currentModalType = 'event';
-    currentEditId = null;
-    document.getElementById('modalTitle').innerText = 'Add Event';
-    document.getElementById('modalFields').innerHTML = `
-        <input type="text" id="eventTitle" placeholder="Event Title" class="w-full p-3 border rounded-lg mb-3 dark:bg-gray-700">
-        <input type="text" id="eventDate" placeholder="Date (e.g., April 15, 2026)" class="w-full p-3 border rounded-lg mb-3 dark:bg-gray-700">
-        <input type="text" id="eventLocation" placeholder="Location" class="w-full p-3 border rounded-lg mb-3 dark:bg-gray-700">
-        <select id="eventColor" class="w-full p-3 border rounded-lg dark:bg-gray-700">
-            <option value="orange">Orange</option><option value="purple">Purple</option><option value="green">Green</option>
-        </select>
-    `;
-    document.getElementById('itemModal').classList.remove('hidden');
-    document.getElementById('itemModal').classList.add('flex');
-}
-
-function openGalleryModal() {
-    let url = prompt('Enter image URL:');
-    if (url) {
-        appData.gallery.push(url);
-        saveToGoogleSheets('gallery', { url: url, action: 'add' });
-        renderAll();
-    }
-}
-
-function closeModal() {
-    document.getElementById('itemModal').classList.add('hidden');
-    document.getElementById('itemModal').classList.remove('flex');
-    currentModalType = null;
-}
-
-document.getElementById('saveModalBtn').onclick = async function() {
-    if (currentModalType === 'result') {
-        let year = document.getElementById('resultYear').value;
-        let percentage = document.getElementById('resultPercent').value;
-        if (year && percentage) {
-            await addItem('result', {
-                year: year,
-                percentage: percentage,
-                toppers: document.getElementById('resultToppers').value,
-                distinction: document.getElementById('resultDistinction').value
-            });
-            closeModal();
-        } else alert('Please fill Year and Percentage');
-    }
-    else if (currentModalType === 'teacher') {
-        let name = document.getElementById('teacherName').value;
-        if (name) {
-            await addItem('teacher', {
-                name: name,
-                subject: document.getElementById('teacherSubject').value,
-                bio: document.getElementById('teacherBio').value,
-                icon: document.getElementById('teacherIcon').value || '👩‍🏫',
-                image: document.getElementById('teacherImage').value || 'https://randomuser.me/api/portraits/men/1.jpg'
-            });
-            closeModal();
-        } else alert('Please enter teacher name');
-    }
-    else if (currentModalType === 'program') {
-        let title = document.getElementById('programTitle').value;
-        if (title) {
-            await addItem('program', {
-                title: title,
-                description: document.getElementById('programDesc').value,
-                icon: document.getElementById('programIcon').value,
-                color: document.getElementById('programColor').value
-            });
-            closeModal();
-        } else alert('Please enter program title');
-    }
-    else if (currentModalType === 'event') {
-        let title = document.getElementById('eventTitle').value;
-        if (title) {
-            await addItem('event', {
-                title: title,
-                date: document.getElementById('eventDate').value,
-                location: document.getElementById('eventLocation').value,
-                action: "Register",
-                color: document.getElementById('eventColor').value
-            });
-            closeModal();
-        } else alert('Please enter event title');
-    }
-};
-
-document.getElementById('cancelModalBtn').onclick = closeModal;
-
-// ==================== ADMIN LOGIN ====================
-document.addEventListener('keydown', (e) => {
-    keySequence.push(e.key.toLowerCase());
-    if (keySequence.length > 5) keySequence.shift();
-    if (keySequence.join('') === 'admin') {
-        document.getElementById('adminLoginModal').classList.add('active');
-        keySequence = [];
-    }
-});
-
-document.getElementById('adminLoginBtn').onclick = () => {
-    let pwd = document.getElementById('adminPasswordInput').value;
-    if (pwd === adminPassword) {
-        document.getElementById('adminLoginModal').classList.remove('active');
-        document.getElementById('adminDashboard').classList.add('active');
-    } else alert('Wrong password!');
-};
-
-document.getElementById('closeAdminBtn').onclick = () => {
-    document.getElementById('adminDashboard').classList.remove('active');
-};
-
-// ==================== LOGO UPDATE ====================
-window.updateLogo = function(position) {
-    let url = prompt('Enter new image URL:');
-    if (url) {
-        document.getElementById(`${position}Logo`).src = url;
-        localStorage.setItem(`${position}LogoUrl`, url);
-    }
-};
-
-let savedLeft = localStorage.getItem('leftLogoUrl');
-let savedRight = localStorage.getItem('rightLogoUrl');
-if (savedLeft) document.getElementById('leftLogo').src = savedLeft;
-if (savedRight) document.getElementById('rightLogo').src = savedRight;
-
-// ==================== ADMISSION FORM ====================
-document.getElementById('admissionForm').addEventListener('submit', async (e) => {
-    e.preventDefault();
-    
-    const submitBtn = e.target.querySelector('button[type="submit"]');
-    const originalText = submitBtn.innerHTML;
-    submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Submitting...';
-    submitBtn.disabled = true;
-    
-    const formData = {
-        timestamp: new Date().toISOString(),
-        studentName: document.getElementById('studentName').value,
-        dob: document.getElementById('dob').value,
-        grade: document.getElementById('grade').value,
-        parentName: document.getElementById('parentName').value,
-        email: document.getElementById('email').value,
-        phone: document.getElementById('phone').value,
-        message: document.getElementById('message').value
-    };
-    
-    let successMessage = '';
-    
-    if (ADMISSION_SHEETS_URL && ADMISSION_SHEETS_URL.includes('script.google.com')) {
-        try {
-            await fetch(ADMISSION_SHEETS_URL, {
-                method: 'POST',
-                mode: 'no-cors',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify(formData)
-            });
-            successMessage = '✅ Application submitted to Google Sheets successfully!';
-            let admissions = JSON.parse(localStorage.getItem('admissions_backup') || '[]');
-            admissions.push(formData);
-            localStorage.setItem('admissions_backup', JSON.stringify(admissions));
-        } catch (error) {
-            console.error('Google Sheets error:', error);
-            successMessage = '⚠️ Online save failed. Saving locally as backup.';
-            let admissions = JSON.parse(localStorage.getItem('admissions_backup') || '[]');
-            admissions.push(formData);
-            localStorage.setItem('admissions_backup', JSON.stringify(admissions));
-        }
-    } else {
-        let admissions = JSON.parse(localStorage.getItem('admissions_backup') || '[]');
-        admissions.push(formData);
-        localStorage.setItem('admissions_backup', JSON.stringify(admissions));
-        successMessage = '✅ Application saved locally!';
-    }
-    
-    const successDiv = document.getElementById('formSuccess');
-    successDiv.innerHTML = successMessage;
-    successDiv.classList.remove('hidden');
-    document.getElementById('admissionForm').reset();
-    
-    setTimeout(() => {
-        successDiv.classList.add('hidden');
-    }, 5000);
-    
-    submitBtn.innerHTML = originalText;
-    submitBtn.disabled = false;
-});
-
-// ==================== DARK MODE ====================
-let darkToggle = document.getElementById('darkModeToggle');
-let darkIcon = document.getElementById('darkIcon');
-if (localStorage.getItem('darkMode') === 'enabled') {
-    document.documentElement.classList.add('dark');
-    darkIcon.classList.replace('fa-moon', 'fa-sun');
-}
-darkToggle.onclick = () => {
-    document.documentElement.classList.toggle('dark');
-    if (document.documentElement.classList.contains('dark')) {
-        localStorage.setItem('darkMode', 'enabled');
-        darkIcon.classList.replace('fa-moon', 'fa-sun');
-    } else {
-        localStorage.setItem('darkMode', 'disabled');
-        darkIcon.classList.replace('fa-sun', 'fa-moon');
-    }
-};
-
-// ==================== MOBILE MENU ====================
-document.getElementById('mobileMenuBtn').onclick = () => {
-    document.getElementById('mobileMenu').classList.toggle('hidden');
-};
-
-// ==================== LIGHTBOX ====================
-window.openLightbox = (src) => {
-    document.getElementById('lightboxImg').src = src;
-    document.getElementById('lightbox').classList.remove('hidden');
-    document.getElementById('lightbox').classList.add('flex');
-};
-window.closeLightbox = () => {
-    document.getElementById('lightbox').classList.add('hidden');
-    document.getElementById('lightbox').classList.remove('flex');
-};
-
-// ==================== STICKY NAVBAR ====================
-window.addEventListener('scroll', () => {
-    let nav = document.getElementById('navbar');
-    if (window.scrollY > 10) nav.classList.add('shadow-lg');
-    else nav.classList.remove('shadow-lg');
-});
-
-// ==================== SCHOOL CALENDAR ====================
-let currentMonth = new Date().getMonth();
-let currentYear = new Date().getFullYear();
-
-const calendarEvents = [
-    { date: '2026-04-15', title: 'Annual Sports Day', color: 'green' },
-    { date: '2026-04-28', title: 'Parent-Teacher Conference', color: 'blue' },
-    { date: '2026-05-10', title: 'STEAM Expo', color: 'orange' },
-    { date: '2026-05-25', title: 'Summer Break Begins', color: 'purple' },
-    { date: '2026-06-01', title: 'School Reopens', color: 'green' },
-    { date: '2026-06-15', title: 'Mid-Term Exams Start', color: 'orange' },
-    { date: '2026-07-01', title: 'Parent-Teacher Meeting', color: 'blue' },
-    { date: '2026-07-15', title: 'Science Fair', color: 'purple' },
-    { date: '2026-08-01', title: 'Independence Day Celebration', color: 'orange' },
-    { date: '2026-08-15', title: 'Holiday - Independence Day', color: 'green' },
-];
-
-function renderCalendar(month, year) {
-    const grid = document.getElementById('calendarGrid');
-    if (!grid) return;
-    
-    const monthNames = ['January', 'February', 'March', 'April', 'May', 'June', 
-                        'July', 'August', 'September', 'October', 'November', 'December'];
-    
-    document.getElementById('calendarMonth').textContent = `${monthNames[month]} ${year}`;
-    
-    grid.innerHTML = '';
-    
-    const firstDay = new Date(year, month, 1).getDay();
-    const daysInMonth = new Date(year, month + 1, 0).getDate();
-    const daysInPrevMonth = new Date(year, month, 0).getDate();
-    const today = new Date();
-    
-    const eventsForMonth = calendarEvents.filter(event => {
-        const eventDate = new Date(event.date);
-        return eventDate.getMonth() === month && eventDate.getFullYear() === year;
-    });
-    
-    const eventMap = {};
-    eventsForMonth.forEach(event => {
-        const day = new Date(event.date).getDate();
-        if (!eventMap[day]) eventMap[day] = [];
-        eventMap[day].push(event);
-    });
-    
-    for (let i = firstDay - 1; i >= 0; i--) {
-        const day = daysInPrevMonth - i;
-        const dayDiv = document.createElement('div');
-        dayDiv.className = 'calendar-day other-month';
-        dayDiv.innerHTML = `<span class="day-number">${day}</span>`;
-        grid.appendChild(dayDiv);
-    }
-    
-    for (let day = 1; day <= daysInMonth; day++) {
-        const dayDiv = document.createElement('div');
-        dayDiv.className = 'calendar-day';
-        
-        const isToday = (day === today.getDate() && month === today.getMonth() && year === today.getFullYear());
-        if (isToday) {
-            dayDiv.classList.add('today');
+                    </div>
+                `;
+            }).join('');
+            
+            currentSlide = 0;
+            updateSlidesPerView();
+            
+            // Add event listeners to carousel buttons
+            if (carouselPrev) {
+                carouselPrev.onclick = prevSlide;
+            }
+            if (carouselNext) {
+                carouselNext.onclick = nextSlide;
+            }
         }
         
-        let dayContent = `<span class="day-number">${day}</span>`;
-        
-        if (eventMap[day]) {
-            dayDiv.classList.add('has-event');
-            eventMap[day].forEach(event => {
-                const dot = document.createElement('span');
-                dot.className = `event-dot ${event.color}`;
-                dayDiv.appendChild(dot);
-            });
-            const titles = eventMap[day].map(e => e.title).join(', ');
-            dayDiv.title = titles;
-        }
-        
-        dayDiv.innerHTML = dayContent;
-        
-        if (eventMap[day]) {
-            eventMap[day].forEach(event => {
-                const dot = document.createElement('span');
-                dot.className = `event-dot ${event.color}`;
-                dayDiv.appendChild(dot);
-            });
-        }
-        
-        grid.appendChild(dayDiv);
-    }
-    
-    const totalCells = grid.children.length;
-    const remaining = 42 - totalCells;
-    for (let day = 1; day <= remaining; day++) {
-        const dayDiv = document.createElement('div');
-        dayDiv.className = 'calendar-day other-month';
-        dayDiv.innerHTML = `<span class="day-number">${day}</span>`;
-        grid.appendChild(dayDiv);
-    }
-    
-    updateUpcomingEvents();
-}
+        // Modal functions
+        function openModal(item) {
+            const config = {
+                hospital: { icon: 'fas fa-hospital', color: 'red', bg: 'bg-red-100', text: 'text-red-600' },
+                school: { icon: 'fas fa-graduation-cap', color: 'blue', bg: 'bg-blue-100', text: 'text-blue-600' },
+                auto: { icon: 'fas fa-car', color: 'green', bg: 'bg-green-100', text: 'text-green-600' },
+                realestate: { icon: 'fas fa-building', color: 'purple', bg: 'bg-purple-100', text: 'text-purple-600' },
+		 restaurant: { icon: 'fas fa-utensils', color: 'orange', bg: 'bg-orange-100', text: 'text-orange-600' },
+		bloodbank: { icon: 'fas fa-hand-holding-heart', color: 'red', bg: 'bg-red-100', text: 'text-red-600' }
+            };
+            const c = config[item.category] || { icon: 'fas fa-building', color: 'gray', bg: 'bg-gray-100', text: 'text-gray-600' };
+            
+            const modalHTML = `
+                <div class="text-center mb-4">
+                    <div class="w-16 h-16 ${c.bg} rounded-2xl flex items-center justify-center mx-auto mb-3">
+                        <i class="${c.icon} text-${c.color}-500 text-2xl"></i>
+                    </div>
+                    <h2 class="text-xl font-bold text-gray-800">${escapeHtml(item.name)}</h2>
+                    <span class="inline-block px-3 py-1 ${c.bg} ${c.text} text-xs rounded-full mt-2 uppercase">${escapeHtml(item.category)}</span>
+                    ${isFeatured(item) ? '<span class="inline-block ml-2 px-2 py-1 bg-yellow-100 text-yellow-700 text-xs rounded-full"><i class="fas fa-star mr-1"></i>Featured</span>' : ''}
+                </div>
+                
+                <div class="space-y-3 border-t border-gray-100 pt-4">
+                    ${item.address ? `
+                        <div class="flex gap-3 items-start">
+                            <i class="fas fa-map-marker-alt text-gray-400 mt-1 text-sm"></i>
+                            <div class="flex-1">
+                                <p class="text-xs font-medium text-gray-500">Address</p>
+                                <p class="text-sm text-gray-800">${escapeHtml(item.address)}</p>
+                                <a href="https://maps.google.com/?q=${encodeURIComponent(item.address)}" target="_blank" class="text-itarsi-primary text-xs mt-1 inline-block">
+                                    <i class="fas fa-external-link-alt mr-1"></i> Get Directions
+                                </a>
+                            </div>
+                        </div>
+                    ` : ''}
+                    
+			${item.category === 'restaurant' && item.rating ? `
+    <div class="flex gap-3 items-start">
+        <i class="fas fa-star text-yellow-400 mt-1 text-sm"></i>
+        <div class="flex-1">
+            <p class="text-xs font-medium text-gray-500">Rating</p>
+            <div class="mt-1">${getStarRating(item.rating)}</div>
+        </div>
+    </div>
+` : ''}
 
-function updateUpcomingEvents() {
-    const container = document.getElementById('upcomingEvents');
-    if (!container) return;
-    
-    const today = new Date();
-    today.setHours(0, 0, 0, 0);
-    
-    const futureEvents = calendarEvents
-        .filter(event => new Date(event.date) >= today)
-        .sort((a, b) => new Date(a.date) - new Date(b.date))
-        .slice(0, 5);
-    
-    if (futureEvents.length === 0) {
-        container.innerHTML = '<div class="text-gray-500 dark:text-gray-400 text-sm">No upcoming events</div>';
-        return;
-    }
-    
-    container.innerHTML = futureEvents.map(event => {
-        const date = new Date(event.date);
-        const dateStr = date.toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' });
+                    ${item.contact ? `
+                        <div class="flex gap-3 items-start">
+                            <i class="fas fa-phone-alt text-gray-400 mt-1 text-sm"></i>
+                            <div class="flex-1">
+                                <p class="text-xs font-medium text-gray-500">Phone</p>
+                                ${generateNumberHTML(item.contact, item.name, item.name.replace(/\s/g, '_') + '_' + (item.category || 'other'))}
+                                <div class="mt-2 text-[10px] text-gray-400">
+                                    <i class="fas fa-shield-alt mr-1"></i> Number hidden for privacy — tap to reveal
+                                </div>
+                            </div>
+                        </div>
+                    ` : ''}
+                    
+                    ${item.extra ? `
+                        <div class="flex gap-3 items-start">
+                            <i class="fas fa-info-circle text-gray-400 mt-1 text-sm"></i>
+                            <div class="flex-1">
+                                <p class="text-xs font-medium text-gray-500">Additional Info</p>
+                                <p class="text-sm text-gray-800">${escapeHtml(item.extra)}</p>
+                            </div>
+                        </div>
+                    ` : ''}
+                    
+                    ${item.timings ? `
+                        <div class="flex gap-3 items-start">
+                            <i class="fas fa-clock text-gray-400 mt-1 text-sm"></i>
+                            <div class="flex-1">
+                                <p class="text-xs font-medium text-gray-500">Timings</p>
+                                <p class="text-sm text-gray-800">${escapeHtml(item.timings)}</p>
+                            </div>
+                        </div>
+                    ` : ''}
+                    
+                    ${item.website ? `
+                        <div class="flex gap-3 items-start">
+                            <i class="fas fa-globe text-gray-400 mt-1 text-sm"></i>
+                            <div class="flex-1">
+                                <p class="text-xs font-medium text-gray-500">Website</p>
+                                <a href="${escapeHtml(item.website)}" target="_blank" class="text-itarsi-primary text-xs break-all">
+                                    ${escapeHtml(item.website)}
+                                </a>
+                            </div>
+                        </div>
+                    ` : ''}
+                    ${item.email ? `
+                        <div class="flex gap-3 items-start">
+                            <i class="fas fa-envelope text-gray-400 mt-1 text-sm"></i>
+                            <div class="flex-1">
+                                <p class="text-xs font-medium text-gray-500">Email</p>
+                                <a href="mailto:${escapeHtml(item.email)}" class="text-itarsi-primary text-xs break-all">
+                                    ${escapeHtml(item.email)}
+                                </a>
+                            </div>
+                        </div>
+                    ` : ''}
+                </div>
+            `;
+            
+            document.getElementById('modalBody').innerHTML = modalHTML;
+            modal.classList.add('active');
+            document.body.style.overflow = 'hidden';
+        }
+        
+        function closeModal() {
+            modal.classList.remove('active');
+            document.body.style.overflow = 'auto';
+        }
+        
+        modal.addEventListener('click', (e) => {
+            if (e.target === modal) closeModal();
+        });
+        
+        async function fetchDataFromSheets(forceRefresh = false) {
+            if (isLoading) return;
+            
+            if (!forceRefresh) {
+                const cached = getCachedData();
+                if (cached && cached.length > 0) {
+                    placesData = cached;
+                    resultStats.innerHTML = `<i class="fas fa-database text-green-500 mr-2"></i> ${placesData.length} services`;
+                    renderAll();
+                    return;
+                }
+            }
+            
+            isLoading = true;
+            if (refreshBtn) refreshBtn.innerHTML = '<i class="fas fa-sync-alt fa-spin"></i>';
+            
+            try {
+                resultStats.innerHTML = '<i class="fas fa-spinner fa-spin mr-2"></i> Loading...';
+                const controller = new AbortController();
+                const timeoutId = setTimeout(() => controller.abort(), 10000);
+                const response = await fetch(APPS_SCRIPT_URL, { signal: controller.signal });
+                clearTimeout(timeoutId);
+                if (!response.ok) throw new Error(`HTTP ${response.status}`);
+                const data = await response.json();
+                if (data[0] && data[0].error) throw new Error(data[0].error);
+                placesData = data.filter(item => item.name && item.category);
+                setCachedData(placesData);
+                resultStats.innerHTML = `<i class="fas fa-check-circle text-green-500 mr-2"></i> ${placesData.length} services`;
+                renderAll();
+            } catch (error) {
+                console.error(error);
+                if (placesData.length === 0) loadFallbackData();
+                resultStats.innerHTML = `<i class="fas fa-cloud-arrow-down text-gray-400 mr-2"></i> ${placesData.length} services`;
+                renderAll();
+            } finally {
+                isLoading = false;
+                if (refreshBtn) setTimeout(() => refreshBtn.innerHTML = '<i class="fas fa-sync-alt"></i>', 1000);
+            }
+        }
+        
+        function loadFallbackData() {
+    placesData = [
+        { name: "Itarsi District Hospital", category: "hospital", address: "Civil Lines, Itarsi", contact: "07572 241001", extra: "24/7 Emergency", timings: "24x7", website: "", featured: "yes" },
+        { name: "City Hospital", category: "hospital", address: "Junnardeo Road, Itarsi", contact: "07572 245678", extra: "Multi-speciality", timings: "24x7", website: "", featured: "yes" },
+        { name: "Delhi Public School", category: "school", address: "Junnardeo Road, Itarsi", contact: "07572 288101", extra: "CBSE Curriculum", timings: "8am-2pm", website: "", featured: "yes" },
+        { name: "St. Mary's Convent", category: "school", address: "Civil Lines, Itarsi", contact: "07572 241234", extra: "ICSE Board", timings: "8am-2pm", website: "", featured: "yes" },
+        { name: "City Auto Service", category: "auto", address: "Near Railway Station, Itarsi", contact: "99778 66552", extra: "24x7 Available", timings: "24x7", website: "", featured: "yes" },
+        { name: "Sharma Real Estate", category: "realestate", address: "Main Road, Itarsi", contact: "9988776655", extra: "20+ years experience", timings: "10am-7pm", website: "", featured: "" },
+        { name: "Grand Hotel & Restaurant", category: "restaurant", address: "Station Road, Itarsi", contact: "07572 242211", extra: "Pure Veg & Non-Veg", timings: "10am-11pm", website: "", featured: "yes" },
+        { name: "Bikaner Sweets", category: "restaurant", address: "Main Market, Itarsi", contact: "07572 243300", extra: "Famous for sweets and snacks", timings: "8am-10pm", website: "", featured: "" },
+        { name: "Red Cross Blood Bank", category: "bloodbank", address: "Civil Lines, Itarsi", contact: "07572 245555", extra: "24/7 Emergency Blood Supply", timings: "24x7", website: "", featured: "yes" },
+        { name: "Life Line Blood Centre", category: "bloodbank", address: "Junnardeo Road, Itarsi", contact: "07572 246666", extra: "Licensed Blood Bank", timings: "8am-8pm", website: "", featured: "" },
+
+{ name: "Grand Hotel & Restaurant", category: "restaurant", address: "Station Road, Itarsi", contact: "07572 242211", extra: "Pure Veg & Non-Veg", timings: "10am-11pm", website: "", featured: "yes", rating: "4.5" },
+{ name: "Bikaner Sweets", category: "restaurant", address: "Main Market, Itarsi", contact: "07572 243300", extra: "Famous for sweets and snacks", timings: "8am-10pm", website: "", featured: "", rating: "4.2" }
+	
+    ];
+}
+        
+        function renderAll() {
+            const featuredItems = placesData.filter(item => isFeatured(item));
+            renderFeaturedItems(featuredItems);
+            renderCards();
+        }
+        
+        function renderCards() {
+            // EXCLUDE featured items from main grid to avoid duplication
+            let filtered = placesData.filter(item => {
+                // Skip featured items - they only go in carousel
+                if (isFeatured(item)) return false;
+                
+                let itemCategory = (item.category || '').toLowerCase().trim();
+                let activeCat = activeCategory.toLowerCase();
+                if (activeCat !== 'all' && itemCategory !== activeCat) return false;
+                if (searchQuery.trim()) {
+                    const query = searchQuery.toLowerCase();
+                    return (item.name || '').toLowerCase().includes(query) ||
+                           (item.address || '').toLowerCase().includes(query) ||
+                           (item.contact || '').toLowerCase().includes(query) ||
+                           (item.extra || '').toLowerCase().includes(query);
+                }
+                return true;
+            });
+            
+            const featuredCount = placesData.filter(i => isFeatured(i)).length;
+            const regularCount = placesData.filter(i => !isFeatured(i)).length;
+            
+            if (filtered.length === 0 && !searchQuery.trim()) {
+                resultStats.innerHTML = `✨ ${regularCount} local listings | ⭐ ${featuredCount} featured`;
+            } else if (filtered.length === 0 && searchQuery.trim()) {
+                resultStats.innerHTML = 'No results found';
+            } else {
+                resultStats.innerHTML = `✨ Showing ${filtered.length} ${activeCategory === 'all' ? 'listings' : activeCategory + 's'}`;
+            }
+            
+            if (filtered.length === 0) {
+                cardsContainer.innerHTML = `<div class="col-span-full text-center py-16">
+                    <div class="inline-block p-5 bg-gray-100 rounded-full mb-4">
+                        <i class="fas fa-search text-4xl text-gray-400"></i>
+                    </div>
+                    <p class="text-gray-500">No results found.</p>
+                    <p class="text-gray-400 text-xs mt-1">Try a different search term or category</p>
+                    <button onclick="document.getElementById('clearSearchBtn').click()" class="mt-3 text-itarsi-primary hover:underline text-sm font-medium">Clear search →</button>
+                </div>`;
+                return;
+            }
+            
+        cardsContainer.innerHTML = filtered.map((item, index) => {
+        const config = {
+            hospital: { icon: 'fas fa-hospital', color: 'red', bg: 'bg-red-50' },
+            school: { icon: 'fas fa-graduation-cap', color: 'blue', bg: 'bg-blue-50' },
+            auto: { icon: 'fas fa-car', color: 'green', bg: 'bg-green-50' },
+            realestate: { icon: 'fas fa-building', color: 'purple', bg: 'bg-purple-50' },
+            restaurant: { icon: 'fas fa-utensils', color: 'orange', bg: 'bg-orange-50' },
+            bloodbank: { icon: 'fas fa-hand-holding-heart', color: 'red', bg: 'bg-red-50' }
+        };
+        const c = config[item.category] || { icon: 'fas fa-building', color: 'gray', bg: 'bg-gray-50' };
+        
         return `
-            <div class="flex items-center gap-3 py-1">
-                <span class="w-3 h-3 bg-${event.color}-500 rounded-full"></span>
-                <span>${event.title}</span>
-                <span class="text-xs text-gray-400 ml-auto">${dateStr}</span>
+            <div class="card bg-white rounded-2xl shadow-lg overflow-hidden border border-gray-100 relative" onclick='openModal(${JSON.stringify(item).replace(/'/g, "&#39;")})'>
+                <div class="h-1.5 bg-gradient-to-r from-${c.color}-400 to-${c.color}-600"></div>
+                <div class="p-5">
+                    <div class="flex items-center gap-3 mb-3">
+                        <div class="w-11 h-11 ${c.bg} rounded-xl flex items-center justify-center">
+                            <i class="${c.icon} text-${c.color}-500 text-lg"></i>
+                        </div>
+                        <h3 class="font-bold text-lg text-gray-800">${escapeHtml(item.name)}</h3>
+                    </div>
+                    <div class="space-y-2 text-gray-600 text-xs">
+                        ${item.address ? `<div class="flex gap-2"><i class="fas fa-map-marker-alt text-${c.color}-500 mt-0.5 text-xs"></i> <span>${escapeHtml(item.address)}</span></div>` : ''}
+                        ${item.contact ? `<div class="flex gap-2"><i class="fas fa-phone-alt text-${c.color}-500 mt-0.5 text-xs"></i> ${generateNumberHTML(item.contact, item.name, item.name.replace(/\s/g, '_') + '_' + (item.category || 'other'))}</div>` : ''}
+                        ${item.extra ? `<div class="flex gap-2"><i class="fas fa-info-circle text-${c.color}-500 mt-0.5 text-xs"></i> <span>${escapeHtml(item.extra)}</span></div>` : ''}
+                        ${item.category === 'restaurant' && item.rating ? `<div class="flex gap-2 mt-1"><i class="fas fa-star text-yellow-400 mt-0.5 text-xs"></i> ${getStarRating(item.rating)}</div>` : ''}
+                    </div>
+                    <div class="mt-3 text-xs text-itarsi-primary">
+                        <i class="fas fa-hand-pointer mr-1 text-xs"></i> Click for details
+                    </div>
+                </div>
             </div>
         `;
     }).join('');
 }
+        
+        function escapeHtml(str) {
+            if (!str) return '';
+            return str.replace(/[&<>]/g, m => m === '&' ? '&amp;' : m === '<' ? '&lt;' : '&gt;');
+        }
 
-function changeMonth(delta) {
-    currentMonth += delta;
-    if (currentMonth > 11) {
-        currentMonth = 0;
-        currentYear++;
-    } else if (currentMonth < 0) {
-        currentMonth = 11;
-        currentYear--;
+function getStarRating(rating) {
+    if (!rating || rating == 0) return '<span class="text-gray-400 text-xs">No ratings yet</span>';
+    
+    const numRating = parseFloat(rating);
+    const fullStars = Math.floor(numRating);
+    const hasHalf = numRating % 1 >= 0.5;
+    const totalStars = 5;
+    
+    let stars = '';
+    for (let i = 1; i <= totalStars; i++) {
+        if (i <= fullStars) {
+            stars += '<i class="fas fa-star" style="color: #f97316;"></i>';  // 👈 ADDED INLINE COLOR
+        } else if (i === fullStars + 1 && hasHalf) {
+            stars += '<i class="fas fa-star-half-alt" style="color: #f97316;"></i>';  // 👈 ADDED INLINE COLOR
+        } else {
+            stars += '<i class="far fa-star" style="color: #d1d5db;"></i>';  // 👈 ADDED INLINE COLOR
+        }
     }
-    renderCalendar(currentMonth, currentYear);
-}
-
-// ==================== INITIALIZE ====================
-AOS.init({ once: true, duration: 800 });
-loadFromGoogleSheets();
-renderCalendar(currentMonth, currentYear);
-
-console.log('%c🔐 Admin Access: Type "admin" anywhere on the page', 'color: #3b82f6; font-size: 14px; font-weight: bold;');
-console.log('%c🔑 Default Password: admin123', 'color: #3b82f6; font-size: 12px;');
-if (!GOOGLE_SHEETS_URL || GOOGLE_SHEETS_URL === 'https://script.google.com/macros/s/YOUR_DEPLOYMENT_ID/exec') {
-    console.log('%c⚠️ Google Sheets not configured! Data will only save locally.', 'color: #f97316; font-size: 12px;');
-} else {
-    console.log('%c✅ Google Sheets connected! Data is permanent.', 'color: #10b981; font-size: 12px;');
-}
-</script></body>
+    
+    return `<span class="star-rating"><span class="star">${stars}</span> <span class="rating-text">(${numRating.toFixed(1)})</span></span>`;
+}        
+        function setActiveCategory(category) {
+    activeCategory = category;
+    categoryBtns.forEach(btn => {
+        const btnCat = btn.getAttribute('data-cat');
+        if (btnCat === category) {
+            btn.className = 'bg-itarsi-primary text-white px-5 py-2 rounded-full font-semibold shadow-lg transition-all duration-300 hover:scale-105 flex items-center gap-1 text-sm';
+        } else {
+            if (btnCat === 'hospital') btn.className = 'bg-white text-gray-700 hover:bg-red-50 px-5 py-2 rounded-full font-semibold shadow-md transition-all duration-300 hover:scale-105 flex items-center gap-1 text-sm';
+            else if (btnCat === 'school') btn.className = 'bg-white text-gray-700 hover:bg-blue-50 px-5 py-2 rounded-full font-semibold shadow-md transition-all duration-300 hover:scale-105 flex items-center gap-1 text-sm';
+            else if (btnCat === 'auto') btn.className = 'bg-white text-gray-700 hover:bg-green-50 px-5 py-2 rounded-full font-semibold shadow-md transition-all duration-300 hover:scale-105 flex items-center gap-1 text-sm';
+            else if (btnCat === 'realestate') btn.className = 'bg-white text-gray-700 hover:bg-purple-50 px-5 py-2 rounded-full font-semibold shadow-md transition-all duration-300 hover:scale-105 flex items-center gap-1 text-sm';
+            else if (btnCat === 'restaurant') btn.className = 'bg-white text-gray-700 hover:bg-orange-50 px-5 py-2 rounded-full font-semibold shadow-md transition-all duration-300 hover:scale-105 flex items-center gap-1 text-sm';
+            else if (btnCat === 'bloodbank') btn.className = 'bg-white text-gray-700 hover:bg-red-50 px-5 py-2 rounded-full font-semibold shadow-md transition-all duration-300 hover:scale-105 flex items-center gap-1 text-sm';
+            else btn.className = 'bg-white text-gray-700 hover:bg-gray-50 px-5 py-2 rounded-full font-semibold shadow-md transition-all duration-300 hover:scale-105 flex items-center gap-1 text-sm';
+        }
+    });
+    renderCards();
+}       
+        categoryBtns.forEach(btn => btn.addEventListener('click', () => setActiveCategory(btn.getAttribute('data-cat'))));
+        
+        let searchTimeout;
+        searchInput.addEventListener('input', e => {
+            clearTimeout(searchTimeout);
+            searchTimeout = setTimeout(() => { searchQuery = e.target.value; renderCards(); }, 300);
+        });
+        
+        clearBtn.addEventListener('click', () => { searchInput.value = ''; searchQuery = ''; renderCards(); });
+        refreshBtn.addEventListener('click', () => { clearCache(); fetchDataFromSheets(true); });
+        
+        // Handle window resize for carousel
+        window.addEventListener('resize', () => {
+            updateSlidesPerView();
+        });
+        
+        fetchDataFromSheets();
+        
+        // Close modal with Escape key
+        document.addEventListener('keydown', (e) => { if (e.key === 'Escape') closeModal(); });
+    </script>
+</body>
 </html>
